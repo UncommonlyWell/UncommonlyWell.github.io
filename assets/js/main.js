@@ -14,6 +14,9 @@
     forms: { mode: 'preview', endpoint: '' },
     // Your Amway MyShop link. Until it's set, shop buttons read "Shop opening soon".
     shopUrl: 'https://www.amway.com/myshop/uncommonlywell',
+    // Launch days (year-month-day). From that day on, "Opening…"/"launching…" wording switches to its after-launch
+    // version by itself: anything marked data-until="membership" hides, anything marked data-from="membership" shows.
+    launches: { health: '2026-11-02', membership: '2026-11-15' },
   };
 
   const html = document.documentElement;
@@ -34,6 +37,12 @@
   });
 
   $$('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear(); });
+  const launched = (key) => { const d = CONFIG.launches[key]; return !!d && new Date() >= new Date(`${d}T00:00:00`); };
+  const applyLaunches = (root = document) => {
+    $$('[data-until]', root).forEach((el) => { el.hidden = launched(el.dataset.until); });
+    $$('[data-from]', root).forEach((el) => { el.hidden = !launched(el.dataset.from); });
+  };
+  applyLaunches();
 
   /* ---------- Smooth scroll (Lenis) ---------- */
   let lenis = null;
@@ -85,7 +94,9 @@
       if (!focusEl.hasAttribute('tabindex')) focusEl.setAttribute('tabindex', '-1');
       focusEl.focus({ preventScroll: true });
     };
-    if (lenis) lenis.scrollTo(id === '#top' ? 0 : target, { duration: 1.4, onComplete: land });
+    const offset = target.matches && target.matches('.product-group') ? -(($('[data-header]') || {}).offsetHeight || 0) - 16 : 0;
+    // Pages that build their content after load (like the Nutrition groups) can outgrow Lenis's last measurement
+    if (lenis) { if (lenis.resize) lenis.resize(); lenis.scrollTo(id === '#top' ? 0 : target, { duration: 1.4, offset, onComplete: land }); }
     else { (id === '#top' ? window.scrollTo({ top: 0 }) : target.scrollIntoView()); land(); }
     history.replaceState(null, '', id === '#top' ? location.pathname : id);
   });
@@ -879,23 +890,52 @@
   });
 
   // Shelf pages: every product on that shelf, each with one action.
-  $$('[data-shelf-products]').forEach((ul) => {
-    const list = PRODUCTS.filter((p) => p.shelf === ul.dataset.shelfProducts);
-    if (!list.length) return;
-    const cards = list.map((p) => `<li class="product">
+  // Under its name: Chelsea's own note when she's written one, otherwise the first sentence of Amway's description.
+  const firstLine = (t) => { const m = (t || '').match(/^.*?[.!?][*†]*(?=\s|$)/); return m ? m[0] : (t || ''); };
+  const productCard = (p) => {
+    const line = p.note && !isTodo(p.note) ? p.note : firstLine(p.about);
+    return `<li class="product">
         <div class="shelf-unit">
           <ul class="shelf-unit__items"><li style="${shelfVars(p)}"><button class="pick" type="button" data-product="${p.id}" aria-label="${esc(p.name)}: see details"><img src="${p.img}" width="${p.w}" height="${p.h}" alt="" loading="lazy" decoding="async"></button></li></ul>
           <div class="plank" aria-hidden="true"><span class="plank__top"></span><span class="plank__front"></span></div>
         </div>
         <h2 class="product__name"><button class="product__open" type="button" data-product="${p.id}">${esc(p.name)}</button></h2>
-        ${p.note && !isTodo(p.note) ? `<p class="product__note">${esc(p.note)}</p>` : ''}
+        ${line ? `<p class="product__note">${esc(line)}</p>` : ''}
         <button class="btn btn--small btn--line-dark" type="button" data-ys-toggle="${p.id}"></button>
-      </li>`);
+      </li>`;
+  };
+  $$('[data-shelf-products]').forEach((ul) => {
+    const list = PRODUCTS.filter((p) => p.shelf === ul.dataset.shelfProducts);
+    if (!list.length) return;
+    const cards = list.map(productCard);
     const todo = Math.max(0, 4 - list.length);
     for (let i = 0; i < todo; i += 1) {
       cards.push('<li class="product product--todo" aria-hidden="true"><div class="shelf-unit"><div class="shelf-unit__items"><p class="todo-card">[Another favorite goes here]</p></div><div class="plank" aria-hidden="true"><span class="plank__top"></span><span class="plank__front"></span></div></div><p class="product__name">[Product name]</p></li>');
     }
     ul.innerHTML = cards.join('');
+  });
+  // The Nutrition page: one group per need, in the order of UW_NEEDS, so someone after better sleep finds every
+  // sleep product together (a product that fits two needs shows in both). Anything not tied to a need closes the page.
+  $$('[data-shelf-groups]').forEach((wrap) => {
+    const shelf = wrap.dataset.shelfGroups;
+    const shelfItems = PRODUCTS.filter((p) => p.shelf === shelf);
+    const placed = new Set();
+    const groups = (window.UW_NEEDS || []).map((n) => {
+      const items = n.products.map((id) => byId[id]).filter((p) => p && p.shelf === shelf);
+      items.forEach((p) => placed.add(p.id));
+      return { id: `need-${n.id}`, name: n.name, line: n.line, items };
+    }).filter((g) => g.items.length);
+    const rest = shelfItems.filter((p) => !placed.has(p.id));
+    if (rest.length) groups.push({ id: 'need-more', name: 'More favorites', line: '', items: rest });
+    wrap.innerHTML = groups.map((g) => `<section class="product-group" id="${g.id}" aria-labelledby="${g.id}-title">
+        <header class="product-group__head">
+          <h2 class="product-group__name" id="${g.id}-title">${esc(g.name)}</h2>
+          ${g.line ? `<p class="product-group__line">${esc(g.line)}</p>` : ''}
+        </header>
+        <ul class="products">${g.items.map(productCard).join('')}</ul>
+      </section>`).join('');
+    const jump = $('[data-group-jump]');
+    if (jump) jump.innerHTML = groups.map((g) => `<li><a class="need-pill" href="#${g.id}">${esc(g.name)}</a></li>`).join('');
   });
 
   // A shelf too long for the screen splits onto a second glass shelf (or a third) below it, as evenly as it can,
@@ -976,13 +1016,14 @@
           <button class="btn btn--brass" type="button" data-qv-add></button>
           <a class="link" data-qv-buy target="_blank" rel="noopener">Buy on Amway<span class="sr-only"> (opens Amway)</span></a>
         </div>
-        <p class="qv__member">New mid-November: members save $40 on orders of $150 or more. <a href="index.html#membership" data-qv-member>About Amway Membership</a></p>
+        <p class="qv__member">New<span data-until="membership"> mid-November</span>: members save $40 on orders of $150 or more. <a href="index.html#membership" data-qv-member>About Amway Membership</a></p>
         <p class="qv__status" role="status" aria-live="polite" data-qv-status></p>
         <p class="qv__fine" data-qv-fine hidden>*†These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.</p>
       </div>
     </div>
     <button class="qv__close" type="button" data-qv-close aria-label="Close">${ICON.x}</button>`;
   document.body.append(qv);
+  applyLaunches(qv);
   let qvId = null;
   let qvOpener = null;
   let qvList = null; // when opened from a need, the arrows step through that need's products
@@ -1605,7 +1646,7 @@
           // A gentle step toward the doorway (a deep zoom just magnifies the photo into a blur),
           // then the scene gives way to the next section's oat.
           .to(scene, { scale: 2.4, duration: 0.42, ease: 'power2.in' }, 0.58)
-          .to('[data-hero-veil]', { autoAlpha: 1, duration: 0.2, ease: 'power1.in' }, 0.8);
+          .to('[data-hero-veil]', { autoAlpha: 1, duration: 0.16, ease: 'power1.in' }, 0.84);
       });
       mm.add('(max-width: 899px), (max-height: 599px)', () => {
         gsap.to(door, { scroll: 1, ease: 'power2.inOut', onUpdate: renderDoor, scrollTrigger: { trigger: scene, start: 'top 85%', end: 'bottom 35%', scrub: 1.2 } });

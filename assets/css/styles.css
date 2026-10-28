@@ -354,6 +354,8 @@ body.menu-open .brand__mark { --m-line: url(#uw-gold-bright); --m-light: url(#uw
 @media (min-width: 900px) and (min-height: 600px) and (prefers-reduced-motion: no-preference) {
   .hero { height: 200svh; }
   .hero__pin { position: sticky; top: 0; height: 100svh; }
+  /* The door's zoom already ends on the shelves' oat, so the shelves start sooner after it */
+  .hero + .shelves { padding-top: clamp(2.5rem, 1rem + 3vw, 4.5rem); }
 }
 .hero__title {
   font-family: var(--serif);
@@ -368,22 +370,6 @@ body.menu-open .brand__mark { --m-line: url(#uw-gold-bright); --m-light: url(#uw
 @media (min-width: 900px) { .hero__title { font-size: clamp(2.6rem, min(1.2rem + 5.4vw, 8.6svh), 6rem); } }
 .hero__lede { margin-top: clamp(1rem, 2.5svh, 2rem); max-width: 28rem; color: var(--sage); font-size: clamp(1.0625rem, 1rem + .35vw, 1.25rem); text-wrap: pretty; }
 .hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; margin-top: clamp(1.25rem, 3.5svh, 2.25rem); }
-/* The membership badge under the hero buttons: a brass-edged pill with a softly glowing dot */
-.hero__badge {
-  align-self: flex-start; display: inline-flex; align-items: center; gap: .6rem; margin-top: clamp(1.1rem, 2.5svh, 1.75rem);
-  padding: .5rem 1rem .5rem .8rem; border: 1px solid rgba(216, 196, 159, .5); border-radius: 999px; background: rgba(14, 39, 36, .35);
-  color: var(--linen); font-size: .875rem; font-weight: 600; text-decoration: none;
-  transition: background-color var(--t-med) var(--ease-out), border-color var(--t-med);
-}
-.hero__badge-when { font-weight: 400; color: var(--brass-light); }
-.hero__badge-arrow { display: inline-block; color: var(--brass-light); transition: transform var(--t-fast) var(--ease-out); }
-.hero__badge:hover { background: rgba(216, 196, 159, .14); border-color: var(--brass-light); }
-.hero__badge:hover .hero__badge-arrow { transform: translateX(3px); }
-.hero__badge:focus-visible { outline: 2px solid var(--brass-light); outline-offset: 3px; }
-.hero__badge-dot { position: relative; flex: none; width: .55rem; height: .55rem; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #FBF3E0, #C9A874 55%, #93723F); }
-.hero__badge-dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; box-shadow: 0 0 0 0 rgba(216, 196, 159, .6); animation: badge-glow 2.4s var(--ease-out) infinite; }
-@keyframes badge-glow { 0% { box-shadow: 0 0 0 0 rgba(216, 196, 159, .55); } 70%, 100% { box-shadow: 0 0 0 .55rem rgba(216, 196, 159, 0); } }
-@media (prefers-reduced-motion: reduce) { .hero__badge-dot::after { animation: none; } }
 .hero__fineprint {
   margin-top: clamp(1.75rem, 4svh, 3rem);
   font-size: .875rem; color: var(--sage);
@@ -1119,6 +1105,8 @@ body.menu-open .ys-pill { opacity: 0; pointer-events: none; }
 
 /* ---------- Shop by need ---------- */
 .needs { display: grid; gap: .9rem; margin: calc(-1 * clamp(1.5rem, 1rem + 2vw, 2.75rem)) 0 clamp(3.5rem, 2.5rem + 3vw, 5rem); }
+/* On the homepage the needs sit under the Nutrition shelf, across the full row */
+.shelf-row .needs { grid-column: 1 / -1; margin: clamp(1.25rem, 1rem + 1vw, 2rem) 0 0; }
 .needs__label { font-size: .8125rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--brass-ink); }
 .needs__list { display: flex; flex-wrap: wrap; gap: .55rem; }
 .need-pill {
@@ -1191,12 +1179,22 @@ body.menu-open .ys-pill { opacity: 0; pointer-events: none; }
 .product .shelf-unit { width: 100%; justify-self: stretch; margin-bottom: 1.1rem; }
 /* Side by side, every shelf is the same height so the planks line up; stacked on a phone, each fits its product */
 .product .shelf-unit__items { min-height: 0; }
-@media (min-width: 600px) { .product .shelf-unit__items { min-height: calc(var(--u) * 32); } }
+/* On shelf pages each product stands alone, so the smallest ones are shown a little larger than true size (never under about 17 cm) */
+.product .shelf-unit__items img { height: calc(var(--u) * max(var(--cm), 17)); }
+@media (min-width: 600px) { .product .shelf-unit__items { min-height: calc(var(--u) * 27); } }
 .product:hover .shelf-unit__items img { transform: translateY(calc(var(--u) * -.9)); }
 .product__name { font-family: var(--serif); font-weight: 360; font-variation-settings: "SOFT" 60; font-size: clamp(1.35rem, 1.2rem + .5vw, 1.6rem); line-height: 1.15; letter-spacing: -.012em; text-wrap: balance; }
 .product__open { padding: 0; border: 0; background: none; font: inherit; color: inherit; text-align: left; cursor: pointer; }
 .product__open:hover { color: var(--harbor); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .15em; }
 .product__note { color: var(--ink-soft); font-size: var(--fs-small); line-height: 1.5; max-width: 24rem; }
+/* The Nutrition page: one group per need, each with its name and Amway's line for it */
+.product-groups { display: grid; gap: clamp(3.5rem, 2.5rem + 3vw, 5.5rem); }
+.product-groups .products { row-gap: clamp(2.5rem, 2rem + 1.5vw, 3.5rem); }
+.product-groups .product__note { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; overflow: hidden; }
+.product-group { scroll-margin-top: calc(var(--header-h) + 1rem); }
+.product-group__head { display: grid; gap: .5rem; max-width: 40rem; margin-bottom: clamp(2rem, 1.5rem + 1.5vw, 3rem); padding-top: 1.5rem; border-top: 1px solid var(--line); }
+.product-group__name { font-family: var(--serif); font-weight: 340; font-variation-settings: "SOFT" 60; font-size: clamp(1.9rem, 1.4rem + 1.6vw, 2.75rem); line-height: 1.05; letter-spacing: -.02em; }
+.product-group__line { color: var(--ink-soft); }
 .product .btn { margin-top: .6rem; }
 /* An empty spot on the shelf, waiting for one more product */
 .product--todo .product__name, .product--todo .product__note { color: var(--brass-ink); font-style: italic; }
@@ -1347,18 +1345,15 @@ body.menu-open .ys-pill { opacity: 0; pointer-events: none; }
 .member__head { font-family: var(--serif); font-size: var(--fs-h3); font-weight: 360; font-variation-settings: "SOFT" 60; line-height: 1.15; }
 .member__head + .member__sub { margin-top: .4rem; }
 .member__sub { color: var(--sage); font-size: var(--fs-small); }
-.member__perks { display: grid; gap: 1rem; margin: 1.25rem 0 0; padding: 0; list-style: none; }
+/* The perks read as a quiet list on brass hairlines, like a menu card: the value on the left, what it is on the right */
+.member__perks { display: grid; margin: 1rem 0 0; padding: 0; list-style: none; border-bottom: 1px solid rgba(216, 196, 159, .28); }
 .member__perks + .member__head { margin-top: clamp(2rem, 1.5rem + 2vw, 3rem); }
-@media (min-width: 560px) { .member__perks { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-.member__perks li { display: grid; align-content: start; gap: .3rem; padding: 1.25rem 1.1rem; border-radius: 4px; background: rgba(244, 237, 225, .06); border: 1px solid var(--line-light); font-size: var(--fs-small); line-height: 1.4; color: var(--sage); }
-.member__perks svg { width: 1.75rem; height: 1.75rem; margin-bottom: .5rem; fill: none; stroke: var(--brass-light); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
-.member__perks strong { font-family: var(--serif); font-size: 1.375rem; font-weight: 400; font-variation-settings: "SOFT" 60; line-height: 1.15; color: var(--linen); }
-.member__perks--quiet li { background: none; }
+.member__perks li { display: grid; grid-template-columns: minmax(6.5rem, .38fr) minmax(0, 1fr); align-items: baseline; column-gap: 1.25rem; padding: .95rem 0; border-top: 1px solid rgba(216, 196, 159, .28); font-size: var(--fs-small); line-height: 1.45; color: var(--sage); }
+.member__perks svg { display: none; }
+.member__perks strong { font-family: var(--serif); font-size: 1.375rem; font-weight: 400; font-variation-settings: "SOFT" 60; line-height: 1.15; color: var(--brass-light); }
+.member__perks--quiet strong { font-size: 1.1875rem; color: var(--linen); }
 /* Numbers keep their width while they count up */
 .member [data-count] { font-variant-numeric: tabular-nums; }
-.member__perks li { transition: transform var(--t-med) var(--ease-out), border-color var(--t-med), background-color var(--t-med); }
-@media (hover: hover) { .member__perks li:hover { transform: translateY(-2px); border-color: rgba(216, 196, 159, .45); background-color: rgba(244, 237, 225, .09); } }
-.member__perks--quiet strong { font-size: 1.1875rem; }
 
 .statement { position: relative; overflow: hidden; padding-block: clamp(7rem, 5rem + 12vw, 14rem); }
 .statement__arch {
