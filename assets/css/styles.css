@@ -794,12 +794,11 @@ body.menu-open .brand__mark { --m-line: url(#uw-gold-bright); --m-light: url(#uw
 .shelves { position: relative; --u: clamp(4.6px, 1.45vw, 5.6px); }
 @media (min-width: 900px) { .shelves { --u: clamp(6px, .55vw, 7.4px); } }
 .shelf-rows { display: grid; gap: clamp(3.5rem, 7vw, 5.5rem); }
-/* Desktop: the four shelves pair up two by two, three favorites each; the need pills and Personalized health run full width */
+/* Desktop: the four shelves pair up two by two, each showing as many favorites as fit (stackShelf in main.js); the need pills and Personalized health run full width */
 @media (min-width: 900px) {
   .shelf-rows { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(3rem, 5vw, 4.5rem) clamp(3rem, 6vw, 6rem); }
   .shelf-rows > .shelf-needs, .shelf-rows > .shelf-row--soon { grid-column: 1 / -1; }
-  .shelf-row--full .shelf-unit__items > li:nth-child(n+4) { display: none; }
-  .shelf-row--full .shelf-unit--full .shelf-unit__items { gap: calc(var(--u) * 6); padding-inline: calc(var(--u) * 4); }
+  .shelf-row--full .shelf-unit--full .shelf-unit__items { gap: calc(var(--u) * 4); padding-inline: calc(var(--u) * 2); }
 }
 /* Personalized health: one slim line until it opens, no empty shelf */
 .shelf-row.shelf-row--soon { display: flex; flex-wrap: wrap; align-items: baseline; gap: .4rem 1.5rem; padding-top: clamp(1.75rem, 1.25rem + 1.5vw, 2.5rem); border-top: 1px solid var(--line); }

@@ -945,6 +945,21 @@
     const first = $('.shelf-unit__items', unit);
     $$('.shelf-tier', unit).forEach((t) => { first.append(...$('.shelf-unit__items', t).children); t.remove(); });
     unit.classList.remove('is-stacked');
+    // Desktop pairs keep to one shelf: they show as many products as fit and hide the rest from the end
+    const paired = unit.closest('.shelf-row--full') && window.matchMedia('(min-width: 900px)').matches;
+    [...first.children].forEach((li) => { li.hidden = false; });
+    if (paired) {
+      const cs0 = getComputedStyle(first);
+      const room0 = unit.clientWidth - 20 - parseFloat(cs0.paddingLeft) - parseFloat(cs0.paddingRight);
+      const gap0 = parseFloat(cs0.columnGap) || 0;
+      const lis = [...first.children];
+      let used = 0;
+      lis.forEach((li, i) => {
+        used += li.getBoundingClientRect().width + (i ? gap0 : 0);
+        if (i && used > room0) li.hidden = true;
+      });
+      return;
+    }
     // Products hidden at this width (desktop pairs show only three) stay put and don't count
     const items = [...first.children].filter((li) => getComputedStyle(li).display !== 'none');
     if (items.length < 2) return;
