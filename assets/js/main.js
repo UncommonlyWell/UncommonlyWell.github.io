@@ -141,6 +141,28 @@
     ['shelves', 'gather', 'note'].forEach((id) => { const s = $('#' + id); if (s) io.observe(s); });
   }
 
+  /* ---------- "The Shelves" dropdown (desktop header) ----------
+     Pointing at it opens the card, with a short delay before closing so it doesn't flicker; the chevron opens it
+     by click or keyboard. Esc, a click elsewhere, or focus moving away closes it. */
+  $$('[data-nav-drop]').forEach((drop) => {
+    const btn = $('.nav__toggle', drop);
+    const panel = $('.nav__panel', drop);
+    let timer = 0;
+    const set = (open) => {
+      clearTimeout(timer);
+      drop.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      panel.hidden = !open;
+    };
+    drop.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') set(true); });
+    drop.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') timer = setTimeout(() => set(false), 220); });
+    btn.addEventListener('click', () => set(btn.getAttribute('aria-expanded') !== 'true'));
+    drop.addEventListener('keydown', (e) => { if (e.key === 'Escape' && drop.classList.contains('is-open')) { set(false); btn.focus(); } });
+    drop.addEventListener('focusout', (e) => { if (!drop.contains(e.relatedTarget)) set(false); });
+    document.addEventListener('click', (e) => { if (!drop.contains(e.target)) set(false); });
+    $$('a', panel).forEach((a) => a.addEventListener('click', () => set(false)));
+  });
+
   /* ---------- Mobile menu ---------- */
   const menu = $('[data-menu]');
   const toggle = $('[data-menu-toggle]');

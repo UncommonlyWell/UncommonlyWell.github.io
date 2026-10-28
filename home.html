@@ -24,7 +24,7 @@
 <script>document.documentElement.classList.replace('no-js', 'js');
   // The membership banner shows until this visitor closes it.
   try { if (localStorage.getItem('uw-promo-closed') !== 'membership-1') document.documentElement.classList.add('has-promo'); } catch (e) { document.documentElement.classList.add('has-promo'); }</script>
-<link rel="stylesheet" href="assets/css/styles.css?v=252">
+<link rel="stylesheet" href="assets/css/styles.css?v=253">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -66,7 +66,18 @@
     </a>
     <nav class="nav" aria-label="Primary">
       <ul>
-        <li><a href="index.html#shelves">The Shelves</a></li>
+        <li class="nav__drop" data-nav-drop>
+          <a href="index.html#shelves">The Shelves</a><button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-shelves" aria-label="Show the shelves"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
+          <div class="nav__panel" id="nav-shelves" hidden>
+            <ul>
+              <li><a href="home.html" aria-current="page"><span class="nav__panel-name">Home</span><span class="nav__panel-line">Cleaning, laundry &amp; kitchen basics</span></a></li>
+              <li><a href="nutrition.html"><span class="nav__panel-name">Nutrition</span><span class="nav__panel-line">Daily nutrition &amp; support</span></a></li>
+              <li><a href="beauty.html"><span class="nav__panel-name">Beauty</span><span class="nav__panel-line">Skin care &amp; makeup for every stage</span></a></li>
+              <li><a href="personal-care.html"><span class="nav__panel-name">Personal care</span><span class="nav__panel-line">The small daily things, done better</span></a></li>
+            </ul>
+            <a class="nav__panel-all" href="index.html#shelves">All the shelves <span aria-hidden="true">→</span></a>
+          </div>
+        </li>
         <li><a href="gather.html">Gather</a></li>
         <li><a href="gifts.html">Gifts</a></li>
         <li><a href="about.html">About</a></li>
@@ -88,7 +99,14 @@
 <div class="menu" id="menu" data-menu data-lenis-prevent hidden>
   <nav aria-label="Mobile">
     <ul class="menu__list">
-      <li><a href="index.html#shelves">The Shelves</a></li>
+      <li><a href="index.html#shelves">The Shelves</a>
+        <ul class="menu__sub" aria-label="The shelves">
+          <li><a href="home.html" aria-current="page">Home</a></li>
+          <li><a href="nutrition.html">Nutrition</a></li>
+          <li><a href="beauty.html">Beauty</a></li>
+          <li><a href="personal-care.html">Personal care</a></li>
+        </ul>
+      </li>
       <li><a href="gather.html">Gather</a></li>
       <li><a href="gifts.html">Gifts</a></li>
       <li><a href="about.html">About</a></li>
@@ -368,6 +386,6 @@
 <script src="assets/vendor/SplitText.min.js" defer></script>
 <script src="assets/vendor/lenis.min.js" defer></script>
 <script src="assets/js/products.js?v=35" defer></script>
-<script src="assets/js/main.js?v=170" defer></script>
+<script src="assets/js/main.js?v=171" defer></script>
 </body>
 </html>
