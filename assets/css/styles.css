@@ -1212,6 +1212,8 @@ body.menu-open .ys-pill { opacity: 0; pointer-events: none; }
 /* ---------- Gifts page ---------- */
 /* Each gift: its photo in an arch beside its products, standing together on one shelf. On desktop the rows
    alternate sides; on phones the photo comes first. */
+/* A soft note under the intro: each gift is built to order, so its packaging can vary from the photo */
+.gift-note { margin-top: .9rem; max-width: 34rem; font-family: var(--serif); font-style: italic; font-size: 1.05rem; line-height: 1.45; color: var(--brass-ink); }
 .bundles { display: grid; gap: clamp(5rem, 3.5rem + 5vw, 8rem); grid-template-columns: minmax(0, 1fr); }
 .bundle { display: grid; gap: 1.75rem; align-items: center; }
 /* Each frame takes its photo's own shape, so the whole gift shows, under a gentler arch than the site's usual
