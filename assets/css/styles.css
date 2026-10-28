@@ -804,7 +804,32 @@ body.menu-open .brand__mark { --m-line: url(#uw-gold-bright); --m-light: url(#uw
 .shelf-row.shelf-row--soon { display: flex; flex-wrap: wrap; align-items: baseline; gap: .4rem 1.5rem; padding-top: clamp(1.75rem, 1.25rem + 1.5vw, 2.5rem); border-top: 1px solid var(--line); }
 .shelf-row--soon .shelf__name { font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.3rem); }
 .shelf-row--soon .shelf__text { flex: 1 1 18rem; }
-.shelf-soon__when { font-family: var(--serif); font-style: italic; font-size: 1.15rem; color: var(--brass-ink); }
+/* The pinned note on its own short shelf: on the right on desktop, under the text on a phone */
+.shelf-row--soon .shelf__ask { align-self: center; }
+.shelf-unit.shelf-soon__shelf { flex: 0 0 auto; width: calc(var(--u) * 40); margin-top: 1rem; justify-self: start; }
+@media (min-width: 900px) {
+  .shelf-row.shelf-row--soon { flex-wrap: nowrap; align-items: flex-end; }
+  .shelf-row--soon .shelf__text { flex: 0 1 26rem; }
+  .shelf-unit.shelf-soon__shelf { margin: 0 0 0 auto; }
+}
+.shelf-soon__shelf .shelf-unit__items { min-height: 0; justify-content: center; }
+.shelf-card {
+  position: relative; margin-bottom: calc(var(--u) * .6);
+  display: grid; justify-items: center; gap: .1rem;
+  width: calc(var(--u) * 26); padding: calc(var(--u) * 3) calc(var(--u) * 2);
+  background: url("../img/grain.svg?v=2") 0 0 / 220px, #efe5d2;
+  border-radius: 2px; transform: rotate(-4deg); transform-origin: 30% 100%;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .6) inset, calc(var(--u) * -.8) calc(var(--u) * .6) calc(var(--u) * 1.6) rgba(36, 26, 10, .3);
+  font-family: var(--serif); text-align: center; color: var(--ink);
+}
+.shelf-card span { font-style: italic; font-size: .95rem; color: var(--brass-ink); }
+.shelf-card strong { font-weight: 400; font-size: clamp(1.25rem, 1rem + 1vw, 1.6rem); letter-spacing: -.01em; }
+.shelf-card::after {
+  content: ""; position: absolute; left: 50%; top: calc(var(--u) * -1.2); width: calc(var(--u) * 1.6); height: calc(var(--u) * 1.6);
+  border-radius: 50%; transform: translateX(-50%);
+  background: radial-gradient(circle at 35% 30%, #f3e4c2, #ad8a55 55%, #58401f);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .35);
+}
 .shelf-row {
   position: relative; display: grid; gap: 1.5rem; align-items: end;
   grid-template-columns: minmax(0, 1fr);
