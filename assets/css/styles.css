@@ -1011,8 +1011,8 @@ body.menu-open .brand__mark { --m-line: url(#uw-gold-bright); --m-light: url(#uw
   .qv__stage [data-qv-img] { height: calc(100% - 4rem); }
   .qv__stage .qv__video { left: 0; right: 0; top: 3.9rem; }
   /* Amway's player has more buttons than a phone-width bar holds, which pushed full screen out of view;
-     download, quality (already set to the sharpest) and audio track step aside */
-  .qv .video-js .vjs-download-button, .qv .video-js .vjs-quality-menu-wrapper, .qv .video-js .vjs-audio-button { display: none !important; }
+     quality (already set to the sharpest) and audio track step aside */
+  .qv .video-js .vjs-quality-menu-wrapper, .qv .video-js .vjs-audio-button { display: none !important; }
   .qv__close { background: var(--linen); box-shadow: 0 2px 8px rgba(30, 24, 14, .18); }
 }
 .qv__stage::after { content: ""; position: absolute; left: 22%; right: 22%; bottom: 2rem; height: 10px; border-radius: 50%; background: radial-gradient(closest-side, rgba(20, 10, 2, .35), transparent); }
@@ -1040,6 +1040,8 @@ body.menu-open .brand__mark { --m-line: url(#uw-gold-bright); --m-light: url(#uw
 .qv__video { position: absolute; top: 4.1rem; right: 1.25rem; bottom: 4.6rem; left: 1.25rem; container-type: size; display: grid; place-items: center; visibility: hidden; opacity: 0; transition: opacity .25s var(--ease-out), visibility 0s .25s; }
 .qv__video[hidden] { display: none; }
 .qv__stage.is-video .qv__video { visibility: visible; opacity: 1; transition: opacity .25s var(--ease-out); }
+/* No download button on Amway's videos, on any screen */
+.video-js .vjs-download-button { display: none !important; }
 .qv__video .video-js.video-js { width: min(100cqw, 100cqh * var(--r, 16 / 9)); height: auto; aspect-ratio: var(--r, 16 / 9); overflow: hidden; border: 0; border-radius: 4px; background: #000; box-shadow: 0 1px 2px rgba(30, 24, 14, .1), 0 14px 30px -14px rgba(30, 24, 14, .35); }
 .qv__thumbs { position: absolute; left: 50%; bottom: 1rem; transform: translateX(-50%); display: flex; gap: .5rem; z-index: 2; }
 .qv__thumbs[hidden] { display: none; }
