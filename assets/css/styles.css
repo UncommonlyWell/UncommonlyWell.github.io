@@ -805,12 +805,12 @@ body.menu-open .brand__mark { --m-line: url(#uw-gold-bright); --m-light: url(#uw
 .shelf-row--soon .shelf__name { font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.3rem); }
 .shelf-row--soon .shelf__text { flex: 1 1 18rem; }
 /* The pinned note on its own short shelf: on the right on desktop, under the text on a phone */
-.shelf-row--soon .shelf__ask { align-self: center; }
-.shelf-unit.shelf-soon__shelf { flex: 0 0 auto; width: calc(var(--u) * 40); margin-top: 1rem; justify-self: start; }
+.shelf-soon__aside { display: grid; justify-items: center; gap: .9rem; flex: 0 0 auto; margin-top: 1rem; }
+.shelf-unit.shelf-soon__shelf { width: calc(var(--u) * 40); }
 @media (min-width: 900px) {
   .shelf-row.shelf-row--soon { flex-wrap: nowrap; align-items: flex-end; }
   .shelf-row--soon .shelf__text { flex: 0 1 26rem; }
-  .shelf-unit.shelf-soon__shelf { margin: 0 0 0 auto; }
+  .shelf-soon__aside { margin: 0 0 0 auto; }
 }
 .shelf-soon__shelf .shelf-unit__items { min-height: 0; justify-content: center; }
 .shelf-card {
@@ -1174,6 +1174,9 @@ body.menu-open .ys-pill { opacity: 0; pointer-events: none; }
   padding-top: clamp(2.5rem, 2rem + 2vw, 3.5rem); border-top: 1px solid var(--line);
 }
 @media (min-width: 760px) { .shelves-close { grid-template-columns: auto auto; justify-content: start; align-items: center; } }
+/* Homepage: just one centered line under the shelves */
+.shelves-close.shelves-close--line { display: flex; justify-content: center; text-align: center; margin-top: clamp(2rem, 1.5rem + 2vw, 3rem); padding-top: 1.5rem; }
+.shelves-close--line .shelves-close__path { justify-content: center; }
 .shelves-close__path { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.25rem; }
 .shelves-close__q { font-family: var(--serif); font-size: var(--fs-h3); font-weight: 360; font-variation-settings: "SOFT" 60; line-height: 1.15; }
 .shelves-close__path--quiet .shelves-close__q { font-size: 1.15rem; color: var(--ink-soft); }
@@ -1401,8 +1404,8 @@ body.menu-open .ys-pill { opacity: 0; pointer-events: none; }
 .follow__track { position: absolute; left: .5rem; top: .75rem; bottom: 0; width: 1px; background: var(--line); }
 .follow__fill { position: absolute; inset: 0; background: var(--gold-v); transform-origin: top; transform: scaleY(0); }
 .no-js .follow__fill, .reduced .follow__fill { transform: scaleY(1); }
-.steps { display: grid; gap: clamp(3.5rem, 6vw, 6rem); }
-.step { position: relative; display: grid; gap: .9rem; max-width: 32rem; }
+.steps { display: grid; gap: clamp(2rem, 3.5vw, 3.25rem); }
+.step { position: relative; display: grid; gap: .5rem; max-width: 32rem; }
 .step::before {
   content: ""; position: absolute; left: calc(-1 * clamp(2.5rem, 4vw, 4rem) + .5rem - 4.5px); top: 1.15rem;
   width: 10px; height: 10px; border-radius: 50%; background: var(--linen); border: 1px solid var(--brass);
@@ -1413,12 +1416,12 @@ body.menu-open .ys-pill { opacity: 0; pointer-events: none; }
   font-family: var(--serif); font-style: italic; font-weight: 300; color: var(--brass);
   background: var(--gold); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
   padding-right: .12em;
-  font-size: clamp(3.5rem, 2.5rem + 3vw, 5.5rem); line-height: .9; font-variation-settings: "SOFT" 100;
+  font-size: clamp(2.75rem, 2rem + 2.2vw, 4rem); line-height: .9; font-variation-settings: "SOFT" 100;
 }
 .step__title { font-family: var(--serif); font-weight: 400; font-size: var(--fs-h3); line-height: 1.15; font-variation-settings: "SOFT" 60; }
 .step p { color: var(--ink-soft); }
 
-.follow__cta { margin-top: clamp(3rem, 6vw, 4.5rem); }
+.follow__cta { margin-top: clamp(2rem, 4vw, 3rem); }
 .promise {
   margin-top: clamp(4rem, 7vw, 6.5rem); padding: clamp(2rem, 4vw, 3rem);
   background: var(--paper); border: 1px solid var(--line); border-radius: 9rem 9rem 1.25rem 1.25rem;
@@ -1470,10 +1473,11 @@ body.menu-open .ys-pill { opacity: 0; pointer-events: none; }
 .note__label { font-family: var(--sans); font-size: var(--fs-small); font-weight: 600; color: var(--brass-ink); }
 /* Chelsea's why, merged in from the old statement band: the words brighten as you read (data-statement in main.js) */
 .note__headline { margin: .6rem 0 1.4rem; font-family: var(--serif); font-weight: 340; font-variation-settings: "SOFT" 60; font-size: clamp(2rem, 1.3rem + 2.4vw, 3.4rem); line-height: 1.04; letter-spacing: -.022em; text-wrap: balance; }
+.note__aside { font-style: italic; font-weight: 320; color: var(--brass-ink); white-space: nowrap; }
 .note__headline em { display: block; margin-top: .35rem; font-size: .62em; font-style: italic; font-weight: 320; color: var(--brass-ink); }
 .note__text {
   font-family: var(--serif); font-weight: 320; font-variation-settings: "SOFT" 70;
-  font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.5rem); line-height: 1.32; letter-spacing: -.012em; max-width: 30ch; text-wrap: pretty;
+  font-size: clamp(1.2rem, 1rem + .8vw, 1.6rem); line-height: 1.45; letter-spacing: -.008em; max-width: 34ch; text-wrap: pretty;
 }
 .note__signoff { display: flex; align-items: center; gap: 1.5rem; }
 /* Polished-brass wax seal: an uneven spread of wax, the stamp's pressed ring, and the name and mark

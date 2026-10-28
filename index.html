@@ -39,7 +39,7 @@
     }
   })(document);
 </script>
-<link rel="stylesheet" href="assets/css/styles.css?v=238">
+<link rel="stylesheet" href="assets/css/styles.css?v=239">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -267,19 +267,21 @@
         <!-- Needs upline review before publishing: blood protocols and health plans, and how they can be described. -->
         <h3 class="shelf__name">Personalized health</h3>
         <p class="shelf__text">Blood protocols &amp; holistic health plans for what your body needs.</p>
-        <button class="shelf__ask" type="button" data-open-message data-topic="Personalized health">Learn more</button>
         <!-- A note pinned on a short shelf: it switches to "Now open" on the launch day in CONFIG.launches -->
+        <div class="shelf-soon__aside">
         <div class="shelf-unit shelf-soon__shelf">
           <div class="shelf-unit__items">
             <p class="shelf-card"><span data-until="health">Opening</span><span data-from="health" hidden>Now</span> <strong data-until="health">November 2</strong><strong data-from="health" hidden>open</strong></p>
           </div>
           <div class="plank" aria-hidden="true"><span class="plank__top"></span><span class="plank__front"></span></div>
         </div>
+        <button class="shelf__ask" type="button" data-open-message data-topic="Personalized health">Learn more</button>
+        </div>
       </li>
     </ul>
 
     <!-- Two ways forward: guided (primary) or self-serve (quiet) -->
-    <div class="shelves-close">
+    <div class="shelves-close shelves-close--line">
       <div class="shelves-close__path shelves-close__path--quiet">
         <p class="shelves-close__q">Know what you want?</p>
         <a class="link" href="https://www.amway.com/myshop/uncommonlywell" target="_blank" rel="noopener" data-shop-link>Order on Amway<span class="sr-only"> (opens Amway)</span></a>
@@ -348,7 +350,7 @@
     <div class="note__img arch" data-reveal-img><picture class="ph" style="--ph:#b49a74"><source type="image/avif" srcset="assets/img/chelsea-480.avif 480w, assets/img/chelsea-800.avif 800w, assets/img/chelsea-1200.avif 1200w" sizes="(min-width: 900px) 34vw, 80vw"><img src="assets/img/chelsea-800.jpg" srcset="assets/img/chelsea-480.jpg 480w, assets/img/chelsea-800.jpg 800w, assets/img/chelsea-1200.jpg 1200w" sizes="(min-width: 900px) 34vw, 80vw" width="800" height="1000" alt="Chelsea laughing, resting on a soft blanket in an autumn park" loading="lazy" decoding="async"></picture></div>
     <div class="note__body">
       <p class="note__label">Meet Chelsea</p>
-      <h2 class="note__headline" id="note-title" data-statement>Because normal doesn’t work for everyone. <em>So I start with you, not a script.</em></h2>
+      <h2 class="note__headline" id="note-title" data-statement>Because normal doesn’t work for everyone <span class="note__aside">(trust me, I know)</span>. <em>So I start with you, not a script.</em></h2>
       <p class="note__text">Daughter, sister, the cool aunt, memory keeper and second-generation business owner. I grew up seeing what’s possible when people get the right support, and I believe better is possible for everyone. I’m here to walk with you along the journey.</p>
       <div class="note__signoff">
         <p class="note__sign" aria-hidden="true">Chelsea</p>
