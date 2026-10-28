@@ -1602,16 +1602,17 @@ body.menu-open .ys-pill { opacity: 0; pointer-events: none; }
 
 /* ---------- Instagram: a follow button in the footer and on About, a small glyph and handle in the menu and on Gather ---------- */
 .ig-follow { display: grid; gap: .55rem; justify-items: start; }
-.ig-follow__label { font-size: .75rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--brass-ink); }
 .ig-follow__btn svg { flex: none; width: 1.35rem; height: 1.35rem; fill: none; stroke: currentColor; stroke-width: 1.6; }
 .ig-follow__btn .ig-dot { fill: currentColor; stroke: none; }
-.ig-follow__handle { font-size: var(--fs-small); color: var(--ink-soft); padding-left: 1.75rem; }
+/* A longer label can wrap on a phone; the pill softens to a rounded rectangle so two lines still look right */
+@media (max-width: 599px) { .ig-follow__btn { white-space: normal; text-align: left; border-radius: 1.75rem; } }
 .footer .ig-follow { margin-top: 2rem; }
-.footer .ig-follow__label { color: var(--brass-light); }
-.footer .ig-follow__handle { color: var(--sage); }
 /* Under the About snapshots: below the tilted prints and above them, so none ever covers it */
-.about-story__aside .ig-follow { position: relative; z-index: 3; margin-top: 1.5rem; }
-@media (min-width: 900px) { .about-story__aside .ig-follow { margin-top: clamp(3.5rem, 5vw, 4.5rem); } }
+.about-story__aside .ig-follow { position: relative; z-index: 3; margin-top: 2.5rem; }
+.about-story__aside .ig-follow__btn { padding-inline: 1.35rem; font-size: .9375rem; }
+@media (min-width: 900px) { .about-story__aside .ig-follow { margin-top: clamp(5rem, 6.5vw, 6rem); } }
+/* Where the column is too narrow for one line, the About button wraps the same way it does on a phone */
+@media (max-width: 1199px) { .about-story__aside .ig-follow__btn { white-space: normal; text-align: left; border-radius: 1.75rem; } }
 .ig-link { display: inline-flex; align-items: center; gap: .45rem; color: inherit; font-weight: 600; text-decoration: none; }
 .ig-link svg { flex: none; width: 1.15rem; height: 1.15rem; fill: none; stroke: currentColor; stroke-width: 1.6; }
 .ig-link .ig-dot { fill: currentColor; stroke: none; }
