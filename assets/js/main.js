@@ -898,11 +898,54 @@
     ul.innerHTML = cards.join('');
   });
 
-  // Shelves that fit don't need the fade that hints at sideways scrolling.
-  const fitShelves = () => $$('.shelf-scroll').forEach((s) => s.classList.toggle('is-fit', s.scrollWidth <= s.clientWidth + 2));
-  fitShelves();
-  window.addEventListener('resize', fitShelves, { passive: true });
-  window.addEventListener('load', fitShelves);
+  // A shelf too long for the screen splits onto a second glass shelf (or a third) below it, as evenly as it can,
+  // so every product keeps its true size and nothing scrolls sideways.
+  const PLANK = '<div class="plank" aria-hidden="true"><span class="plank__top"></span><span class="plank__front"></span></div>';
+  function stackShelf(unit) {
+    const first = $('.shelf-unit__items', unit);
+    $$('.shelf-tier', unit).forEach((t) => { first.append(...$('.shelf-unit__items', t).children); t.remove(); });
+    unit.classList.remove('is-stacked');
+    const items = [...first.children];
+    if (items.length < 2) return;
+    const cs = getComputedStyle(first);
+    const gap = parseFloat(cs.columnGap) || 0;
+    const pad = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+    // A gift's shelf is only as long as its products, so its room is the column it sits in.
+    // 20px of air is kept at the ends, so products never crowd the edge of the glass.
+    const room = (unit.closest('.bundle') ? unit.parentElement.clientWidth : unit.clientWidth) - 20;
+    const widths = items.map((li) => li.getBoundingClientRect().width);
+    const fits = (from, to) => widths.slice(from, to).reduce((a, b) => a + b, 0) + gap * (to - from - 1) + pad <= room + 1;
+    let rows = null;
+    for (let k = 1; k <= items.length && !rows; k += 1) {
+      const sizes = Array.from({ length: k }, (_, i) => Math.floor(items.length / k) + (i < items.length % k ? 1 : 0));
+      let at = 0;
+      const ok = sizes.every((n) => { const f = fits(at, at + n); at += n; return f; });
+      if (ok || k === items.length) rows = sizes;
+    }
+    if (rows.length < 2) return;
+    unit.classList.add('is-stacked');
+    let at = rows[0];
+    rows.slice(1).forEach((n) => {
+      const tier = document.createElement('div');
+      tier.className = 'shelf-tier';
+      tier.innerHTML = `<ul class="${first.className}"></ul>${PLANK}`;
+      $('ul', tier).append(...items.slice(at, at + n));
+      unit.append(tier);
+      at += n;
+    });
+  }
+  const stackShelves = () => $$('.shelf-unit').forEach(stackShelf);
+  stackShelves();
+  // Phones fire resize as the address bar slides; only a change in width can change what fits.
+  let shelfW = window.innerWidth;
+  let shelfTimer = 0;
+  window.addEventListener('resize', () => {
+    if (window.innerWidth === shelfW) return;
+    shelfW = window.innerWidth;
+    clearTimeout(shelfTimer);
+    shelfTimer = setTimeout(stackShelves, 150);
+  }, { passive: true });
+  window.addEventListener('load', stackShelves);
 
   /* Quick view */
   const qv = document.createElement('dialog');
@@ -919,6 +962,8 @@
           <button type="button" data-qv-view="product" aria-label="Product"><img data-qv-thumb-product alt=""></button>
           <button type="button" data-qv-view="video" aria-label="Video"><img data-qv-thumb-video alt=""></button>
         </div>
+        <button class="qv__nav qv__nav--prev" type="button" data-qv-prev aria-label="Previous product">${ICON.prev}</button>
+        <button class="qv__nav qv__nav--next" type="button" data-qv-next aria-label="Next product">${ICON.next}</button>
       </div>
       <div class="qv__body">
         <a class="qv__shelf" data-qv-shelf href="#"></a>
@@ -936,9 +981,7 @@
         <p class="qv__fine" data-qv-fine hidden>*†These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.</p>
       </div>
     </div>
-    <button class="qv__close" type="button" data-qv-close aria-label="Close">${ICON.x}</button>
-    <button class="qv__nav qv__nav--prev" type="button" data-qv-prev aria-label="Previous product">${ICON.prev}</button>
-    <button class="qv__nav qv__nav--next" type="button" data-qv-next aria-label="Next product">${ICON.next}</button>`;
+    <button class="qv__close" type="button" data-qv-close aria-label="Close">${ICON.x}</button>`;
   document.body.append(qv);
   let qvId = null;
   let qvOpener = null;
@@ -1066,6 +1109,7 @@
     qvList = list;
     fillQuickView(id);
     showDialog(qv);
+    qv.dispatchEvent(new Event('qv:filled'));
     setTimeout(() => $('[data-qv-add]', qv).focus({ preventScroll: true }), reduced ? 0 : 60);
   }
   function closeQuickView(then) {
@@ -1077,6 +1121,7 @@
     const sibs = qvSiblings(p);
     const i = sibs.findIndex((x) => x.id === qvId);
     fillQuickView(sibs[(i + dir + sibs.length) % sibs.length].id);
+    qv.dispatchEvent(new Event('qv:filled'));
   }
   document.addEventListener('click', (e) => {
     const b = e.target.closest('[data-product]');
@@ -1370,6 +1415,11 @@
   const needFade = (el) => el.classList.toggle('has-more', el.scrollHeight - el.scrollTop - el.clientHeight > 8);
   $('.need__inner', needDlg).addEventListener('scroll', (e) => needFade(e.currentTarget), { passive: true });
   window.addEventListener('resize', () => { if (needDlg.open) needFade($('.need__inner', needDlg)); }, { passive: true });
+  // The product pop-up gets the same fade, and each product starts at the top.
+  const qvInner = $('.qv__inner', qv);
+  qvInner.addEventListener('scroll', () => needFade(qvInner), { passive: true });
+  window.addEventListener('resize', () => { if (qv.open) needFade(qvInner); }, { passive: true });
+  qv.addEventListener('qv:filled', () => { qvInner.scrollTop = 0; requestAnimationFrame(() => needFade(qvInner)); });
   $('[data-need-close]', needDlg).addEventListener('click', closeNeed);
   needDlg.addEventListener('cancel', (e) => { e.preventDefault(); closeNeed(); });
   needDlg.addEventListener('click', (e) => { if (e.target === needDlg) closeNeed(); });
