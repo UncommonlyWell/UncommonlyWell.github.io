@@ -1599,14 +1599,23 @@ body.menu-open .ys-pill { opacity: 0; pointer-events: none; }
 .lockup__word { font-family: var(--serif); font-weight: 380; font-variation-settings: "SOFT" 100, "opsz" 72; font-size: 1.9rem; line-height: .95; letter-spacing: -.015em; padding-left: 1.1rem; border-left: 1px solid var(--line-light); }
 .footer__tag { font-family: var(--serif); font-style: italic; font-weight: 320; font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); line-height: 1.2; max-width: 18ch; }
 .footer__contact { margin-top: 1.5rem; line-height: 1.4; }
-.footer__social { margin-top: .75rem; }
 
-/* ---------- Instagram: a small glyph and the handle, in the footer, the menu and a line on About and Gather ---------- */
+/* ---------- Instagram: a follow button in the footer and on About, a small glyph and handle in the menu and on Gather ---------- */
+.ig-follow { display: grid; gap: .55rem; justify-items: start; }
+.ig-follow__label { font-size: .75rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--brass-ink); }
+.ig-follow__btn svg { flex: none; width: 1.35rem; height: 1.35rem; fill: none; stroke: currentColor; stroke-width: 1.6; }
+.ig-follow__btn .ig-dot { fill: currentColor; stroke: none; }
+.ig-follow__handle { font-size: var(--fs-small); color: var(--ink-soft); padding-left: 1.75rem; }
+.footer .ig-follow { margin-top: 2rem; }
+.footer .ig-follow__label { color: var(--brass-light); }
+.footer .ig-follow__handle { color: var(--sage); }
+/* Under the About snapshots: below the tilted prints and above them, so none ever covers it */
+.about-story__aside .ig-follow { position: relative; z-index: 3; margin-top: 1.5rem; }
+@media (min-width: 900px) { .about-story__aside .ig-follow { margin-top: clamp(3.5rem, 5vw, 4.5rem); } }
 .ig-link { display: inline-flex; align-items: center; gap: .45rem; color: inherit; font-weight: 600; text-decoration: none; }
 .ig-link svg { flex: none; width: 1.15rem; height: 1.15rem; fill: none; stroke: currentColor; stroke-width: 1.6; }
 .ig-link .ig-dot { fill: currentColor; stroke: none; }
 .ig-link:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .25em; }
-.footer .ig-link { color: var(--brass-light); }
 .menu__foot .ig-link { color: var(--brass-light); }
 .ig-line { display: flex; flex-wrap: wrap; align-items: center; gap: .2rem .45rem; margin-top: 1.25rem; color: var(--ink-soft); font-size: var(--fs-small); }
 .ig-line .ig-link { color: var(--brass-ink); }

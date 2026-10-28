@@ -24,7 +24,7 @@
 <script>document.documentElement.classList.replace('no-js', 'js');
   // The membership banner shows until this visitor closes it.
   try { if (localStorage.getItem('uw-promo-closed') !== 'membership-1') document.documentElement.classList.add('has-promo'); } catch (e) { document.documentElement.classList.add('has-promo'); }</script>
-<link rel="stylesheet" href="assets/css/styles.css?v=221">
+<link rel="stylesheet" href="assets/css/styles.css?v=223">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -154,7 +154,11 @@
       </div>
       <p class="footer__tag">The common things, done uncommonly well.</p>
       <p class="footer__contact"><button class="link link--light" type="button" data-open-message>Message me</button></p>
-      <p class="footer__social"><a class="ig-link" href="https://www.instagram.com/uncommonly.well/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#uw-ig"/></svg>@uncommonly.well<span class="sr-only"> on Instagram (opens a new tab)</span></a></p>
+      <div class="ig-follow">
+        <p class="ig-follow__label">Follow along</p>
+        <a class="btn btn--line ig-follow__btn" href="https://www.instagram.com/uncommonly.well/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#uw-ig"/></svg>Follow on Instagram<span class="sr-only"> (opens a new tab)</span></a>
+        <p class="ig-follow__handle">@uncommonly.well</p>
+      </div>
     </div>
     <nav class="footer__nav" aria-label="Footer">
       <ul>
