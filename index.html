@@ -39,7 +39,7 @@
     }
   })(document);
 </script>
-<link rel="stylesheet" href="assets/css/styles.css?v=231">
+<link rel="stylesheet" href="assets/css/styles.css?v=235">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -89,7 +89,7 @@
 <header class="site-header" data-header>
   <!-- The Amway Membership banner (closable; remembered per visitor). At launch, update its wording and link (README). -->
   <div class="promo-bar" data-promo-bar>
-    <p class="promo-bar__text"><span class="promo-bar__tag">New</span> Amway Membership<span class="promo-bar__when" data-until="membership">, launching <span class="promo-bar__nowrap">mid-November</span></span><span class="promo-bar__more">: members save $40 on orders of $150 or more</span>. <a href="#membership">See <span class="promo-bar__long">what’s included</span><span class="promo-bar__short">more</span><span aria-hidden="true"> →</span></a></p>
+    <p class="promo-bar__text"><span class="promo-bar__tag">New</span> Amway Membership<span class="promo-bar__when" data-until="membership">, launching <span class="promo-bar__nowrap">mid-November</span></span><span class="promo-bar__more">: members save $40 on orders of $150 or more</span>. <a href="membership.html">See <span class="promo-bar__long">what’s included</span><span class="promo-bar__short">more</span><span aria-hidden="true"> →</span></a></p>
     <button class="promo-bar__close" type="button" aria-label="Close the membership banner" data-promo-close><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>
   </div>
   <div class="site-header__inner wrap">
@@ -229,7 +229,9 @@
           </ul>
           <div class="plank" aria-hidden="true"><span class="plank__top"></span><span class="plank__front"></span></div>
         </div>
-        <!-- Nutrition by need: filled from UW_NEEDS in assets/js/products.js -->
+      </li>
+      <!-- Nutrition by need: filled from UW_NEEDS in assets/js/products.js. Right under Nutrition, across the full width -->
+      <li class="shelf-needs">
         <div class="needs" aria-labelledby="needs-label">
           <p class="needs__label" id="needs-label">Nutrition by need</p>
           <ul class="needs__list" data-needs-list></ul>
@@ -263,17 +265,10 @@
       </li>
       <li class="shelf-row shelf-row--soon">
         <!-- Needs upline review before publishing: blood protocols and health plans, and how they can be described. -->
-        <div class="shelf-row__text">
-          <h3 class="shelf__name">Personalized health</h3>
-          <p class="shelf__text">Blood protocols &amp; holistic health plans for what your body needs. <span data-until="health">Opening November 2.</span><span data-from="health" hidden>Now open.</span></p>
-          <button class="shelf__ask" type="button" data-open-message data-topic="Personalized health">Learn more</button>
-        </div>
-        <div class="shelf-unit">
-          <div class="shelf-unit__items">
-            <p class="shelf-card"><span data-until="health">Opening</span><span data-from="health" hidden>Now</span> <strong data-until="health">November 2</strong><strong data-from="health" hidden>open</strong></p>
-          </div>
-          <div class="plank" aria-hidden="true"><span class="plank__top"></span><span class="plank__front"></span></div>
-        </div>
+        <h3 class="shelf__name">Personalized health</h3>
+        <p class="shelf__text">Blood protocols &amp; holistic health plans for what your body needs.</p>
+        <p class="shelf-soon__when"><span data-until="health">Opening November 2</span><span data-from="health" hidden>Now open</span></p>
+        <button class="shelf__ask" type="button" data-open-message data-topic="Personalized health">Learn more</button>
       </li>
     </ul>
 
@@ -288,53 +283,17 @@
 
 </section>
 
-<!-- ============ Amway Membership ============ -->
-<!-- Needs upline review before publishing: the membership's name, price, savings ("up to $100"), and the GLP and Valdura wording.
-     The wording comes from Amway's membership overview (Amway+ Customer Membership.JPG); keep to it.
-     At launch (mid-November): swap the "Ask me about it" button for
-     <a class="btn btn--brass" href="{your Amway membership share link}" target="_blank" rel="noopener">Join on Amway<span class="sr-only"> (opens Amway)</span></a>
-     The "Launching mid-November" wording here, in the top bar and in the pop-up hides by itself on the launch day
-     set in CONFIG.launches (assets/js/main.js). -->
-<section class="member section" id="membership" aria-labelledby="member-title">
+<!-- ============ Amway Membership (the full card lives on membership.html) ============ -->
+<section class="member-strip section tex-oat" id="membership" aria-labelledby="member-strip-title">
   <div class="wrap">
-    <div class="member__card tex-deep">
-      <div class="member__intro">
-        <p class="eyebrow member__eyebrow">New<span data-until="membership"> · Launching <span class="nowrap">mid-November</span></span></p>
-        <h2 class="h2" id="member-title" data-rise>Amway <em>Membership</em></h2>
-        <div class="member__figs">
-          <p class="member__fig"><strong>$<span data-count="20">20</span></strong> <span>monthly membership</span></p>
-          <p class="member__fig"><span class="member__pre">Unlocks up to</span> <strong>$<span data-count="100">100</span></strong> <span>in rewards and discounts for registered customers</span></p>
-        </div>
-        <div class="member__actions">
-          <button class="btn btn--brass" type="button" data-open-message data-topic="Amway Membership">Ask me about it</button>
-          <p class="member__fine">Membership details from Amway; offers may change.</p>
-        </div>
+    <div class="member-strip__card tex-deep">
+      <div class="member-strip__text">
+        <p class="eyebrow member__eyebrow"><span>New<span data-until="membership"> · Launching <span class="nowrap">mid-November</span></span></span></p>
+        <h2 class="member-strip__title" id="member-strip-title">Amway <em>Membership</em></h2>
+        <p class="member-strip__line">$20 a month unlocks up to $100 in rewards and discounts for registered customers.</p>
       </div>
-      <div class="member__lists">
-        <h3 class="member__head">Membership benefits</h3>
-        <p class="member__sub">With a purchase of $150 or more, members receive:</p>
-        <ul class="member__perks">
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M3.5 12.6V4.5a1 1 0 0 1 1-1h8.1l8 8a1.4 1.4 0 0 1 0 2l-7.1 7.1a1.4 1.4 0 0 1-2 0z"/><circle pathLength="1" cx="8.2" cy="8.2" r="1.6"/></svg><strong>$<span data-count="40">40</span> off</strong> <span>their purchase</span></li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M2.5 6.5h11v9.5h-11zM13.5 9.5h4l3.5 3.5v3h-7.5"/><circle pathLength="1" cx="6.5" cy="17.5" r="1.8"/><circle pathLength="1" cx="17" cy="17.5" r="1.8"/></svg><strong>Free</strong> <span>priority shipping</span></li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M3.5 8.5h17v3.5h-17zM5 12v8.5h14V12M12 8.5v12M12 8.5c-1.5-3.5-5.5-4.5-5.5-2s3 2 5.5 2c2.5 0 5.5.5 5.5-2s-4-1.5-5.5 2"/></svg><strong>One free product</strong> <span>from a curated selection</span></li>
-        </ul>
-        <h3 class="member__head">Additional perks</h3>
-        <ul class="member__perks member__perks--quiet">
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M3.5 12.6V4.5a1 1 0 0 1 1-1h8.1l8 8a1.4 1.4 0 0 1 0 2l-7.1 7.1a1.4 1.4 0 0 1-2 0z"/><circle pathLength="1" cx="8.2" cy="8.2" r="1.6"/></svg><strong>$<span data-count="10">10</span> off</strong> <span>select support solutions, including GLP support solutions</span></li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M5 19.5V14M10 19.5V10M15 19.5V7M20 19.5V4"/></svg><strong><span data-count="50">50</span>% off</strong> <span>the monthly Valdura subscription</span></li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="m12 3.2 2.7 5.6 6.1.8-4.5 4.2 1.1 6.1-5.4-3-5.4 3 1.1-6.1-4.5-4.2 6.1-.8z"/></svg><strong>Quarterly</strong> <span>rewards</span></li>
-        </ul>
-      </div>
+      <a class="btn btn--brass" href="membership.html">See what’s included</a>
     </div>
-  </div>
-</section>
-
-<!-- ============ Statement ============ -->
-<section class="statement tex-deep" aria-labelledby="statement-title">
-  <svg class="statement__arch" viewBox="0 0 400 540" aria-hidden="true"><path d="M1 540V200A199 199 0 0 1 399 200V540"/><path d="M61 540V230A139 139 0 0 1 339 230V540"/></svg>
-  <div class="wrap statement__inner">
-    <h2 class="statement__title" id="statement-title" data-statement>Because normal doesn’t work for everyone.</h2>
-    <p class="statement__lede">So I start with you, not a script.</p>
   </div>
 </section>
 
@@ -382,7 +341,8 @@
   <div class="wrap note__grid">
     <div class="note__img arch" data-reveal-img><picture class="ph" style="--ph:#b49a74"><source type="image/avif" srcset="assets/img/chelsea-480.avif 480w, assets/img/chelsea-800.avif 800w, assets/img/chelsea-1200.avif 1200w" sizes="(min-width: 900px) 34vw, 80vw"><img src="assets/img/chelsea-800.jpg" srcset="assets/img/chelsea-480.jpg 480w, assets/img/chelsea-800.jpg 800w, assets/img/chelsea-1200.jpg 1200w" sizes="(min-width: 900px) 34vw, 80vw" width="800" height="1000" alt="Chelsea laughing, resting on a soft blanket in an autumn park" loading="lazy" decoding="async"></picture></div>
     <div class="note__body">
-      <h2 class="note__label" id="note-title">Meet Chelsea</h2>
+      <p class="note__label">Meet Chelsea</p>
+      <h2 class="note__headline" id="note-title" data-statement>Because normal doesn’t work for everyone. <em>So I start with you, not a script.</em></h2>
       <p class="note__text">Daughter, sister, the cool aunt, memory keeper and second-generation business owner. I grew up seeing what’s possible when people get the right support, and I believe better is possible for everyone. I’m here to walk with you along the journey.</p>
       <div class="note__signoff">
         <p class="note__sign" aria-hidden="true">Chelsea</p>
@@ -436,14 +396,14 @@
 
     <div class="gather__grid">
       <article class="gcard">
-        <div class="gcard__img arch" data-reveal-img><picture class="ph" style="--ph:#b5a58c"><source type="image/avif" srcset="assets/img/gather-welcome-480.avif 480w, assets/img/gather-welcome-800.avif 800w, assets/img/gather-welcome-1200.avif 1200w" sizes="(min-width: 900px) 40vw, 90vw"><img src="assets/img/gather-welcome-800.jpg" srcset="assets/img/gather-welcome-480.jpg 480w, assets/img/gather-welcome-800.jpg 800w, assets/img/gather-welcome-1200.jpg 1200w" sizes="(min-width: 900px) 40vw, 90vw" width="800" height="1000" alt="A whiteboard on an easel by my front door: “Welcome! Your best health starts here”" loading="lazy" decoding="async"></picture></div>
+        <div class="gcard__img arch" data-reveal-img><picture class="ph" style="--ph:#b5a58c"><source type="image/avif" srcset="assets/img/gather-welcome-wide-480.avif 480w, assets/img/gather-welcome-wide-800.avif 800w, assets/img/gather-welcome-wide-1200.avif 1200w" sizes="(min-width: 900px) 40vw, 90vw"><img src="assets/img/gather-welcome-wide-800.jpg" srcset="assets/img/gather-welcome-wide-480.jpg 480w, assets/img/gather-welcome-wide-800.jpg 800w, assets/img/gather-welcome-wide-1200.jpg 1200w" sizes="(min-width: 900px) 40vw, 90vw" width="800" height="666" alt="A whiteboard on an easel by my front door: “Welcome! Your best health starts here”" loading="lazy" decoding="async"></picture></div>
         <h3 class="gcard__title">Gatherings</h3>
         <p>Virtual &amp; in-person gatherings, because wellness thrives in community, open to everyone.</p>
         <a class="btn btn--harbor" href="gather.html">See what’s coming up</a>
       </article>
 
       <article class="gcard gcard--offset">
-        <div class="gcard__img arch" data-reveal-img><picture class="ph" style="--ph:#bdab8c"><source type="image/avif" srcset="assets/img/gift-artistry-480.avif 480w, assets/img/gift-artistry-800.avif 800w, assets/img/gift-artistry-1200.avif 1200w" sizes="(min-width: 900px) 40vw, 90vw"><img src="assets/img/gift-artistry-800.jpg" srcset="assets/img/gift-artistry-480.jpg 480w, assets/img/gift-artistry-800.jpg 800w, assets/img/gift-artistry-1200.jpg 1200w" sizes="(min-width: 900px) 40vw, 90vw" width="800" height="1000" alt="Artistry Hydrating Gel Cream and Sleeping Mask in a clear gift box with a thank-you sticker" loading="lazy" decoding="async"></picture></div>
+        <div class="gcard__img arch" data-reveal-img><picture class="ph" style="--ph:#bdab8c"><source type="image/avif" srcset="assets/img/gift-artistry-wide-480.avif 480w, assets/img/gift-artistry-wide-800.avif 800w, assets/img/gift-artistry-wide-1200.avif 1200w" sizes="(min-width: 900px) 40vw, 90vw"><img src="assets/img/gift-artistry-wide-800.jpg" srcset="assets/img/gift-artistry-wide-480.jpg 480w, assets/img/gift-artistry-wide-800.jpg 800w, assets/img/gift-artistry-wide-1200.jpg 1200w" sizes="(min-width: 900px) 40vw, 90vw" width="800" height="666" alt="Artistry Hydrating Gel Cream and Sleeping Mask in a clear gift box with a thank-you sticker" loading="lazy" decoding="async"></picture></div>
         <h3 class="gcard__title">Gifts</h3>
         <p>Thoughtful bundles for the people who matter, wrapped and ready.</p>
         <a class="btn btn--harbor" href="gifts.html">See the gifts</a>
@@ -483,7 +443,7 @@
       <ul>
         <li><a href="#top" data-open-quiz>Start here</a></li>
         <li><a href="#shelves">The Shelves</a></li>
-        <li><a href="#membership">Membership</a></li>
+        <li><a href="membership.html">Membership</a></li>
         <li><a href="gather.html">Gather</a></li>
         <li><a href="gifts.html">Gifts</a></li>
         <li><a href="about.html">About</a></li>
@@ -798,6 +758,6 @@
 <script src="assets/vendor/SplitText.min.js" defer></script>
 <script src="assets/vendor/lenis.min.js" defer></script>
 <script src="assets/js/products.js?v=35" defer></script>
-<script src="assets/js/main.js?v=168" defer></script>
+<script src="assets/js/main.js?v=169" defer></script>
 </body>
 </html>

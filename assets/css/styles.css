@@ -352,7 +352,7 @@ body.menu-open .brand__mark { --m-line: url(#uw-gold-bright); --m-light: url(#uw
 }
 /* Pin only when the window is tall enough for the whole copy stack; shorter windows scroll normally */
 @media (min-width: 900px) and (min-height: 600px) and (prefers-reduced-motion: no-preference) {
-  .hero { height: 200svh; }
+  .hero { height: 175svh; }
   .hero__pin { position: sticky; top: 0; height: 100svh; }
   /* The door's zoom already ends on the shelves' oat, so the shelves start sooner after it */
   .hero + .shelves { padding-top: clamp(2.5rem, 1rem + 3vw, 4.5rem); }
@@ -794,6 +794,18 @@ body.menu-open .brand__mark { --m-line: url(#uw-gold-bright); --m-light: url(#uw
 .shelves { position: relative; --u: clamp(4.6px, 1.45vw, 5.6px); }
 @media (min-width: 900px) { .shelves { --u: clamp(6px, .55vw, 7.4px); } }
 .shelf-rows { display: grid; gap: clamp(3.5rem, 7vw, 5.5rem); }
+/* Desktop: the four shelves pair up two by two, three favorites each; the need pills and Personalized health run full width */
+@media (min-width: 900px) {
+  .shelf-rows { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(3rem, 5vw, 4.5rem) clamp(3rem, 6vw, 6rem); }
+  .shelf-rows > .shelf-needs, .shelf-rows > .shelf-row--soon { grid-column: 1 / -1; }
+  .shelf-row--full .shelf-unit__items > li:nth-child(n+4) { display: none; }
+  .shelf-row--full .shelf-unit--full .shelf-unit__items { gap: calc(var(--u) * 6); padding-inline: calc(var(--u) * 4); }
+}
+/* Personalized health: one slim line until it opens, no empty shelf */
+.shelf-row.shelf-row--soon { display: flex; flex-wrap: wrap; align-items: baseline; gap: .4rem 1.5rem; padding-top: clamp(1.75rem, 1.25rem + 1.5vw, 2.5rem); border-top: 1px solid var(--line); }
+.shelf-row--soon .shelf__name { font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.3rem); }
+.shelf-row--soon .shelf__text { flex: 1 1 18rem; }
+.shelf-soon__when { font-family: var(--serif); font-style: italic; font-size: 1.15rem; color: var(--brass-ink); }
 .shelf-row {
   position: relative; display: grid; gap: 1.5rem; align-items: end;
   grid-template-columns: minmax(0, 1fr);
@@ -903,25 +915,6 @@ body.menu-open .brand__mark { --m-line: url(#uw-gold-bright); --m-light: url(#uw
 }
 .shelf-unit--tray .shelf-unit__items::before { box-shadow: 0 calc(var(--u) * .3) calc(var(--u) * .6) rgba(30, 20, 8, .2); }
 
-/* Personalized health: an empty shelf with a card leaning against the wall */
-.shelf-row--soon .shelf-unit__items { justify-content: flex-start; padding-left: 18%; }
-.shelf-card {
-  position: relative; margin-bottom: calc(var(--u) * .6);
-  display: grid; justify-items: center; gap: .1rem;
-  width: calc(var(--u) * 26); padding: calc(var(--u) * 3) calc(var(--u) * 2);
-  background: url("../img/grain.svg?v=2") 0 0 / 220px, #efe5d2;
-  border-radius: 2px; transform: rotate(-4deg); transform-origin: 30% 100%;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, .6) inset, calc(var(--u) * -.8) calc(var(--u) * .6) calc(var(--u) * 1.6) rgba(36, 26, 10, .3);
-  font-family: var(--serif); text-align: center; color: var(--ink);
-}
-.shelf-card span { font-style: italic; font-size: .95rem; color: var(--brass-ink); }
-.shelf-card strong { font-weight: 400; font-size: clamp(1.25rem, 1rem + 1vw, 1.6rem); letter-spacing: -.01em; }
-.shelf-card::after {
-  content: ""; position: absolute; left: 50%; top: calc(var(--u) * -1.2); width: calc(var(--u) * 1.6); height: calc(var(--u) * 1.6);
-  border-radius: 50%; transform: translateX(-50%);
-  background: radial-gradient(circle at 35% 30%, #f3e4c2, #ad8a55 55%, #58401f);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, .35);
-}
 
 /* "On my shelf": Chelsea's own favorites, on one wide glass shelf under her note */
 .note { --u: clamp(4.2px, 1.3vw, 5px); }
@@ -1105,8 +1098,8 @@ body.menu-open .ys-pill { opacity: 0; pointer-events: none; }
 
 /* ---------- Shop by need ---------- */
 .needs { display: grid; gap: .9rem; margin: calc(-1 * clamp(1.5rem, 1rem + 2vw, 2.75rem)) 0 clamp(3.5rem, 2.5rem + 3vw, 5rem); }
-/* On the homepage the needs sit under the Nutrition shelf, across the full row */
-.shelf-row .needs { grid-column: 1 / -1; margin: clamp(1.25rem, 1rem + 1vw, 2rem) 0 0; }
+/* On the homepage the needs sit right under the Nutrition shelf, across the full width */
+.shelf-needs .needs { margin: 0; }
 .needs__label { font-size: .8125rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--brass-ink); }
 .needs__list { display: flex; flex-wrap: wrap; gap: .55rem; }
 .need-pill {
@@ -1354,20 +1347,22 @@ body.menu-open .ys-pill { opacity: 0; pointer-events: none; }
 .member__perks--quiet strong { font-size: 1.1875rem; color: var(--linen); }
 /* Numbers keep their width while they count up */
 .member [data-count] { font-variant-numeric: tabular-nums; }
+/* On its own page the card starts below the fixed header */
+.member--page { padding-top: calc(var(--header-h) + clamp(2.5rem, 1.5rem + 4vw, 5rem)); }
 
-.statement { position: relative; overflow: hidden; padding-block: clamp(7rem, 5rem + 12vw, 14rem); }
-.statement__arch {
-  position: absolute; left: 50%; top: 50%; width: min(70vw, 34rem); height: auto;
-  transform: translate(-50%, -42%); fill: none; stroke: rgba(216, 196, 159, .22); stroke-width: 1; overflow: visible;
+/* Homepage: a slim membership strip; the full card is on membership.html */
+.member-strip { padding-block: clamp(2.5rem, 1.5rem + 3vw, 4.5rem); }
+.member-strip__card {
+  display: grid; gap: 1.5rem 3rem; align-items: center; padding: clamp(1.75rem, 1.25rem + 2.5vw, 3rem);
+  border-radius: 6px; box-shadow: 0 1px 2px rgba(14, 39, 36, .12), 0 30px 60px -30px rgba(14, 39, 36, .5);
 }
-.statement__arch path { vector-effect: non-scaling-stroke; }
-.statement__inner { position: relative; text-align: center; display: grid; justify-items: center; gap: 2rem; }
-.statement__title {
-  font-family: var(--serif); font-weight: 300; font-variation-settings: "SOFT" 40, "opsz" 144;
-  font-size: clamp(3rem, 1rem + 8vw, 8.5rem); line-height: .96; letter-spacing: -.035em;
-  max-width: 12ch; text-wrap: balance;
-}
-.statement__lede { color: var(--sage); max-width: 30rem; font-size: clamp(1.0625rem, 1rem + .4vw, 1.3rem); }
+@media (min-width: 760px) { .member-strip__card { grid-template-columns: minmax(0, 1fr) auto; } }
+.member-strip .member__eyebrow { margin-bottom: .6rem; }
+.member-strip__title { font-family: var(--serif); font-weight: 340; font-variation-settings: "SOFT" 60; font-size: clamp(1.9rem, 1.4rem + 1.8vw, 2.9rem); line-height: 1.04; letter-spacing: -.02em; color: var(--linen); }
+.member-strip__title em { font-style: italic; color: var(--brass-light); }
+.member-strip__line { margin-top: .6rem; max-width: 34rem; color: var(--sage); }
+.member-strip .btn { justify-self: start; }
+
 
 /* ---------- Follow through ---------- */
 .follow__grid { display: grid; gap: clamp(3.5rem, 6vw, 6rem); grid-template-columns: minmax(0, 1fr); }
@@ -1429,10 +1424,11 @@ body.menu-open .ys-pill { opacity: 0; pointer-events: none; }
 .gather__grid { display: grid; gap: clamp(4rem, 6vw, 5rem) clamp(2rem, 5vw, 6rem); grid-template-columns: minmax(0, 1fr); }
 @media (min-width: 900px) {
   .gather__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .gcard--offset { margin-top: 8rem; }
+  .gcard--offset { margin-top: 3rem; }
 }
 .gcard { display: grid; gap: 1.1rem; align-content: start; justify-items: start; }
-.gcard__img { width: 100%; aspect-ratio: 4 / 5; max-height: 40rem; margin-bottom: 1rem; }
+/* A wider frame under a gentle arch keeps this section short */
+.gcard__img { width: 100%; aspect-ratio: 6 / 5; max-height: 25rem; margin-bottom: .75rem; border-radius: 50% 50% 0 0 / 30% 30% 0 0; }
 .gcard__title { font-family: var(--serif); font-weight: 360; font-size: clamp(2rem, 1.6rem + 1.4vw, 2.75rem); line-height: 1.05; letter-spacing: -.02em; font-variation-settings: "SOFT" 60; }
 .gcard > p { color: var(--ink-soft); max-width: 30rem; }
 
@@ -1448,6 +1444,9 @@ body.menu-open .ys-pill { opacity: 0; pointer-events: none; }
 @media (max-width: 899px) { .note__img { width: min(80%, 22rem); } }
 .note__body { display: grid; gap: 1.75rem; justify-items: start; }
 .note__label { font-family: var(--sans); font-size: var(--fs-small); font-weight: 600; color: var(--brass-ink); }
+/* Chelsea's why, merged in from the old statement band: the words brighten as you read (data-statement in main.js) */
+.note__headline { margin: .6rem 0 1.4rem; font-family: var(--serif); font-weight: 340; font-variation-settings: "SOFT" 60; font-size: clamp(2rem, 1.3rem + 2.4vw, 3.4rem); line-height: 1.04; letter-spacing: -.022em; text-wrap: balance; }
+.note__headline em { display: block; margin-top: .35rem; font-size: .62em; font-style: italic; font-weight: 320; color: var(--brass-ink); }
 .note__text {
   font-family: var(--serif); font-weight: 320; font-variation-settings: "SOFT" 70;
   font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.5rem); line-height: 1.32; letter-spacing: -.012em; max-width: 30ch; text-wrap: pretty;

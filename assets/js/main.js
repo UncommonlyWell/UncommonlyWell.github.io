@@ -945,7 +945,8 @@
     const first = $('.shelf-unit__items', unit);
     $$('.shelf-tier', unit).forEach((t) => { first.append(...$('.shelf-unit__items', t).children); t.remove(); });
     unit.classList.remove('is-stacked');
-    const items = [...first.children];
+    // Products hidden at this width (desktop pairs show only three) stay put and don't count
+    const items = [...first.children].filter((li) => getComputedStyle(li).display !== 'none');
     if (items.length < 2) return;
     const cs = getComputedStyle(first);
     const gap = parseFloat(cs.columnGap) || 0;
@@ -1016,7 +1017,7 @@
           <button class="btn btn--brass" type="button" data-qv-add></button>
           <a class="link" data-qv-buy target="_blank" rel="noopener">Buy on Amway<span class="sr-only"> (opens Amway)</span></a>
         </div>
-        <p class="qv__member">New<span data-until="membership"> mid-November</span>: members save $40 on orders of $150 or more. <a href="index.html#membership" data-qv-member>About Amway Membership</a></p>
+        <p class="qv__member">New<span data-until="membership"> mid-November</span>: members save $40 on orders of $150 or more. <a href="membership.html" data-qv-member>About Amway Membership</a></p>
         <p class="qv__status" role="status" aria-live="polite" data-qv-status></p>
         <p class="qv__fine" data-qv-fine hidden>*†These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.</p>
       </div>
@@ -1173,9 +1174,9 @@
     openQuickView(b.dataset.product, b, inNeed && needId ? needOf(needId).products : bundle ? bundle.products.filter((id) => byId[id]) : null);
   });
   $('[data-qv-close]', qv).addEventListener('click', () => closeQuickView());
-  // On the homepage, the membership line closes the pop-up (and any dialog under it) and glides to the section.
+  // On the Membership page, the membership line closes the pop-up (and any dialog under it) and glides to the card.
   $('[data-qv-member]', qv).addEventListener('click', (e) => {
-    if (!$('#membership')) return;
+    if (!$('.member__card')) return;
     e.preventDefault();
     closeQuickView(() => {
       $$('dialog[open]').forEach((d) => hideDialog(d));
