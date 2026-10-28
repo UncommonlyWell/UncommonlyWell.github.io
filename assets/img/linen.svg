@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320">
+  <!-- Natural linen for the oat sections: long uneven weft threads across, fainter warp threads down.
+       Two stretched noise layers, so there are slubs and irregular threads but no repeating lines. -->
+  <filter id="weft" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency=".008 .62" numOctaves="2" seed="7" stitchTiles="stitch"/>
+    <feColorMatrix values="0 0 0 0 .42  0 0 0 0 .32  0 0 0 0 .15  1.1 0 0 0 -.5"/>
+  </filter>
+  <filter id="warp" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency=".55 .01" numOctaves="2" seed="11" stitchTiles="stitch"/>
+    <feColorMatrix values="0 0 0 0 .18  0 0 0 0 .17  0 0 0 0 .14  1 0 0 0 -.5"/>
+  </filter>
+  <rect width="320" height="320" filter="url(#weft)" opacity=".42"/>
+  <rect width="320" height="320" filter="url(#warp)" opacity=".26"/>
+</svg>

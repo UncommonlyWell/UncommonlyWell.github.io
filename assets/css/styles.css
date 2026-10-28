@@ -117,11 +117,11 @@ html.lenis, html.lenis body { height: auto; }
 body { background-image: url("../img/grain.svg?v=2"); background-size: 220px; }
 .tex-dark { background: url("../img/grain-light.svg?v=2") 0 0 / 220px, var(--harbor); color: var(--linen); }
 .tex-deep { background: url("../img/grain-light.svg?v=2") 0 0 / 220px, var(--harbor-deep); color: var(--linen); }
+/* Oat linen: grain plus a natural woven texture (linen.svg), no ruled lines, so it reads the same wherever a section starts */
 .tex-oat {
   background:
     url("../img/grain.svg?v=2") 0 0 / 220px,
-    repeating-linear-gradient(0deg, rgba(122, 88, 24, .035) 0 1px, transparent 1px 3px),
-    repeating-linear-gradient(90deg, rgba(35, 36, 31, .03) 0 1px, transparent 1px 4px),
+    url("../img/linen.svg?v=2") 0 0 / 320px,
     var(--oat);
 }
 
@@ -822,12 +822,18 @@ body.menu-open .brand__mark { --m-line: url(#uw-gold-bright); --m-light: url(#uw
   position: relative; margin-bottom: calc(var(--u) * .6);
   display: grid; justify-items: center; gap: .1rem;
   width: calc(var(--u) * 26); padding: calc(var(--u) * 3) calc(var(--u) * 2);
-  background: url("../img/grain.svg?v=2") 0 0 / 220px, #efe5d2;
-  border-radius: 2px; transform: rotate(-4deg); transform-origin: 30% 100%;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, .6) inset, calc(var(--u) * -.8) calc(var(--u) * .6) calc(var(--u) * 1.6) rgba(36, 26, 10, .3);
-  font-family: var(--serif); text-align: center; color: var(--ink);
+  background: url("../img/grain-light.svg?v=2") 0 0 / 220px, var(--harbor);
+  border-radius: 2px; transform: rotate(-4deg); transform-origin: 50% 0;
+  box-shadow: 0 1px 0 rgba(216, 196, 159, .25) inset, calc(var(--u) * -.8) calc(var(--u) * 1) calc(var(--u) * 2.2) rgba(14, 30, 26, .45);
+  font-family: var(--serif); text-align: center; color: var(--linen);
+  animation: card-sway 3.2s ease-in-out infinite;
 }
-.shelf-card span { font-style: italic; font-size: .95rem; color: var(--brass-ink); }
+/* The note swings gently from its pin, and a little more when you hover it */
+@keyframes card-sway { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(-2deg); } }
+@keyframes card-sway-big { 0%, 100% { transform: rotate(-9deg); } 50% { transform: rotate(1deg); } }
+.shelf-row--soon:hover .shelf-card { animation: card-sway-big 1.6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .shelf-card, .shelf-row--soon:hover .shelf-card { animation: none; transform: rotate(-4deg); } }
+.shelf-card span { font-style: italic; font-size: .95rem; color: var(--brass-light); }
 .shelf-card strong { font-weight: 400; font-size: clamp(1.25rem, 1rem + 1vw, 1.6rem); letter-spacing: -.01em; }
 .shelf-card::after {
   content: ""; position: absolute; left: 50%; top: calc(var(--u) * -1.2); width: calc(var(--u) * 1.6); height: calc(var(--u) * 1.6);
@@ -1413,8 +1419,14 @@ body.menu-open .ys-pill { opacity: 0; pointer-events: none; }
   #follow .follow__grid { grid-template-columns: minmax(0, 1fr) minmax(0, .8fr); row-gap: clamp(2rem, 3vw, 3rem); }
   #follow .follow__title { grid-column: 1 / -1; }
   #follow .follow__aside { align-self: start; }
-  #follow .follow__img { margin: 0 0 0 auto; }
+  #follow .follow__img { margin: 0 0 0 auto; width: min(100%, 26rem); }
+  #follow .steps { gap: clamp(1.75rem, 2.5vw, 2.5rem); }
 }
+/* Homepage steps: type sized so the column ends about where the photo does */
+#follow .step__num { font-size: clamp(2.25rem, 1.75rem + 1.5vw, 3.25rem); }
+#follow .step__title { font-size: clamp(1.35rem, 1.1rem + .6vw, 1.6rem); }
+#follow .step p { font-size: 1rem; }
+@media (max-width: 899px) { #follow .step::before { top: .7rem; } }
 
 .follow__steps { position: relative; padding-left: clamp(2.5rem, 4vw, 4rem); }
 .follow__track { position: absolute; left: .5rem; top: .75rem; bottom: 0; width: 1px; background: var(--line); }
