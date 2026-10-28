@@ -1407,6 +1407,14 @@ body.menu-open .ys-pill { opacity: 0; pointer-events: none; }
 .follow__lede { color: var(--ink-soft); max-width: 30rem; }
 .follow__img { width: min(100%, 20rem); aspect-ratio: 4 / 5; margin-top: 1.5rem; }
 @media (max-width: 899px) { .follow__img { display: none; } }
+/* Homepage: the heading leads across the top, the steps take the left and the photo sits on the right,
+   mirroring Meet Chelsea just above it */
+@media (min-width: 900px) {
+  #follow .follow__grid { grid-template-columns: minmax(0, 1fr) minmax(0, .8fr); row-gap: clamp(2rem, 3vw, 3rem); }
+  #follow .follow__title { grid-column: 1 / -1; }
+  #follow .follow__aside { align-self: start; }
+  #follow .follow__img { margin: 0 0 0 auto; }
+}
 
 .follow__steps { position: relative; padding-left: clamp(2.5rem, 4vw, 4rem); }
 .follow__track { position: absolute; left: .5rem; top: .75rem; bottom: 0; width: 1px; background: var(--line); }
