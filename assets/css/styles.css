@@ -1004,11 +1004,15 @@ body.menu-open .brand__mark { --m-line: url(#uw-gold-bright); --m-light: url(#uw
 }
 .qv__stage [data-qv-img] { width: 100%; max-width: 20rem; height: min(26vh, 13rem); object-fit: contain; object-position: 50% 100%; filter: saturate(.94) drop-shadow(-6px 10px 14px rgba(40, 30, 14, .22)); }
 @media (min-width: 760px) { .qv__stage [data-qv-img] { height: min(42vh, 20rem); } }
-/* On a phone the photo is shorter, so more of the details fit on screen */
+/* On a phone the photo area is sized to the screen, so photos stay large and the video spans the full width */
 @media (max-width: 759px) {
   .qv { max-height: calc(100dvh - 1.5rem); }
-  .qv__stage { min-height: 10rem; padding: 1.75rem 1.5rem 1.5rem; }
-  .qv__stage [data-qv-img] { height: min(18vh, 8.5rem); }
+  .qv__stage { height: min(94vw, 52dvh); min-height: 0; padding: 1.75rem 1.5rem 1.5rem; }
+  .qv__stage [data-qv-img] { height: calc(100% - 4rem); }
+  .qv__stage .qv__video { left: 0; right: 0; top: 3.9rem; }
+  /* Amway's player has more buttons than a phone-width bar holds, which pushed full screen out of view;
+     download, quality (already set to the sharpest) and audio track step aside */
+  .qv .video-js .vjs-download-button, .qv .video-js .vjs-quality-menu-wrapper, .qv .video-js .vjs-audio-button { display: none !important; }
   .qv__close { background: var(--linen); box-shadow: 0 2px 8px rgba(30, 24, 14, .18); }
 }
 .qv__stage::after { content: ""; position: absolute; left: 22%; right: 22%; bottom: 2rem; height: 10px; border-radius: 50%; background: radial-gradient(closest-side, rgba(20, 10, 2, .35), transparent); }
