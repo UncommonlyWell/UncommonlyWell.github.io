@@ -1,0 +1,811 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Remove at launch: keeps search engines from listing the site -->
+<meta name="robots" content="noindex">
+<title>Uncommonly Well · Everyday care, done uncommonly well</title>
+<meta name="description" content="Everyday care for your home, your health, your skin and your routine, Uncommonly Well is the business of Chelsea Herschelman, an Amway Independent Business Owner.">
+<meta property="og:title" content="Uncommonly Well">
+<meta property="og:description" content="The common things, done uncommonly well. Everyday care for your home, your health, your skin and your routine.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://[your-domain]/">
+<meta property="og:image" content="https://[your-domain]/assets/img/room-1200.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1E4A44">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..500,0..100&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&text=Chelsea&display=swap">
+
+<script>
+  // Hide the hero only when we're going to animate it in. If scripts fail, show everything after 2.5s.
+  (function (d) {
+    var h = d.documentElement;
+    h.classList.remove('no-js');
+    h.classList.add('js');
+    // The membership banner shows until this visitor closes it.
+    try { if (localStorage.getItem('uw-promo-closed') !== 'membership-1') h.classList.add('has-promo'); } catch (e) { h.classList.add('has-promo'); }
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      // The door-opening intro plays once per visit (browser session).
+      var seen = true;
+      try { seen = sessionStorage.getItem('uw-intro-seen') === '1'; sessionStorage.setItem('uw-intro-seen', '1'); } catch (e) { seen = false; }
+      if (!seen) h.classList.add('has-intro');
+      h.classList.add('will-intro');
+      setTimeout(function () { h.classList.remove('will-intro', 'has-intro'); }, seen ? 2500 : 6500);
+    }
+  })(document);
+</script>
+<link rel="stylesheet" href="assets/css/styles.css?v=213">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <linearGradient id="uw-gold" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#7C5E31"/><stop offset=".3" stop-color="#C9A874"/><stop offset=".45" stop-color="#F3E6CA"/>
+    <stop offset=".6" stop-color="#B08E5A"/><stop offset=".85" stop-color="#D9C196"/><stop offset="1" stop-color="#8A6B3B"/>
+  </linearGradient>
+  <!-- Brighter brass for the logo on dark green, and the polished light inside the doorway -->
+  <linearGradient id="uw-gold-bright" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#A8854F"/><stop offset=".28" stop-color="#E2CDA2"/><stop offset=".42" stop-color="#FBF4E4"/>
+    <stop offset=".58" stop-color="#C6A673"/><stop offset=".82" stop-color="#EAD9B6"/><stop offset="1" stop-color="#A07E4A"/>
+  </linearGradient>
+  <linearGradient id="uw-gold-fill" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#F6EBD2"/><stop offset=".35" stop-color="#D9C196"/><stop offset=".55" stop-color="#FBF4E4"/>
+    <stop offset=".8" stop-color="#C3A272"/><stop offset="1" stop-color="#A8854F"/>
+  </linearGradient>
+  <radialGradient id="uw-intro-glow" cx=".5" cy=".7" r=".7"><stop offset="0" stop-color="#FFF6DE"/><stop offset=".6" stop-color="#F2DDAE"/><stop offset="1" stop-color="#D9BC85"/></radialGradient>
+  <symbol id="uw-mark" viewBox="0 0 32 42">
+    <path style="fill:var(--m-light)" d="M7.5 40V17.5a8.5 8.5 0 0 1 17 0V40Z"/>
+    <path style="fill:var(--m-leaf);stroke:var(--m-line);stroke-width:1.2;stroke-linejoin:round" d="M7.5 40V17.5c0-3.6 1.9-6.7 4.9-8.1V38.2Z"/>
+    <path style="fill:none;stroke:var(--m-line);stroke-width:var(--m-w,1.6)" d="M2 40V16a14 14 0 0 1 28 0v24M.5 40.5h31"/>
+    <circle style="fill:var(--m-line)" cx="10.6" cy="25" r="1"/>
+  </symbol>
+</svg>
+
+<!-- ============ Intro: the door opens (first visit per session) ============ -->
+<div class="intro" data-intro aria-hidden="true">
+  <div class="intro__panel intro__panel--l"></div><div class="intro__panel intro__panel--r"></div>
+  <div class="intro__stage">
+    <div>
+      <svg class="intro__mark" viewBox="0 0 32 42">
+        <path class="intro__light" fill="url(#uw-intro-glow)" d="M7.5 40V17.5a8.5 8.5 0 0 1 17 0V40Z"/>
+        <path class="intro__leaf intro__leaf--l" fill="#16403B" stroke="url(#uw-gold-bright)" stroke-width="1" stroke-linejoin="round" d="M7.5 40V17.5a8.5 8.5 0 0 1 8.5-8.5V40Z"/>
+        <path class="intro__leaf intro__leaf--r" fill="#16403B" stroke="url(#uw-gold-bright)" stroke-width="1" stroke-linejoin="round" d="M24.5 40V17.5a8.5 8.5 0 0 0-8.5-8.5V40Z"/>
+        <path class="intro__arch" pathLength="1" fill="none" stroke="url(#uw-gold-bright)" stroke-width="1.6" d="M2 40V16a14 14 0 0 1 28 0v24"/>
+        <path class="intro__sill" pathLength="1" fill="none" stroke="url(#uw-gold-bright)" stroke-width="1.6" d="M.5 40.5h31"/>
+      </svg>
+      <p class="intro__word"><span class="intro__mask"><span>Uncommonly <em>Well</em></span></span></p>
+      <p class="intro__tag"><span class="intro__mask"><span>The common things, done uncommonly well.</span></span></p>
+    </div>
+  </div>
+</div>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ============ Header ============ -->
+<header class="site-header" data-header>
+  <!-- The Amway Membership banner (closable; remembered per visitor). At launch, update its wording and link (README). -->
+  <div class="promo-bar" data-promo-bar>
+    <p class="promo-bar__text"><span class="promo-bar__tag">New</span> Amway Membership<span class="promo-bar__when">, launching <span class="promo-bar__nowrap">mid-November</span></span><span class="promo-bar__more">: members save $40 on orders of $150 or more</span>. <a href="#membership">See <span class="promo-bar__long">what’s included</span><span class="promo-bar__short">more</span><span aria-hidden="true"> →</span></a></p>
+    <button class="promo-bar__close" type="button" aria-label="Close the membership banner" data-promo-close><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>
+  </div>
+  <div class="site-header__inner wrap">
+    <a class="brand" href="#top" aria-label="Uncommonly Well, back to top">
+      <svg class="brand__mark mark" viewBox="0 0 32 42" aria-hidden="true"><use href="#uw-mark"/></svg>
+      <span class="brand__rule" aria-hidden="true"></span>
+      <span class="brand__word">Uncommonly<span class="brand__well"> Well</span></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <ul>
+        <li><a href="#shelves">The Shelves</a></li>
+        <li><a href="gather.html">Gather</a></li>
+        <li><a href="gifts.html">Gifts</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="https://www.amway.com/myshop/uncommonlywell" target="_blank" rel="noopener" data-shop-link>Shop<span class="sr-only"> (opens Amway)</span></a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <button class="btn btn--small btn--brass header-cta header-cta--start" type="button" data-open-quiz>Start here</button>
+      <button class="btn btn--small btn--line header-cta" type="button" data-open-message>Say hi</button>
+    </div>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu" data-menu-toggle>
+      <span class="menu-toggle__label">Menu</span>
+      <span class="menu-toggle__lines" aria-hidden="true"><i></i><i></i></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<div class="menu" id="menu" data-menu data-lenis-prevent hidden>
+  <nav aria-label="Mobile">
+    <ul class="menu__list">
+      <li><a href="#shelves">The Shelves</a></li>
+      <li><a href="gather.html">Gather</a></li>
+      <li><a href="gifts.html">Gifts</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="https://www.amway.com/myshop/uncommonlywell" target="_blank" rel="noopener" data-shop-link>Shop<span class="sr-only"> (opens Amway)</span></a></li>
+    </ul>
+  </nav>
+  <div class="menu__foot">
+    <div class="menu__actions">
+      <button class="btn btn--brass" type="button" data-open-quiz>Start here</button>
+      <button class="btn btn--line" type="button" data-open-message>Say hi</button>
+    </div>
+    <p>I answer every message myself.</p>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ============ Hero: the front door ============ -->
+<section class="hero" id="top" aria-labelledby="hero-title" data-welcome>
+  <div class="hero__pin">
+    <div class="hero__copy tex-dark" data-hero-copy>
+      <h1 class="hero__title" id="hero-title" data-hero-title>The common things, done uncommonly well.</h1>
+      <p class="hero__lede" data-hero-fade>Everyday care for your home, your health, your skin and your routine.</p>
+      <div class="hero__actions" data-hero-fade>
+        <button class="btn btn--brass" type="button" data-open-quiz>Start here</button>
+        <a class="link link--light" href="#shelves">Browse the shelves</a>
+      </div>
+      <a class="hero__badge" href="#membership" data-hero-fade><span class="hero__badge-dot" aria-hidden="true"></span><span>New · Amway Membership <span class="hero__badge-when">launching mid-November</span></span><span class="hero__badge-arrow" aria-hidden="true">→</span></a>
+      <p class="hero__fineprint" data-hero-fade>Chelsea Herschelman, Amway Independent Business Owner</p>
+    </div>
+    <div class="scene" data-scene aria-hidden="true">
+      <div class="scene__wall"></div>
+      <div class="scene__floor"><div class="pavers"><span style="grid-column:span 3;--x:41%;--y:19%;--t:0.85"></span><span style="grid-column:span 4;--x:6%;--y:9%;--t:0.93"></span><span style="grid-column:span 2;--x:12%;--y:46%;--t:0.88"></span><span style="grid-column:span 3;--x:64%;--y:27%;--t:0.79"></span><span style="grid-column:span 2;--x:55%;--y:53%;--t:0.79"></span><span style="grid-column:span 3;--x:11%;--y:70%;--t:0.86"></span><span style="grid-column:span 4;--x:72%;--y:15%;--t:0.95"></span><span style="grid-column:span 3;--x:80%;--y:80%;--t:0.88"></span><span style="grid-column:span 4;--x:7%;--y:73%;--t:0.89"></span><span style="grid-column:span 3;--x:6%;--y:28%;--t:0.79"></span><span style="grid-column:span 3;--x:17%;--y:37%;--t:0.86"></span><span style="grid-column:span 2;--x:69%;--y:15%;--t:0.88"></span><span style="grid-column:span 3;--x:71%;--y:87%;--t:0.81"></span><span style="grid-column:span 2;--x:74%;--y:73%;--t:0.90"></span><span style="grid-column:span 4;--x:47%;--y:12%;--t:0.88"></span><span style="grid-column:span 3;--x:8%;--y:72%;--t:0.79"></span><span style="grid-column:span 2;--x:26%;--y:63%;--t:0.90"></span><span style="grid-column:span 4;--x:54%;--y:99%;--t:0.84"></span><span style="grid-column:span 3;--x:74%;--y:58%;--t:0.85"></span><span style="grid-column:span 3;--x:31%;--y:23%;--t:0.91"></span><span style="grid-column:span 3;--x:31%;--y:10%;--t:0.88"></span><span style="grid-column:span 3;--x:67%;--y:63%;--t:0.94"></span><span style="grid-column:span 2;--x:93%;--y:57%;--t:0.83"></span><span style="grid-column:span 4;--x:9%;--y:15%;--t:0.87"></span><span style="grid-column:span 4;--x:21%;--y:96%;--t:0.84"></span><span style="grid-column:span 2;--x:62%;--y:53%;--t:0.79"></span><span style="grid-column:span 3;--x:85%;--y:9%;--t:0.92"></span><span style="grid-column:span 3;--x:73%;--y:40%;--t:0.84"></span><span style="grid-column:span 3;--x:44%;--y:76%;--t:0.87"></span><span style="grid-column:span 4;--x:58%;--y:8%;--t:0.93"></span><span style="grid-column:span 3;--x:34%;--y:60%;--t:0.91"></span><span style="grid-column:span 2;--x:8%;--y:7%;--t:0.91"></span><span style="grid-column:span 2;--x:39%;--y:82%;--t:0.88"></span><span style="grid-column:span 3;--x:87%;--y:57%;--t:0.83"></span><span style="grid-column:span 3;--x:49%;--y:85%;--t:0.84"></span><span style="grid-column:span 4;--x:59%;--y:45%;--t:0.81"></span><span style="grid-column:span 3;--x:14%;--y:63%;--t:0.79"></span><span style="grid-column:span 3;--x:98%;--y:36%;--t:0.80"></span><span style="grid-column:span 4;--x:31%;--y:50%;--t:0.85"></span><span style="grid-column:span 2;--x:63%;--y:10%;--t:0.81"></span><span style="grid-column:span 4;--x:51%;--y:70%;--t:0.83"></span><span style="grid-column:span 3;--x:17%;--y:55%;--t:0.94"></span><span style="grid-column:span 2;--x:35%;--y:90%;--t:0.85"></span><span style="grid-column:span 3;--x:45%;--y:87%;--t:0.94"></span><span style="grid-column:span 3;--x:29%;--y:19%;--t:0.79"></span><span style="grid-column:span 2;--x:19%;--y:29%;--t:0.90"></span><span style="grid-column:span 3;--x:1%;--y:62%;--t:0.93"></span><span style="grid-column:span 4;--x:23%;--y:33%;--t:0.83"></span></div><span class="spill" data-spill></span></div>
+      <div class="stage">
+        <div class="casing">
+          <div class="opening">
+            <div class="room">
+              <picture class="ph" style="--ph:#e4ddd0"><source type="image/avif" srcset="assets/img/room-480.avif?v=7 480w, assets/img/room-800.avif?v=7 800w, assets/img/room-1200.avif?v=7 1200w" sizes="(min-width: 900px) 24vw, 40vw"><img src="assets/img/room-800.jpg?v=7" srcset="assets/img/room-480.jpg?v=7 480w, assets/img/room-800.jpg?v=7 800w, assets/img/room-1200.jpg?v=7 1200w" sizes="(min-width: 900px) 24vw, 40vw" width="800" height="1120" alt="" loading="lazy" decoding="async"></picture>
+              <span class="room__dim" data-room-dim></span>
+              <span class="room__beams" data-beams><i></i><i></i><i></i></span>
+            </div>
+            <div class="leaf" data-leaf>
+              <div class="leaf__face">
+                <span class="pnl pnl--top"></span>
+                <span class="rail rail--lock"></span>
+                <span class="pnl pnl--l"></span>
+                <span class="pnl pnl--r"></span>
+                <span class="rail rail--bottom"></span>
+                <span class="leaf__oil"></span>
+                <span class="leaf__shade" data-leaf-shade></span>
+                <span class="leaf__rim" data-leaf-rim></span>
+              </div>
+              <span class="leaf__edge"></span>
+              <svg class="hinge hinge--top" viewBox="0 0 20 80"><use href="#uw-hinge"/></svg>
+              <svg class="hinge hinge--bottom" viewBox="0 0 20 80"><use href="#uw-hinge"/></svg>
+              <svg class="handle" viewBox="0 0 120 240"><use href="#uw-handle"/></svg>
+            </div>
+            <span class="reveal"></span>
+          </div>
+        </div>
+        <span class="threshold"></span>
+        <span class="motes"><i style="--x:59%;--y:49%;--dx:-0.05;--s:9.3s;--d:-13.1s;--z:0.68"></i><i style="--x:92%;--y:43%;--dx:0.20;--s:10.5s;--d:-1.4s;--z:0.93"></i><i style="--x:48%;--y:45%;--dx:0.03;--s:9.4s;--d:-9.0s;--z:1.36"></i><i style="--x:92%;--y:43%;--dx:0.04;--s:11.8s;--d:-15.6s;--z:0.64"></i><i style="--x:35%;--y:58%;--dx:-0.04;--s:12.8s;--d:-9.1s;--z:1.05"></i><i style="--x:41%;--y:46%;--dx:0.04;--s:13.5s;--d:-6.0s;--z:1.04"></i><i style="--x:26%;--y:76%;--dx:-0.22;--s:10.4s;--d:-10.9s;--z:0.94"></i><i style="--x:58%;--y:69%;--dx:0.04;--s:12.2s;--d:-4.8s;--z:1.24"></i><i style="--x:49%;--y:45%;--dx:0.04;--s:12.7s;--d:-14.0s;--z:1.18"></i><i style="--x:54%;--y:78%;--dx:0.24;--s:9.8s;--d:-6.7s;--z:1.21"></i><i style="--x:37%;--y:71%;--dx:-0.04;--s:15.7s;--d:-1.2s;--z:1.05"></i><i style="--x:58%;--y:61%;--dx:0.10;--s:13.2s;--d:-9.3s;--z:0.96"></i><i style="--x:29%;--y:57%;--dx:-0.01;--s:13.6s;--d:-1.0s;--z:1.16"></i><i style="--x:91%;--y:83%;--dx:0.16;--s:11.0s;--d:-6.2s;--z:1.13"></i></span>
+      </div>
+      <span class="planter"><span class="planter__pot"><picture><source type="image/avif" srcset="assets/img/palm-360.avif?v=3 360w, assets/img/palm-640.avif?v=3 640w" sizes="(min-width: 900px) 24vw, 42vw"><img src="assets/img/palm-360.png?v=3" width="360" height="557" alt="" loading="eager" decoding="async"></picture></span><span class="planter__fronds"><span class="planter__rustle"><picture><source type="image/avif" srcset="assets/img/palm-360.avif?v=3 360w, assets/img/palm-640.avif?v=3 640w" sizes="(min-width: 900px) 24vw, 42vw"><img src="assets/img/palm-360.png?v=3" width="360" height="557" alt="" loading="eager" aria-hidden="true" decoding="async"></picture></span></span></span>
+    </div>
+    <div class="hero__veil tex-oat" aria-hidden="true" data-hero-veil></div>
+  </div>
+</section>
+
+<!-- ============ Shelves ============ -->
+<section class="shelves section tex-oat" id="shelves" aria-labelledby="shelves-title">
+  <div class="wrap">
+    <header class="section-head section-head--split">
+      <div>
+        <p class="eyebrow" data-rise-after>The shelves</p>
+        <h2 id="shelves-title" class="h2" data-rise>Welcome to <br><em class="lead">Wellness.</em></h2>
+      </div>
+      <p class="section-head__lede" data-rise-after>Start with what you need most.<br>You can always come back for the rest.</p>
+    </header>
+
+    <!-- Shop by need: filled from UW_NEEDS in assets/js/products.js -->
+    <div class="needs" aria-labelledby="needs-label">
+      <p class="needs__label" id="needs-label">Shop by need</p>
+      <div class="needs__scroll"><ul class="needs__list" data-needs-list></ul></div>
+    </div>
+
+    <ul class="shelf-rows">
+      <li class="shelf-row shelf-row--full">
+        <div class="shelf-row__text">
+          <h3 class="shelf__name"><a class="shelf__link" href="home.html">Home<span aria-hidden="true">→</span></a></h3>
+          <p class="shelf__text">Cleaning, laundry &amp; kitchen basics that work hard so you don’t have to.</p>
+          <a class="shelf__more" href="https://amway.com/share-link/WVe0ht5r3" target="_blank" rel="noopener">Shop the full Home collection<span class="sr-only"> on Amway (opens a new tab)</span></a>
+        </div>
+        <div class="shelf-unit shelf-unit--full">
+          <div class="shelf-scroll"><div class="shelf-track">
+          <ul class="shelf-unit__items" data-shelf-items="home" aria-label="A few of my home favorites">
+            <li style="--cm:25"><img src="assets/img/products/loc.png" width="126" height="360" alt="Amway Home L.O.C. Multi-Purpose Cleaner" loading="lazy" decoding="async"></li><li style="--cm:27"><img src="assets/img/products/sa8.png" width="258" height="360" alt="Amway Home SA8 Liquid Laundry Detergent" loading="lazy" decoding="async"></li>
+          </ul>
+          <div class="plank" aria-hidden="true"><span class="plank__top"></span><span class="plank__front"></span></div>
+          </div></div>
+        </div>
+      </li>
+      <li class="shelf-row shelf-row--full">
+        <div class="shelf-row__text">
+          <h3 class="shelf__name"><a class="shelf__link" href="nutrition.html">Nutrition<span aria-hidden="true">→</span></a></h3>
+          <p class="shelf__text">Daily nutrition &amp; support for the way you actually live.</p>
+          <a class="shelf__more" href="https://amway.com/share-link/RVbIqp6uN" target="_blank" rel="noopener">Shop the full Nutrition collection<span class="sr-only"> on Amway (opens a new tab)</span></a>
+        </div>
+        <div class="shelf-unit shelf-unit--full">
+          <div class="shelf-scroll"><div class="shelf-track">
+          <ul class="shelf-unit__items" data-shelf-items="nutrition" aria-label="A few of my nutrition favorites">
+            <li style="--cm:12.5"><img src="assets/img/products/begin.png" width="397" height="360" alt="Nutrilite Begin Daily GI Primer" loading="lazy" decoding="async"></li><li style="--cm:29;--base:.9;--back:1"><img src="assets/img/products/whey.png" width="297" height="360" alt="XS Grass-Fed Whey Protein, chocolate" loading="lazy" decoding="async"></li>
+          </ul>
+          <div class="plank" aria-hidden="true"><span class="plank__top"></span><span class="plank__front"></span></div>
+          </div></div>
+        </div>
+      </li>
+      <li class="shelf-row shelf-row--full">
+        <div class="shelf-row__text">
+          <h3 class="shelf__name"><a class="shelf__link" href="beauty.html">Beauty<span aria-hidden="true">→</span></a></h3>
+          <p class="shelf__text">Skin care &amp; makeup for every stage and every routine.</p>
+          <a class="shelf__more" href="https://amway.com/share-link/24b5Pi~3K" target="_blank" rel="noopener">Shop the full Beauty collection<span class="sr-only"> on Amway (opens a new tab)</span></a>
+        </div>
+        <div class="shelf-unit shelf-unit--full">
+          <div class="shelf-scroll"><div class="shelf-track">
+          <ul class="shelf-unit__items" data-shelf-items="beauty" aria-label="A few of my beauty favorites">
+            <li style="--cm:15.5"><img src="assets/img/products/serum.png" width="208" height="360" alt="Artistry Skin Nutrition Vitamin C + HA3 Daily Serum" loading="lazy" decoding="async"></li><li style="--cm:13"><img src="assets/img/products/lip.png" width="71" height="360" alt="Artistry Go Vibrant Light Up Liquid Lip Plumper" loading="lazy" decoding="async"></li>
+          </ul>
+          <div class="plank" aria-hidden="true"><span class="plank__top"></span><span class="plank__front"></span></div>
+          </div></div>
+        </div>
+      </li>
+      <li class="shelf-row shelf-row--full">
+        <div class="shelf-row__text">
+          <h3 class="shelf__name"><a class="shelf__link" href="personal-care.html">Personal care<span aria-hidden="true">→</span></a></h3>
+          <p class="shelf__text">The small daily things, done a little better.</p>
+          <a class="shelf__more" href="https://amway.com/share-link/Kl~tP3sw~" target="_blank" rel="noopener">Shop the full Personal care collection<span class="sr-only"> on Amway (opens a new tab)</span></a>
+        </div>
+        <div class="shelf-unit shelf-unit--full">
+          <div class="shelf-scroll"><div class="shelf-track">
+          <ul class="shelf-unit__items" data-shelf-items="personal-care" aria-label="A few of my personal care favorites">
+            <li style="--cm:19"><img src="assets/img/products/glister.png" width="120" height="360" alt="Glister Multi-Action Toothpaste" loading="lazy" decoding="async"></li><li style="--cm:21"><img src="assets/img/products/bodywash.png" width="132" height="360" alt="g&amp;h Nourish Body Wash" loading="lazy" decoding="async"></li>
+          </ul>
+          <div class="plank" aria-hidden="true"><span class="plank__top"></span><span class="plank__front"></span></div>
+          </div></div>
+        </div>
+      </li>
+      <li class="shelf-row shelf-row--soon">
+        <!-- Needs upline review before publishing: blood protocols and health plans, and how they can be described. -->
+        <div class="shelf-row__text">
+          <h3 class="shelf__name">Personalized health</h3>
+          <p class="shelf__text">Blood protocols &amp; holistic health plans for what your body needs. Opening November 2.</p>
+          <button class="shelf__ask" type="button" data-open-message data-topic="Personalized health">Learn more</button>
+        </div>
+        <div class="shelf-unit">
+          <div class="shelf-unit__items">
+            <p class="shelf-card"><span>Opening</span> <strong>November 2</strong></p>
+          </div>
+          <div class="plank" aria-hidden="true"><span class="plank__top"></span><span class="plank__front"></span></div>
+        </div>
+      </li>
+    </ul>
+
+    <!-- Two ways forward: guided (primary) or self-serve (quiet) -->
+    <div class="shelves-close">
+      <div class="shelves-close__path">
+        <p class="shelves-close__q">Not sure where to start?</p>
+        <button class="btn btn--brass" type="button" data-open-quiz>Start here</button>
+      </div>
+      <div class="shelves-close__path shelves-close__path--quiet">
+        <p class="shelves-close__q">Know what you want?</p>
+        <a class="link" href="https://www.amway.com/myshop/uncommonlywell" target="_blank" rel="noopener" data-shop-link>Order on Amway<span class="sr-only"> (opens Amway)</span></a>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============ Amway Membership ============ -->
+<!-- Needs upline review before publishing: the membership's name, price, savings ("up to $100"), and the GLP and Valdura wording.
+     The wording comes from Amway's membership overview (Amway+ Customer Membership.JPG); keep to it.
+     At launch (mid-November): swap the "Ask me about it" button for
+     <a class="btn btn--brass" href="{your Amway membership share link}" target="_blank" rel="noopener">Join on Amway<span class="sr-only"> (opens Amway)</span></a>
+     and remove "Launching mid-November" here and in the pop-up line (qv__member in main.js). -->
+<section class="member section" id="membership" aria-labelledby="member-title">
+  <div class="wrap">
+    <div class="member__card tex-deep">
+      <div class="member__intro">
+        <p class="eyebrow member__eyebrow">New · Launching <span class="nowrap">mid-November</span></p>
+        <h2 class="h2" id="member-title" data-rise>Amway <em>Membership</em></h2>
+        <div class="member__figs">
+          <p class="member__fig"><strong>$<span data-count="20">20</span></strong> <span>monthly membership</span></p>
+          <p class="member__fig"><span class="member__pre">Unlocks up to</span> <strong>$<span data-count="100">100</span></strong> <span>in rewards and discounts for registered customers</span></p>
+        </div>
+        <div class="member__actions">
+          <button class="btn btn--brass" type="button" data-open-message data-topic="Amway Membership">Ask me about it</button>
+          <p class="member__fine">Membership details from Amway; offers may change.</p>
+        </div>
+      </div>
+      <div class="member__lists">
+        <h3 class="member__head">Membership benefits</h3>
+        <p class="member__sub">With a purchase of $150 or more, members receive:</p>
+        <ul class="member__perks">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M3.5 12.6V4.5a1 1 0 0 1 1-1h8.1l8 8a1.4 1.4 0 0 1 0 2l-7.1 7.1a1.4 1.4 0 0 1-2 0z"/><circle pathLength="1" cx="8.2" cy="8.2" r="1.6"/></svg><strong>$<span data-count="40">40</span> off</strong> <span>their purchase</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M2.5 6.5h11v9.5h-11zM13.5 9.5h4l3.5 3.5v3h-7.5"/><circle pathLength="1" cx="6.5" cy="17.5" r="1.8"/><circle pathLength="1" cx="17" cy="17.5" r="1.8"/></svg><strong>Free</strong> <span>priority shipping</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M3.5 8.5h17v3.5h-17zM5 12v8.5h14V12M12 8.5v12M12 8.5c-1.5-3.5-5.5-4.5-5.5-2s3 2 5.5 2c2.5 0 5.5.5 5.5-2s-4-1.5-5.5 2"/></svg><strong>One free product</strong> <span>from a curated selection</span></li>
+        </ul>
+        <h3 class="member__head">Additional perks</h3>
+        <ul class="member__perks member__perks--quiet">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M3.5 12.6V4.5a1 1 0 0 1 1-1h8.1l8 8a1.4 1.4 0 0 1 0 2l-7.1 7.1a1.4 1.4 0 0 1-2 0z"/><circle pathLength="1" cx="8.2" cy="8.2" r="1.6"/></svg><strong>$<span data-count="10">10</span> off</strong> <span>select support solutions, including GLP support solutions</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M5 19.5V14M10 19.5V10M15 19.5V7M20 19.5V4"/></svg><strong><span data-count="50">50</span>% off</strong> <span>the monthly Valdura subscription</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="m12 3.2 2.7 5.6 6.1.8-4.5 4.2 1.1 6.1-5.4-3-5.4 3 1.1-6.1-4.5-4.2 6.1-.8z"/></svg><strong>Quarterly</strong> <span>rewards</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Statement ============ -->
+<section class="statement tex-deep" aria-labelledby="statement-title">
+  <svg class="statement__arch" viewBox="0 0 400 540" aria-hidden="true"><path d="M1 540V200A199 199 0 0 1 399 200V540"/><path d="M61 540V230A139 139 0 0 1 339 230V540"/></svg>
+  <div class="wrap statement__inner">
+    <h2 class="statement__title" id="statement-title" data-statement>Because normal doesn’t work for everyone.</h2>
+    <p class="statement__lede">So I start with you, not a script.</p>
+  </div>
+</section>
+
+<!-- ============ How it works ============ -->
+<section class="follow section" id="follow" aria-labelledby="follow-title">
+  <div class="wrap follow__grid">
+    <div class="follow__aside">
+      <div class="follow__sticky">
+        <h2 class="h2" id="follow-title">How it works</h2>
+        <div class="follow__img arch" data-reveal-img>
+          <picture class="ph" style="--ph:#d3c8b6"><source type="image/avif" srcset="assets/img/hands-480.avif 480w, assets/img/hands-800.avif 800w, assets/img/hands-1200.avif 1200w" sizes="(min-width: 900px) 30vw, 70vw"><source type="image/webp" srcset="assets/img/hands-480.webp 480w, assets/img/hands-800.webp 800w, assets/img/hands-1200.webp 1200w" sizes="(min-width: 900px) 30vw, 70vw"><img src="assets/img/hands-800.jpg" width="800" height="1000" alt="Hands wrapped around a white mug, sleeves of a cream sweater" loading="lazy" decoding="async"></picture>
+        </div>
+      </div>
+    </div>
+
+    <div class="follow__steps">
+      <span class="follow__track" aria-hidden="true"><span class="follow__fill" data-follow-fill></span></span>
+      <ol class="steps">
+        <li class="step" data-step>
+          <span class="step__num" aria-hidden="true">1</span>
+          <h3 class="step__title">Tell me what’s going on.</h3>
+          <p>Answer a few quick questions, then we’ll chat. No wrong answers and no such thing as TMI.</p>
+        </li>
+        <li class="step" data-step>
+          <span class="step__num" aria-hidden="true">2</span>
+          <h3 class="step__title">I pick a few things for you.</h3>
+          <p>A short list chosen for you, not a catalog. Free samples, while supplies last.</p>
+        </li>
+        <li class="step" data-step>
+          <span class="step__num" aria-hidden="true">3</span>
+          <h3 class="step__title">I check in.</h3>
+          <p>A couple of days later I’ll see how it’s going, and I’m a text away whenever you have a question.</p>
+        </li>
+      </ol>
+
+      <div class="follow__cta">
+        <button class="btn btn--harbor" type="button" data-open-quiz>Start here</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Meet Chelsea ============ -->
+<section class="note section" id="note" aria-labelledby="note-title">
+  <div class="wrap note__grid">
+    <div class="note__img arch" data-reveal-img><picture class="ph" style="--ph:#b49a74"><source type="image/avif" srcset="assets/img/chelsea-480.avif 480w, assets/img/chelsea-800.avif 800w, assets/img/chelsea-1200.avif 1200w" sizes="(min-width: 900px) 34vw, 80vw"><img src="assets/img/chelsea-800.jpg" srcset="assets/img/chelsea-480.jpg 480w, assets/img/chelsea-800.jpg 800w, assets/img/chelsea-1200.jpg 1200w" sizes="(min-width: 900px) 34vw, 80vw" width="800" height="1000" alt="Chelsea laughing, resting on a soft blanket in an autumn park" loading="lazy" decoding="async"></picture></div>
+    <div class="note__body">
+      <h2 class="note__label" id="note-title">Meet Chelsea</h2>
+      <p class="note__text">Daughter, sister, the cool aunt, memory keeper and second-generation business owner. I grew up seeing what’s possible when people get the right support, and I believe better is possible for everyone. I’m here to walk with you along the journey.</p>
+      <div class="note__signoff">
+        <p class="note__sign" aria-hidden="true">Chelsea</p>
+        <svg class="seal" viewBox="0 0 120 120" aria-hidden="true">
+        <defs>
+          <radialGradient id="wax-body" cx=".36" cy=".3" r=".8"><stop offset="0" stop-color="#F3E3BF"/><stop offset=".35" stop-color="#D6B77E"/><stop offset=".7" stop-color="#A8854F"/><stop offset="1" stop-color="#6F5229"/></radialGradient>
+          <radialGradient id="wax-press" cx=".4" cy=".34" r=".72"><stop offset="0" stop-color="#EAD5A6"/><stop offset=".6" stop-color="#C6A36A"/><stop offset="1" stop-color="#9C7A45"/></radialGradient>
+          <radialGradient id="wax-gloss" cx=".32" cy=".26" r=".42"><stop offset="0" stop-color="#FFF8E6" stop-opacity=".34"/><stop offset="1" stop-color="#FFF8E6" stop-opacity="0"/></radialGradient>
+          <filter id="wax-shadow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.4"/></filter>
+          <path id="seal-ring" d="M60 60m-40.6 0a40.6 40.6 0 1 1 81.2 0a40.6 40.6 0 1 1-81.2 0"/>
+        </defs>
+        <path class="seal__cast" d="M120.91 60.00C121.05 62.64 120.92 65.36 120.52 67.97C120.12 70.58 119.34 73.18 118.48 75.67C117.62 78.16 116.49 80.57 115.35 82.93C114.21 85.29 112.98 87.58 111.66 89.83C110.34 92.07 108.98 94.31 107.44 96.40C105.90 98.50 104.23 100.55 102.40 102.40C100.57 104.25 98.55 105.96 96.45 107.50C94.35 109.04 92.09 110.39 89.82 111.65C87.54 112.90 85.19 114.03 82.80 115.03C80.40 116.04 77.96 116.98 75.46 117.69C72.96 118.41 70.39 118.99 67.81 119.33C65.24 119.67 62.60 119.77 60.00 119.73C57.40 119.70 54.81 119.41 52.22 119.12C49.63 118.84 47.06 118.44 44.46 118.00C41.86 117.56 39.22 117.13 36.60 116.50C33.97 115.87 31.27 115.19 28.71 114.19C26.15 113.20 23.58 111.99 21.24 110.51C18.91 109.03 16.69 107.24 14.69 105.31C12.69 103.39 10.87 101.20 9.23 98.96C7.59 96.71 6.11 94.31 4.83 91.85C3.56 89.39 2.44 86.81 1.59 84.19C0.75 81.57 0.13 78.84 -0.24 76.14C-0.61 73.44 -0.67 70.67 -0.63 67.98C-0.60 65.29 -0.30 62.62 -0.02 60.00C0.26 57.38 0.63 54.81 1.05 52.24C1.48 49.67 1.90 47.12 2.54 44.60C3.18 42.09 3.90 39.56 4.89 37.17C5.88 34.78 7.10 32.44 8.49 30.26C9.88 28.08 11.54 26.05 13.23 24.11C14.92 22.17 16.77 20.38 18.64 18.64C20.51 16.90 22.44 15.23 24.45 13.67C26.46 12.11 28.54 10.60 30.72 9.28C32.90 7.97 35.19 6.78 37.54 5.78C39.89 4.79 42.35 3.99 44.81 3.30C47.27 2.61 49.79 2.09 52.32 1.65C54.85 1.21 57.42 0.83 60.00 0.66C62.58 0.50 65.23 0.40 67.81 0.64C70.40 0.89 73.03 1.35 75.51 2.12C77.99 2.88 80.41 4.00 82.69 5.23C84.96 6.47 87.08 8.00 89.15 9.52C91.21 11.03 93.14 12.67 95.06 14.31C96.97 15.96 98.84 17.61 100.63 19.37C102.42 21.12 104.19 22.92 105.81 24.85C107.42 26.78 108.94 28.82 110.32 30.95C111.69 33.07 112.93 35.31 114.07 37.60C115.22 39.89 116.27 42.25 117.19 44.67C118.12 47.10 119.01 49.60 119.63 52.15C120.24 54.70 120.76 57.36 120.91 60.00Z" transform="translate(2.2 3.2)" filter="url(#wax-shadow)"/>
+        <path class="seal__wax" d="M120.91 60.00C121.05 62.64 120.92 65.36 120.52 67.97C120.12 70.58 119.34 73.18 118.48 75.67C117.62 78.16 116.49 80.57 115.35 82.93C114.21 85.29 112.98 87.58 111.66 89.83C110.34 92.07 108.98 94.31 107.44 96.40C105.90 98.50 104.23 100.55 102.40 102.40C100.57 104.25 98.55 105.96 96.45 107.50C94.35 109.04 92.09 110.39 89.82 111.65C87.54 112.90 85.19 114.03 82.80 115.03C80.40 116.04 77.96 116.98 75.46 117.69C72.96 118.41 70.39 118.99 67.81 119.33C65.24 119.67 62.60 119.77 60.00 119.73C57.40 119.70 54.81 119.41 52.22 119.12C49.63 118.84 47.06 118.44 44.46 118.00C41.86 117.56 39.22 117.13 36.60 116.50C33.97 115.87 31.27 115.19 28.71 114.19C26.15 113.20 23.58 111.99 21.24 110.51C18.91 109.03 16.69 107.24 14.69 105.31C12.69 103.39 10.87 101.20 9.23 98.96C7.59 96.71 6.11 94.31 4.83 91.85C3.56 89.39 2.44 86.81 1.59 84.19C0.75 81.57 0.13 78.84 -0.24 76.14C-0.61 73.44 -0.67 70.67 -0.63 67.98C-0.60 65.29 -0.30 62.62 -0.02 60.00C0.26 57.38 0.63 54.81 1.05 52.24C1.48 49.67 1.90 47.12 2.54 44.60C3.18 42.09 3.90 39.56 4.89 37.17C5.88 34.78 7.10 32.44 8.49 30.26C9.88 28.08 11.54 26.05 13.23 24.11C14.92 22.17 16.77 20.38 18.64 18.64C20.51 16.90 22.44 15.23 24.45 13.67C26.46 12.11 28.54 10.60 30.72 9.28C32.90 7.97 35.19 6.78 37.54 5.78C39.89 4.79 42.35 3.99 44.81 3.30C47.27 2.61 49.79 2.09 52.32 1.65C54.85 1.21 57.42 0.83 60.00 0.66C62.58 0.50 65.23 0.40 67.81 0.64C70.40 0.89 73.03 1.35 75.51 2.12C77.99 2.88 80.41 4.00 82.69 5.23C84.96 6.47 87.08 8.00 89.15 9.52C91.21 11.03 93.14 12.67 95.06 14.31C96.97 15.96 98.84 17.61 100.63 19.37C102.42 21.12 104.19 22.92 105.81 24.85C107.42 26.78 108.94 28.82 110.32 30.95C111.69 33.07 112.93 35.31 114.07 37.60C115.22 39.89 116.27 42.25 117.19 44.67C118.12 47.10 119.01 49.60 119.63 52.15C120.24 54.70 120.76 57.36 120.91 60.00Z" fill="url(#wax-body)"/>
+        <path class="seal__rim" d="M120.91 60.00C121.05 62.64 120.92 65.36 120.52 67.97C120.12 70.58 119.34 73.18 118.48 75.67C117.62 78.16 116.49 80.57 115.35 82.93C114.21 85.29 112.98 87.58 111.66 89.83C110.34 92.07 108.98 94.31 107.44 96.40C105.90 98.50 104.23 100.55 102.40 102.40C100.57 104.25 98.55 105.96 96.45 107.50C94.35 109.04 92.09 110.39 89.82 111.65C87.54 112.90 85.19 114.03 82.80 115.03C80.40 116.04 77.96 116.98 75.46 117.69C72.96 118.41 70.39 118.99 67.81 119.33C65.24 119.67 62.60 119.77 60.00 119.73C57.40 119.70 54.81 119.41 52.22 119.12C49.63 118.84 47.06 118.44 44.46 118.00C41.86 117.56 39.22 117.13 36.60 116.50C33.97 115.87 31.27 115.19 28.71 114.19C26.15 113.20 23.58 111.99 21.24 110.51C18.91 109.03 16.69 107.24 14.69 105.31C12.69 103.39 10.87 101.20 9.23 98.96C7.59 96.71 6.11 94.31 4.83 91.85C3.56 89.39 2.44 86.81 1.59 84.19C0.75 81.57 0.13 78.84 -0.24 76.14C-0.61 73.44 -0.67 70.67 -0.63 67.98C-0.60 65.29 -0.30 62.62 -0.02 60.00C0.26 57.38 0.63 54.81 1.05 52.24C1.48 49.67 1.90 47.12 2.54 44.60C3.18 42.09 3.90 39.56 4.89 37.17C5.88 34.78 7.10 32.44 8.49 30.26C9.88 28.08 11.54 26.05 13.23 24.11C14.92 22.17 16.77 20.38 18.64 18.64C20.51 16.90 22.44 15.23 24.45 13.67C26.46 12.11 28.54 10.60 30.72 9.28C32.90 7.97 35.19 6.78 37.54 5.78C39.89 4.79 42.35 3.99 44.81 3.30C47.27 2.61 49.79 2.09 52.32 1.65C54.85 1.21 57.42 0.83 60.00 0.66C62.58 0.50 65.23 0.40 67.81 0.64C70.40 0.89 73.03 1.35 75.51 2.12C77.99 2.88 80.41 4.00 82.69 5.23C84.96 6.47 87.08 8.00 89.15 9.52C91.21 11.03 93.14 12.67 95.06 14.31C96.97 15.96 98.84 17.61 100.63 19.37C102.42 21.12 104.19 22.92 105.81 24.85C107.42 26.78 108.94 28.82 110.32 30.95C111.69 33.07 112.93 35.31 114.07 37.60C115.22 39.89 116.27 42.25 117.19 44.67C118.12 47.10 119.01 49.60 119.63 52.15C120.24 54.70 120.76 57.36 120.91 60.00Z"/>
+        <circle class="seal__press" cx="60" cy="60" r="51.5" fill="url(#wax-press)"/>
+        <circle class="seal__groove" cx="60.6" cy="60.8" r="51.5"/>
+        <circle class="seal__groove-lit" cx="59.6" cy="59.4" r="50.3"/>
+        <circle class="seal__groove" cx="60.5" cy="60.6" r="35.5"/>
+        <circle class="seal__groove-lit" cx="59.7" cy="59.6" r="34.6"/>
+        <text class="seal__text seal__text--shade" transform="translate(.5 .6)"><textPath href="#seal-ring" textLength="252">UNCOMMONLY WELL · DONE WITH CARE ·</textPath></text>
+        <text class="seal__text"><textPath href="#seal-ring" textLength="252">UNCOMMONLY WELL · DONE WITH CARE ·</textPath></text>
+        <svg x="47.5" y="43.6" width="26" height="34" viewBox="0 0 32 42" class="mark mark--wax-shade"><use href="#uw-mark"/></svg>
+        <svg x="47" y="43" width="26" height="34" viewBox="0 0 32 42" class="mark mark--wax"><use href="#uw-mark"/></svg>
+        <path class="seal__gloss" d="M120.91 60.00C121.05 62.64 120.92 65.36 120.52 67.97C120.12 70.58 119.34 73.18 118.48 75.67C117.62 78.16 116.49 80.57 115.35 82.93C114.21 85.29 112.98 87.58 111.66 89.83C110.34 92.07 108.98 94.31 107.44 96.40C105.90 98.50 104.23 100.55 102.40 102.40C100.57 104.25 98.55 105.96 96.45 107.50C94.35 109.04 92.09 110.39 89.82 111.65C87.54 112.90 85.19 114.03 82.80 115.03C80.40 116.04 77.96 116.98 75.46 117.69C72.96 118.41 70.39 118.99 67.81 119.33C65.24 119.67 62.60 119.77 60.00 119.73C57.40 119.70 54.81 119.41 52.22 119.12C49.63 118.84 47.06 118.44 44.46 118.00C41.86 117.56 39.22 117.13 36.60 116.50C33.97 115.87 31.27 115.19 28.71 114.19C26.15 113.20 23.58 111.99 21.24 110.51C18.91 109.03 16.69 107.24 14.69 105.31C12.69 103.39 10.87 101.20 9.23 98.96C7.59 96.71 6.11 94.31 4.83 91.85C3.56 89.39 2.44 86.81 1.59 84.19C0.75 81.57 0.13 78.84 -0.24 76.14C-0.61 73.44 -0.67 70.67 -0.63 67.98C-0.60 65.29 -0.30 62.62 -0.02 60.00C0.26 57.38 0.63 54.81 1.05 52.24C1.48 49.67 1.90 47.12 2.54 44.60C3.18 42.09 3.90 39.56 4.89 37.17C5.88 34.78 7.10 32.44 8.49 30.26C9.88 28.08 11.54 26.05 13.23 24.11C14.92 22.17 16.77 20.38 18.64 18.64C20.51 16.90 22.44 15.23 24.45 13.67C26.46 12.11 28.54 10.60 30.72 9.28C32.90 7.97 35.19 6.78 37.54 5.78C39.89 4.79 42.35 3.99 44.81 3.30C47.27 2.61 49.79 2.09 52.32 1.65C54.85 1.21 57.42 0.83 60.00 0.66C62.58 0.50 65.23 0.40 67.81 0.64C70.40 0.89 73.03 1.35 75.51 2.12C77.99 2.88 80.41 4.00 82.69 5.23C84.96 6.47 87.08 8.00 89.15 9.52C91.21 11.03 93.14 12.67 95.06 14.31C96.97 15.96 98.84 17.61 100.63 19.37C102.42 21.12 104.19 22.92 105.81 24.85C107.42 26.78 108.94 28.82 110.32 30.95C111.69 33.07 112.93 35.31 114.07 37.60C115.22 39.89 116.27 42.25 117.19 44.67C118.12 47.10 119.01 49.60 119.63 52.15C120.24 54.70 120.76 57.36 120.91 60.00Z" fill="url(#wax-gloss)"/>
+      </svg>
+      </div>
+      <div class="note__actions">
+        <button class="btn btn--harbor" type="button" data-open-message>Message me</button>
+        <a class="link" href="about.html">The full story</a>
+      </div>
+    </div>
+  </div>
+  <div class="wrap favorites">
+    <div class="favorites__head">
+      <h3 class="favorites__title">On my shelf</h3>
+      <p class="favorites__lede">The things I reach for every day. Tap one for the details.</p>
+    </div>
+    <div class="shelf-unit shelf-unit--wide">
+      <ul class="shelf-unit__items" aria-label="Chelsea’s favorites"><li style="--cm:7"><button class="fav" type="button" data-product="doublex" aria-label="Nutrilite Double X Multivitamin, 31-Day Supply with Case: see details"><img src="assets/img/products/doublex.png" width="561" height="234" alt="" loading="lazy" decoding="async"></button></li><li style="--cm:22"><button class="fav" type="button" data-product="plantprotein" aria-label="Nutrilite Organics Plant Protein Powder, Chocolate: see details"><img src="assets/img/products/plantprotein.png" width="231" height="331" alt="" loading="lazy" decoding="async"></button></li><li style="--cm:17;--base:0.96"><button class="fav" type="button" data-product="muscle" aria-label="XS Muscle Multiplier, Berry Blast: see details"><img src="assets/img/products/muscle.png" width="267" height="360" alt="" loading="lazy" decoding="async"></button></li><li style="--cm:14"><button class="fav" type="button" data-product="prebiotic" aria-label="Nutrilite Prebiotic Fiber: see details"><img src="assets/img/products/prebiotic.png" width="184" height="360" alt="" loading="lazy" decoding="async"></button></li><li style="--cm:6.5"><button class="fav" type="button" data-product="sleepmask" aria-label="Artistry Skin Nutrition Sleeping Mask: see details"><img src="assets/img/products/sleepmask.png" width="334" height="360" alt="" loading="lazy" decoding="async"></button></li><li style="--cm:14"><button class="fav" type="button" data-product="mascara" aria-label="Artistry Go Vibrant 3-in-1 Volume Mascara: see details"><img src="assets/img/products/mascara.png" width="45" height="360" alt="" loading="lazy" decoding="async"></button></li><li style="--cm:17"><button class="fav" type="button" data-product="jellycleanser" aria-label="Artistry Skin Nutrition Balancing Jelly Cleanser: see details"><img src="assets/img/products/jellycleanser.png" width="125" height="360" alt="" loading="lazy" decoding="async"></button></li></ul>
+      <div class="plank" aria-hidden="true"><span class="plank__top"></span><span class="plank__front"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Gather ============ -->
+<section class="gather section tex-oat" id="gather" aria-labelledby="gather-title">
+  <div class="wrap">
+    <header class="section-head">
+      <h2 class="h2" id="gather-title">Pull up a chair. There’s room.</h2>
+    </header>
+
+    <div class="gather__grid">
+      <article class="gcard">
+        <div class="gcard__img arch" data-reveal-img><picture class="ph" style="--ph:#b5a58c"><source type="image/avif" srcset="assets/img/gather-480.avif 480w, assets/img/gather-800.avif 800w, assets/img/gather-1200.avif 1200w" sizes="(min-width: 900px) 40vw, 90vw"><source type="image/webp" srcset="assets/img/gather-480.webp 480w, assets/img/gather-800.webp 800w, assets/img/gather-1200.webp 1200w" sizes="(min-width: 900px) 40vw, 90vw"><img src="assets/img/gather-800.jpg" width="800" height="1000" alt="Friends sitting around a bright table by a big window" loading="lazy" decoding="async"></picture></div>
+        <h3 class="gcard__title">Gatherings</h3>
+        <p>Virtual &amp; in-person gatherings, because wellness thrives in community, open to everyone.</p>
+        <a class="btn btn--harbor" href="gather.html">See what’s coming up</a>
+      </article>
+
+      <article class="gcard gcard--offset">
+        <div class="gcard__img arch" data-reveal-img><picture class="ph" style="--ph:#bdab8c"><source type="image/avif" srcset="assets/img/gift-480.avif 480w, assets/img/gift-800.avif 800w, assets/img/gift-1200.avif 1200w" sizes="(min-width: 900px) 40vw, 90vw"><source type="image/webp" srcset="assets/img/gift-480.webp 480w, assets/img/gift-800.webp 800w, assets/img/gift-1200.webp 1200w" sizes="(min-width: 900px) 40vw, 90vw"><img src="assets/img/gift-800.jpg" width="800" height="1000" alt="A wrapped gift tied with silk ribbon, resting on soft linen" loading="lazy" decoding="async"></picture></div>
+        <h3 class="gcard__title">Gifts</h3>
+        <p>Thoughtful bundles for the people who matter, wrapped and ready.</p>
+        <a class="btn btn--harbor" href="gifts.html">See the gifts</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Closing invitation ============ -->
+<section class="invite tex-dark" aria-labelledby="invite-title">
+  <div class="wrap invite__inner">
+    <h2 class="invite__title" id="invite-title">Not sure where to start? <em>That’s what I’m here for.</em></h2>
+    <div class="invite__actions">
+      <button class="btn btn--brass" type="button" data-open-quiz>Start here</button>
+      <button class="btn btn--line" type="button" data-open-message>Say hi</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ Footer ============ -->
+<footer class="footer tex-deep">
+  <div class="wrap footer__top">
+    <div class="footer__intro">
+      <div class="lockup" aria-label="Uncommonly Well">
+        <svg class="lockup__mark mark mark--dark" viewBox="0 0 32 42" aria-hidden="true"><use href="#uw-mark"/></svg>
+        <p class="lockup__word" aria-hidden="true">Uncommonly<br>Well</p>
+      </div>
+      <p class="footer__tag">The common things, done uncommonly well.</p>
+      <p class="footer__contact"><button class="link link--light" type="button" data-open-message>Message me</button></p>
+    </div>
+    <nav class="footer__nav" aria-label="Footer">
+      <ul>
+        <li><a href="#top" data-open-quiz>Start here</a></li>
+        <li><a href="#shelves">The Shelves</a></li>
+        <li><a href="#membership">Membership</a></li>
+        <li><a href="gather.html">Gather</a></li>
+        <li><a href="gifts.html">Gifts</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="https://www.amway.com/myshop/uncommonlywell" target="_blank" rel="noopener" data-shop-link>Shop<span class="sr-only"> (opens Amway)</span></a></li>
+        <li><button type="button" data-open-message>Contact</button></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap footer__legal">
+    <p>Chelsea Herschelman, Amway Independent Business Owner. Uncommonly Well is an independent business and is not Amway. [Required disclosure wording, privacy policy and terms links go here.]</p>
+    <p>These statements have not been evaluated by the Food and Drug Administration. These products are not intended to diagnose, treat, cure or prevent any disease.</p>
+    <p>Photography via Unsplash: Svitlana, 21 swan, Kadarius Seegars, Joyful, Karl Hedin, Mia Golic, The Cleveland Museum of Art, Olga Thelavart, Content Pixie, Monica Valls, Carmela Lustre and Spacejoy</p>
+    <p>© <span data-year>2026</span> Uncommonly Well</p>
+  </div>
+  <p class="footer__word" aria-hidden="true">Uncommonly Well</p>
+</footer>
+
+<!-- ============ Door hardware (aged brass) ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <!-- Flat backplate: a broad warm body with one hard specular band -->
+    <linearGradient id="uw-brass-body" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2f1f07"/>
+      <stop offset=".1" stop-color="#6c5129"/>
+      <stop offset=".28" stop-color="#ad8a55"/>
+      <stop offset=".4" stop-color="#e3cc9f"/>
+      <stop offset=".46" stop-color="#fff6dc"/>
+      <stop offset=".52" stop-color="#d2b585"/>
+      <stop offset=".72" stop-color="#87683a"/>
+      <stop offset=".9" stop-color="#4f3611"/>
+      <stop offset="1" stop-color="#2a1b05"/>
+    </linearGradient>
+    <!-- Lever: a cylinder lying sideways, so it shades top to bottom -->
+    <linearGradient id="uw-brass-lever" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3b280b"/>
+      <stop offset=".16" stop-color="#a2804b"/>
+      <stop offset=".3" stop-color="#fbeec9"/>
+      <stop offset=".38" stop-color="#ecd8b0"/>
+      <stop offset=".62" stop-color="#957444"/>
+      <stop offset=".86" stop-color="#4b330f"/>
+      <stop offset="1" stop-color="#22170a"/>
+    </linearGradient>
+    <!-- Domed parts: rose, screw heads, pin caps -->
+    <radialGradient id="uw-brass-dome" cx=".36" cy=".3" r=".78">
+      <stop offset="0" stop-color="#fffaf0"/>
+      <stop offset=".14" stop-color="#ecd9b1"/>
+      <stop offset=".45" stop-color="#a8864f"/>
+      <stop offset=".8" stop-color="#58401f"/>
+      <stop offset="1" stop-color="#2a1c06"/>
+    </radialGradient>
+    <!-- Hinge knuckle: an upright cylinder -->
+    <linearGradient id="uw-brass-knuckle" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2c1d06"/>
+      <stop offset=".22" stop-color="#8b6d3e"/>
+      <stop offset=".38" stop-color="#f1e1bd"/>
+      <stop offset=".5" stop-color="#c3a272"/>
+      <stop offset=".8" stop-color="#5c4320"/>
+      <stop offset="1" stop-color="#22170a"/>
+    </linearGradient>
+    <!-- Patina: oxidised edges and recesses -->
+    <radialGradient id="uw-patina" cx=".5" cy=".5" r=".62">
+      <stop offset=".55" stop-color="#2a1a04" stop-opacity="0"/>
+      <stop offset="1" stop-color="#1f1403" stop-opacity=".55"/>
+    </radialGradient>
+    <!-- Brushed grain: fine vertical streaks clipped to the metal -->
+    <filter id="uw-brushed" x="0" y="0" width="1" height="1">
+      <feTurbulence type="fractalNoise" baseFrequency="1.6 .018" numOctaves="2" seed="3" result="n"/>
+      <feColorMatrix in="n" values="0 0 0 0 .1  0 0 0 0 .07  0 0 0 0 .02  0 0 0 .9 -.32" result="streak"/>
+      <feComposite in="streak" in2="SourceGraphic" operator="in" result="lines"/>
+      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="lines"/></feMerge>
+    </filter>
+    <filter id="uw-brushed-h" x="0" y="0" width="1" height="1">
+      <feTurbulence type="fractalNoise" baseFrequency=".02 1.6" numOctaves="2" seed="5" result="n"/>
+      <feColorMatrix in="n" values="0 0 0 0 .1  0 0 0 0 .07  0 0 0 0 .02  0 0 0 .9 -.32" result="streak"/>
+      <feComposite in="streak" in2="SourceGraphic" operator="in" result="lines"/>
+      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="lines"/></feMerge>
+    </filter>
+    <!-- The hardware sits on the wood and casts a short, soft shadow -->
+    <filter id="uw-contact" x="-30%" y="-10%" width="160%" height="130%">
+      <feDropShadow dx="-2.5" dy="4" stdDeviation="2.6" flood-color="#1a0e02" flood-opacity=".6"/>
+    </filter>
+
+    <symbol id="uw-handle" viewBox="0 0 120 240">
+      <g filter="url(#uw-contact)">
+        <!-- Backplate -->
+        <rect x="78" y="14" width="26" height="200" rx="13" fill="url(#uw-brass-body)" filter="url(#uw-brushed)" data-sheen/>
+        <rect x="78" y="14" width="26" height="200" rx="13" fill="url(#uw-patina)"/>
+        <rect x="79.4" y="15.4" width="23.2" height="197.2" rx="11.6" fill="none" stroke="#fff1c8" stroke-opacity=".38" stroke-width="1"/>
+        <rect x="78" y="14" width="26" height="200" rx="13" fill="none" stroke="#1d1304" stroke-opacity=".7" stroke-width="1"/>
+        <!-- Screws, slots turned at different angles like real ones -->
+        <circle cx="91" cy="28" r="3.8" fill="url(#uw-brass-dome)"/>
+        <path d="M88.4 29.3l5.2-2.6" stroke="#1d1304" stroke-width="1.2" stroke-linecap="round"/>
+        <circle cx="91" cy="200" r="3.8" fill="url(#uw-brass-dome)"/>
+        <path d="M89.2 197.6l3.6 4.8" stroke="#1d1304" stroke-width="1.2" stroke-linecap="round"/>
+        <!-- Keyhole -->
+        <circle cx="91" cy="152" r="4.8" fill="#120a02"/>
+        <path d="M88.2 154h5.6l1.7 13h-9z" fill="#120a02"/>
+        <path d="M86.4 167.6h9.2" stroke="#f1e1bd" stroke-opacity=".55" stroke-width=".9" stroke-linecap="round"/>
+        <path d="M86.6 150.4a4.8 4.8 0 0 1 8.8 0" stroke="#000" stroke-opacity=".5" stroke-width="1" fill="none"/>
+        <!-- Rose -->
+        <circle cx="91" cy="86" r="14" fill="url(#uw-brass-dome)"/>
+        <circle cx="91" cy="86" r="14" fill="none" stroke="#1d1304" stroke-opacity=".55"/>
+        <circle cx="91" cy="86" r="9.5" fill="none" stroke="#fff2cc" stroke-opacity=".28"/>
+        <!-- Lever, sweeping toward the hinge side -->
+        <path d="M94 78.5C82 78.4 46 77.6 20 79.6 12.8 80.2 7 83.4 7 88s5.4 7.6 13 7.9c26 1 62-.4 74-.6z" fill="url(#uw-brass-lever)" filter="url(#uw-brushed-h)"/>
+        <path d="M94 78.5C82 78.4 46 77.6 20 79.6 12.8 80.2 7 83.4 7 88s5.4 7.6 13 7.9c26 1 62-.4 74-.6z" fill="none" stroke="#1d1304" stroke-opacity=".6" stroke-width=".9"/>
+        <path d="M18 82.6c20-1.4 50-1.6 70-1.2" stroke="#fffbef" stroke-opacity=".85" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+        <ellipse cx="9.6" cy="86.6" rx="1.6" ry="2.4" fill="#fff6dc" fill-opacity=".7"/>
+        <!-- Where the lever meets the rose -->
+        <circle cx="91" cy="87" r="6.5" fill="url(#uw-brass-dome)"/>
+      </g>
+    </symbol>
+
+    <symbol id="uw-hinge" viewBox="0 0 20 80">
+      <g filter="url(#uw-contact)">
+        <rect x="4" y="5" width="12" height="70" rx="2.5" fill="url(#uw-brass-knuckle)" filter="url(#uw-brushed)"/>
+        <rect x="4" y="5" width="12" height="70" rx="2.5" fill="url(#uw-patina)"/>
+        <path d="M4 28.5h12M4 51.5h12" stroke="#1a1003" stroke-width="1.2"/>
+        <path d="M4 29.6h12M4 52.6h12" stroke="#f5dfa6" stroke-opacity=".45" stroke-width=".7"/>
+        <rect x="5.5" y="1" width="9" height="5" rx="2.4" fill="url(#uw-brass-dome)"/>
+        <rect x="5.5" y="74" width="9" height="5" rx="2.4" fill="url(#uw-brass-dome)"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ============ Quiz ============ -->
+<dialog class="quiz" data-quiz aria-labelledby="quiz-label">
+  <div class="quiz__panel">
+    <div class="quiz__top">
+      <p class="quiz__label" id="quiz-label">The 2-minute survey</p>
+      <button class="drawer__close" type="button" data-close-quiz aria-label="Close the survey">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
+      </button>
+    </div>
+    <div class="quiz__progress" role="progressbar" aria-label="Survey progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span data-quiz-bar></span></div>
+
+    <form class="quiz__form" data-quiz-form novalidate>
+      <div class="quiz__steps" data-quiz-steps><!-- Steps are built from the question list in main.js --></div>
+      <div class="quiz__nav" data-quiz-nav>
+        <button class="btn btn--line-dark" type="button" data-quiz-back>Back</button>
+        <button class="btn btn--harbor" type="submit" data-quiz-next>Next</button>
+      </div>
+    </form>
+
+    <div class="quiz__finish" data-quiz-finish hidden tabindex="-1"></div>
+  </div>
+</dialog>
+
+<!-- ============ Message drawer ============ -->
+<dialog class="drawer" data-drawer aria-labelledby="drawer-title">
+  <div class="drawer__panel">
+    <div class="drawer__head">
+      <h2 class="drawer__title" id="drawer-title">Message Chelsea</h2>
+      <button class="drawer__close" type="button" data-close-drawer aria-label="Close">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
+      </button>
+    </div>
+
+    <form class="mform" data-form="message" novalidate>
+      <p class="mform__intro" data-drawer-intro>Ask me anything: a product question, a gift idea, or just hi. I read every message myself.</p>
+      <div class="field">
+        <label for="m-name">Your first name</label>
+        <input id="m-name" name="name" type="text" autocomplete="given-name" required aria-describedby="m-name-error">
+        <p class="field-error" id="m-name-error"></p>
+      </div>
+      <div class="field">
+        <label for="m-phone">Mobile number</label>
+        <input id="m-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required aria-describedby="m-phone-hint m-phone-error">
+        <p class="field-hint" id="m-phone-hint">I’ll text or call you here.</p>
+        <p class="field-error" id="m-phone-error"></p>
+      </div>
+      <div class="field">
+        <label for="m-topic">What can I help with?</label>
+        <div class="select">
+          <select id="m-topic" name="topic">
+            <option>Just saying hello</option>
+            <option>Help finding what fits</option>
+            <option>A product question</option>
+            <option>An order or a return</option>
+            <option>A custom gift</option>
+            <option>Wishlist a gift</option>
+            <option>Gatherings</option>
+            <option>Host a gathering</option>
+            <option>Personalized health</option>
+            <option>Amway Membership</option>
+          </select>
+        </div>
+      </div>
+      <!-- Gift questions: shown when the topic is "A custom gift" or "Wishlist a gift". The gift names come from UW_GIFTS in products.js. -->
+      <fieldset class="mform__gift" data-gift-fields hidden disabled>
+        <legend class="sr-only">About the gift</legend>
+        <div class="field">
+          <label for="m-gift">Which gift?</label>
+          <div class="select">
+            <select id="m-gift" name="gift">
+              <option>Something custom</option>
+            </select>
+          </div>
+        </div>
+        <fieldset class="mform__group" data-gift-only>
+          <legend class="sr-only">Sending a gift</legend>
+          <div class="field">
+            <label for="m-for">Who’s it for? <span class="opt">(optional)</span></label>
+            <input id="m-for" name="giftFor" type="text" placeholder="My sister, a new neighbor…">
+          </div>
+          <div class="field">
+            <label for="m-occasion">The occasion <span class="opt">(optional)</span></label>
+            <input id="m-occasion" name="occasion" type="text" placeholder="Birthday, thank-you, just because…">
+          </div>
+          <div class="field" data-gift-budget>
+            <label for="m-budget">Budget <span class="opt">(optional)</span></label>
+            <div class="select">
+              <select id="m-budget" name="budget">
+                <option value="">Choose one</option>
+                <option>Under $50</option>
+                <option>$50–$100</option>
+                <option>$100–$150</option>
+                <option>$150+</option>
+                <option>Not sure yet</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="m-date">Needed by <span class="opt">(optional)</span></label>
+            <input id="m-date" name="neededBy" type="date">
+          </div>
+          <fieldset class="field mform__choices">
+            <legend>How should it get there?</legend>
+            <label class="choice"><input type="radio" name="delivery" value="Ship it to them" checked> Ship it to them</label>
+            <label class="choice"><input type="radio" name="delivery" value="Ship it to me"> Ship it to me</label>
+            <label class="choice"><input type="radio" name="delivery" value="Hand-deliver (local)"> Hand-deliver it (local)</label>
+          </fieldset>
+        </fieldset>
+        <!-- Wishlist: Chelsea lets someone the visitor names know they'd love this gift -->
+        <fieldset class="mform__group" data-wish-only hidden disabled>
+          <legend class="sr-only">Your wish list</legend>
+          <p class="mform__note">Tell me who to drop a hint to, and I’ll let them know this one’s on your wish list.</p>
+          <div class="field">
+            <label for="m-wish-name">Who should I let know?</label>
+            <input id="m-wish-name" name="wish_name" type="text" placeholder="Their first name" required aria-describedby="m-wish-name-error">
+            <p class="field-error" id="m-wish-name-error"></p>
+          </div>
+          <div class="field">
+            <label for="m-wish-relation">How do you know them? <span class="opt">(optional)</span></label>
+            <input id="m-wish-relation" name="wish_relation" type="text" placeholder="My husband, my best friend…">
+          </div>
+          <div class="field">
+            <label for="m-wish-contact">Their email or mobile number</label>
+            <input id="m-wish-contact" name="wish_contact" type="text" inputmode="email" required aria-describedby="m-wish-contact-error">
+            <p class="field-error" id="m-wish-contact-error"></p>
+          </div>
+          <div class="field">
+            <label for="m-wish-date">When’s the occasion? <span class="opt">(optional)</span></label>
+            <input id="m-wish-date" name="wish_date" type="date">
+          </div>
+          <div class="field field--check">
+            <input id="m-wish-ok" name="wish_ok" type="checkbox" required aria-describedby="m-wish-ok-error">
+            <label for="m-wish-ok">Yes, you may reach out to this person about my wish list, and tell them it’s from me.</label>
+            <p class="field-error" id="m-wish-ok-error"></p>
+          </div>
+        </fieldset>
+      </fieldset>
+      <!-- Gathering questions: shown when the topic is "Gatherings". The events come from UW_EVENTS in products.js. -->
+      <fieldset class="mform__gift" data-gather-fields hidden disabled>
+        <legend class="sr-only">About the gathering</legend>
+        <div class="field">
+          <label for="m-event">Which gathering?</label>
+          <div class="select">
+            <select id="m-event" name="event">
+              <option>Tell me about future gatherings</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="m-guests">How many are coming?</label>
+          <div class="select">
+            <select id="m-guests" name="guests">
+              <option>Just me</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5+</option>
+            </select>
+          </div>
+        </div>
+      </fieldset>
+      <div class="field">
+        <label for="m-msg">Anything you’d like me to know <span class="opt">(optional)</span></label>
+        <textarea id="m-msg" name="message" rows="4" placeholder="What’s working, what isn’t, what you’ve tried…"></textarea>
+      </div>
+      <div class="field field--check">
+        <input id="m-consent" name="consent" type="checkbox" required aria-describedby="m-consent-error">
+        <label for="m-consent">Yes, you may contact me about my request. I can opt out anytime.</label>
+        <p class="field-error" id="m-consent-error"></p>
+      </div>
+      <button class="btn btn--harbor btn--block" type="submit">Send message</button>
+    </form>
+
+    <div class="mdone" data-done hidden tabindex="-1">
+      <svg class="mdone__arch" viewBox="0 0 60 72" aria-hidden="true"><path d="M2 70V30a28 28 0 0 1 56 0v40"/><path d="M18 40l9 9 16-18"/></svg>
+      <p class="mdone__title">Got it! Thanks, <span data-done-name>friend</span>.</p>
+      <p>I’ll be in touch soon. Until then, take your time looking around.</p>
+      <p class="mdone__preview" data-preview-note>Preview only: this form isn’t connected yet, so nothing was sent.</p>
+      <button class="btn btn--line-dark" type="button" data-close-drawer>Keep browsing</button>
+    </div>
+  </div>
+</dialog>
+
+<script src="assets/vendor/gsap.min.js" defer></script>
+<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="assets/vendor/SplitText.min.js" defer></script>
+<script src="assets/vendor/lenis.min.js" defer></script>
+<script src="assets/js/products.js?v=34" defer></script>
+<script src="assets/js/main.js?v=162" defer></script>
+</body>
+</html>
