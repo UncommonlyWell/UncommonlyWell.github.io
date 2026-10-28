@@ -340,7 +340,8 @@ body.menu-open .brand__mark { --m-line: url(#uw-gold-bright); --m-light: url(#uw
 .hero { position: relative; background: var(--harbor-deep); }
 .hero__pin { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); overflow: hidden; }
 /* At the end of the walk-through the doorway gives way to the oat of the next section */
-.hero__veil { position: absolute; inset: 0; z-index: 5; opacity: 0; visibility: hidden; pointer-events: none; }
+/* The door zooms into Meet Chelsea, so the veil is her section's linen */
+.hero__veil { position: absolute; inset: 0; z-index: 5; opacity: 0; visibility: hidden; pointer-events: none; background: var(--linen); }
 .hero__copy {
   position: relative; z-index: 2;
   display: flex; flex-direction: column; justify-content: center;
@@ -354,8 +355,8 @@ body.menu-open .brand__mark { --m-line: url(#uw-gold-bright); --m-light: url(#uw
 @media (min-width: 900px) and (min-height: 600px) and (prefers-reduced-motion: no-preference) {
   .hero { height: 175svh; }
   .hero__pin { position: sticky; top: 0; height: 100svh; }
-  /* The door's zoom already ends on the shelves' oat, so the shelves start sooner after it */
-  .hero + .shelves { padding-top: clamp(2.5rem, 1rem + 3vw, 4.5rem); }
+  /* The door's zoom already ends on Meet Chelsea's linen, so her section starts sooner after it */
+  .hero + .note { padding-top: clamp(2.5rem, 1rem + 3vw, 4.5rem); }
 }
 .hero__title {
   font-family: var(--serif);
@@ -944,6 +945,9 @@ body.menu-open .brand__mark { --m-line: url(#uw-gold-bright); --m-light: url(#uw
 .note { --u: clamp(4.2px, 1.3vw, 5px); }
 @media (min-width: 900px) { .note { --u: clamp(5.4px, .5vw, 6.6px); } }
 .favorites { margin-top: clamp(3.5rem, 7vw, 5.5rem); display: grid; gap: 1.5rem; }
+/* At the end of the shelves, On my shelf keeps the scale it had under Meet Chelsea, set off by a thin rule */
+.shelves .favorites { --u: clamp(4.2px, 1.3vw, 5px); margin-top: clamp(3rem, 2rem + 3vw, 4.5rem); padding-top: clamp(2rem, 1.5rem + 2vw, 3rem); border-top: 1px solid var(--line); }
+@media (min-width: 900px) { .shelves .favorites { --u: clamp(5.4px, .5vw, 6.6px); } }
 @media (min-width: 900px) { .favorites { grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr); align-items: end; gap: 3rem; } }
 .favorites__head { display: grid; gap: .4rem; padding-bottom: calc(var(--u) * 6); }
 @media (max-width: 899px) { .favorites__head { padding-bottom: 0; } }
@@ -1447,17 +1451,13 @@ body.menu-open .ys-pill { opacity: 0; pointer-events: none; }
 .interlude__quote figcaption { color: var(--oat); font-size: var(--fs-small); display: flex; align-items: center; gap: 1rem; }
 .interlude__quote figcaption::before { content: ""; width: 2.5rem; height: 1px; background: var(--gold-rule); }
 
-/* ---------- Gather ---------- */
-.gather__grid { display: grid; gap: clamp(4rem, 6vw, 5rem) clamp(2rem, 5vw, 6rem); grid-template-columns: minmax(0, 1fr); }
-@media (min-width: 900px) {
-  .gather__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .gcard--offset { margin-top: 3rem; }
-}
-.gcard { display: grid; gap: 1.1rem; align-content: start; justify-items: start; }
-/* A wider frame under a gentle arch keeps this section short */
-.gcard__img { width: 100%; aspect-ratio: 6 / 5; max-height: 25rem; margin-bottom: .75rem; border-radius: 50% 50% 0 0 / 30% 30% 0 0; }
-.gcard__title { font-family: var(--serif); font-weight: 360; font-size: clamp(2rem, 1.6rem + 1.4vw, 2.75rem); line-height: 1.05; letter-spacing: -.02em; font-variation-settings: "SOFT" 60; }
-.gcard > p { color: var(--ink-soft); max-width: 30rem; }
+/* ---------- Gifts & gatherings: one line near the end of the homepage ---------- */
+.also { padding-block: clamp(2rem, 1.5rem + 2vw, 3rem); }
+.also__inner { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: .6rem 1.25rem; text-align: center; }
+.also__item { font-family: var(--serif); font-size: clamp(1.1rem, 1rem + .4vw, 1.3rem); color: var(--ink-soft); }
+.also__item .link { margin-left: .35rem; font-family: var(--sans); font-size: var(--fs-small); font-weight: 600; color: var(--brass-ink); }
+.also__dot { color: var(--brass); }
+@media (max-width: 699px) { .also__dot { display: none; } .also__inner { flex-direction: column; align-items: center; } }
 
 .notify { width: 100%; max-width: 32rem; display: grid; gap: .9rem; margin-top: .5rem; }
 .notify__status { font-size: var(--fs-small); color: var(--ink-soft); padding-left: 1rem; border-left: 1px solid var(--brass); }
