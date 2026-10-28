@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://[your-domain]/sitemap.xml
+Sitemap: https://uncommonlywell.github.io/sitemap.xml
