@@ -40,7 +40,7 @@
 
   /* Space & layout */
   --gutter: clamp(1.25rem, .6rem + 3vw, 4rem);
-  --section: clamp(5.5rem, 3rem + 9vw, 11rem);
+  --section: clamp(3.75rem, 2.25rem + 5vw, 7rem);
   --max: 82.5rem;
   --header-h: 4.75rem;
   --nav-h: 4.75rem;          /* the header's own row; --header-h adds the membership banner when it shows */
@@ -94,6 +94,10 @@ ul, ol { padding: 0; list-style: none; }
 
 .wrap { width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
 .section { padding-block: var(--section); }
+/* Homepage seams between two sections of the same color are halved, so they read as one stretch */
+#note.section { padding-bottom: calc(var(--section) * .5); }
+#note + #follow.section { padding-top: calc(var(--section) * .5); }
+#shelves.section { padding-bottom: calc(var(--section) * .6); }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .skip {
   position: fixed; top: .75rem; left: .75rem; z-index: 100;
