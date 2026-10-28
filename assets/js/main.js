@@ -397,9 +397,9 @@
 
   const CATS = ['Energy', 'Sleep', 'Gut health', 'Protein & workouts', 'Weight goals', 'Skin care', 'Stress & focus', 'Immunity', 'Joints & recovery', 'Cleaning & home', 'Family & kids'];
   const SHELVES = {
-    home: { name: 'Home', img: 'home', topic: 'Home' },
-    wellness: { name: 'Nutrition', img: 'wellness', topic: 'Nutrition' },
-    beauty: { name: 'Beauty', img: 'beauty', topic: 'Beauty' },
+    home: { name: 'Home', img: 'home', page: 'home.html' },
+    wellness: { name: 'Nutrition', img: 'wellness', page: 'nutrition.html' },
+    beauty: { name: 'Beauty', img: 'beauty', page: 'beauty.html' },
   };
   const shelvesFor = (cat) => (cat === 'Skin care' ? ['beauty'] : cat === 'Cleaning & home' ? ['home'] : cat === 'Family & kids' ? ['wellness', 'home'] : ['wellness']);
   const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -704,7 +704,7 @@
         <span class="arch"><picture class="ph" style="--ph:#b8a88e"><source type="image/avif" srcset="assets/img/${sh.img}-480.avif"><source type="image/webp" srcset="assets/img/${sh.img}-480.webp"><img src="assets/img/${sh.img}-800.jpg" width="480" height="600" alt="" loading="lazy" class="is-loaded"></picture></span>
         <p class="qf-card__name">${sh.name}</p>
         <p class="qf-card__why">${reason}</p>
-        <button class="link" type="button" data-quiz-ask="${sh.topic}">Ask about ${lc(sh.name)}</button>
+        <a class="link" href="${sh.page}">Browse the ${lc(sh.name)} shelf</a>
       </div>`;
     }).join('');
   }
@@ -780,12 +780,6 @@
   quiz.addEventListener('cancel', (e) => { e.preventDefault(); closeQuiz(); });
   quiz.addEventListener('click', (e) => {
     if (e.target === quiz) { closeQuiz(); return; }
-    const ask = e.target.closest('[data-quiz-ask]');
-    if (ask) {
-      const v = values();
-      const interests = v.help.length ? `From the survey: I’m interested in ${listOf(v.help.map(lc))}.` : '';
-      closeQuiz(() => { opener = quizOpener; openDrawer('A product question', `${interests} I’d like to ask about ${lc(ask.dataset.quizAsk)}.`.trim()); });
-    }
     if (e.target.closest('[data-quiz-browse]')) closeQuiz(() => glideTo($('#shelves') ? '#shelves' : '#products'));
   });
 
