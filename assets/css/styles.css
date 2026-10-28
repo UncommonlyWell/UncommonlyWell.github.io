@@ -809,19 +809,19 @@ body.menu-open .brand__mark { --m-line: url(#uw-gold-bright); --m-light: url(#uw
 .shelf-row.shelf-row--soon { display: flex; flex-wrap: wrap; align-items: baseline; gap: .4rem 1.5rem; padding-top: clamp(1.75rem, 1.25rem + 1.5vw, 2.5rem); border-top: 1px solid var(--line); }
 .shelf-row--soon .shelf__name { font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.3rem); }
 .shelf-row--soon .shelf__text { flex: 1 1 18rem; }
-/* The pinned note on its own short shelf: on the right on desktop, under the text on a phone */
-.shelf-soon__aside { display: grid; justify-items: center; gap: .9rem; flex: 0 0 auto; margin-top: 1rem; }
-.shelf-unit.shelf-soon__shelf { width: calc(var(--u) * 40); }
+/* The note pinned to the wall: on the right and centered with the heading on desktop, under the text on a phone */
+.shelf-soon__aside { display: grid; justify-items: center; gap: 1.1rem; flex: 0 0 auto; margin-top: 1.25rem; }
 @media (min-width: 900px) {
-  .shelf-row.shelf-row--soon { flex-wrap: nowrap; align-items: flex-end; }
+  .shelf-row.shelf-row--soon { flex-wrap: nowrap; align-items: center; padding-bottom: 3rem; }
   .shelf-row--soon .shelf__text { flex: 0 1 26rem; }
-  .shelf-soon__aside { margin: 0 0 0 auto; }
+  .shelf-soon__aside { position: relative; margin: 0 0 0 auto; }
+  /* The card itself lines up with the heading; Learn more hangs just below it */
+  .shelf-soon__aside .shelf__ask { position: absolute; top: calc(100% + 1.1rem); left: 50%; transform: translateX(-50%); white-space: nowrap; }
 }
-.shelf-soon__shelf .shelf-unit__items { min-height: 0; justify-content: center; }
 .shelf-card {
   position: relative; margin-bottom: calc(var(--u) * .6);
   display: grid; justify-items: center; gap: .1rem;
-  width: calc(var(--u) * 26); padding: calc(var(--u) * 3) calc(var(--u) * 2);
+  min-width: calc(var(--u) * 26); padding: calc(var(--u) * 3) calc(var(--u) * 3.5);
   background: url("../img/grain-light.svg?v=2") 0 0 / 220px, var(--harbor);
   border-radius: 2px; transform: rotate(-4deg); transform-origin: 50% 0;
   box-shadow: 0 1px 0 rgba(216, 196, 159, .25) inset, calc(var(--u) * -.8) calc(var(--u) * 1) calc(var(--u) * 2.2) rgba(14, 30, 26, .45);
@@ -833,8 +833,13 @@ body.menu-open .brand__mark { --m-line: url(#uw-gold-bright); --m-light: url(#uw
 @keyframes card-sway-big { 0%, 100% { transform: rotate(-9deg); } 50% { transform: rotate(1deg); } }
 .shelf-row--soon:hover .shelf-card { animation: card-sway-big 1.6s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { .shelf-card, .shelf-row--soon:hover .shelf-card { animation: none; transform: rotate(-4deg); } }
-.shelf-card span { font-style: italic; font-size: .95rem; color: var(--brass-light); }
-.shelf-card strong { font-weight: 400; font-size: clamp(1.25rem, 1rem + 1vw, 1.6rem); letter-spacing: -.01em; }
+/* Metallic gold lettering, the same gradient as the How it works numbers */
+.shelf-card span, .shelf-card strong {
+  background: var(--gold); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: #D9C196;
+  filter: drop-shadow(0 1px 0 rgba(8, 22, 20, .55));
+}
+.shelf-card span { font-style: italic; font-size: .95rem; }
+.shelf-card strong { white-space: nowrap; font-weight: 500; font-size: clamp(1.3rem, 1rem + 1vw, 1.65rem); letter-spacing: -.01em; padding-right: .06em; }
 .shelf-card::after {
   content: ""; position: absolute; left: 50%; top: calc(var(--u) * -1.2); width: calc(var(--u) * 1.6); height: calc(var(--u) * 1.6);
   border-radius: 50%; transform: translateX(-50%);
