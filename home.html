@@ -24,7 +24,7 @@
 <script>document.documentElement.classList.replace('no-js', 'js');
   // The membership banner shows until this visitor closes it.
   try { if (localStorage.getItem('uw-promo-closed') !== 'membership-1') document.documentElement.classList.add('has-promo'); } catch (e) { document.documentElement.classList.add('has-promo'); }</script>
-<link rel="stylesheet" href="assets/css/styles.css?v=220">
+<link rel="stylesheet" href="assets/css/styles.css?v=221">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -47,6 +47,7 @@
     <path style="fill:none;stroke:var(--m-line);stroke-width:var(--m-w,1.6)" d="M2 40V16a14 14 0 0 1 28 0v24M.5 40.5h31"/>
     <circle style="fill:var(--m-line)" cx="10.6" cy="25" r="1"/>
   </symbol>
+  <symbol id="uw-ig" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5.2"/><circle cx="12" cy="12" r="4.1"/><circle class="ig-dot" cx="17.4" cy="6.6" r="1"/></symbol>
 </svg>
 <a class="skip" href="#main">Skip to content</a>
 
@@ -100,6 +101,7 @@
       <button class="btn btn--line" type="button" data-open-message>Say hi</button>
     </div>
     <p>I answer every message myself.</p>
+    <a class="ig-link" href="https://www.instagram.com/uncommonly.well/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#uw-ig"/></svg>@uncommonly.well<span class="sr-only"> on Instagram (opens a new tab)</span></a>
   </div>
 </div>
 
@@ -152,6 +154,7 @@
       </div>
       <p class="footer__tag">The common things, done uncommonly well.</p>
       <p class="footer__contact"><button class="link link--light" type="button" data-open-message>Message me</button></p>
+      <p class="footer__social"><a class="ig-link" href="https://www.instagram.com/uncommonly.well/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#uw-ig"/></svg>@uncommonly.well<span class="sr-only"> on Instagram (opens a new tab)</span></a></p>
     </div>
     <nav class="footer__nav" aria-label="Footer">
       <ul>
