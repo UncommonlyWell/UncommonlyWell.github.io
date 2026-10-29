@@ -1519,26 +1519,45 @@
     const ctx = new AC();
     if (ctx.state === 'suspended') ctx.resume();
     const out = ctx.createGain();
-    out.gain.value = 0.16;
+    out.gain.value = 0.32;
     out.connect(ctx.destination);
-    // Each note: the tone plus a quiet bell overtone, struck quickly and left to ring out.
-    const note = (freq, at) => {
-      [[1, 1, 1.6], [2.76, 0.18, 0.7], [5.4, 0.05, 0.35]].forEach(([mult, level, fade]) => {
-        const osc = ctx.createOscillator();
-        const g = ctx.createGain();
-        osc.frequency.value = freq * mult;
-        g.gain.setValueAtTime(0.0001, at);
-        g.gain.exponentialRampToValueAtTime(level, at + 0.012);
-        g.gain.exponentialRampToValueAtTime(0.0001, at + fade);
-        osc.connect(g).connect(out);
-        osc.start(at);
-        osc.stop(at + fade + 0.05);
-      });
+    const tone = (freq, at, peak, fade) => {
+      const osc = ctx.createOscillator();
+      const g = ctx.createGain();
+      osc.frequency.value = freq;
+      g.gain.setValueAtTime(0.0001, at);
+      g.gain.exponentialRampToValueAtTime(peak, at + 0.012);
+      g.gain.exponentialRampToValueAtTime(0.0001, at + fade);
+      osc.connect(g).connect(out);
+      osc.start(at);
+      osc.stop(at + fade + 0.05);
     };
-    const t = ctx.currentTime + 0.03;
-    note(659.25, t);        // ding (E)
-    note(523.25, t + 0.55); // dong (C)
-    setTimeout(() => ctx.close(), 2600);
+    // The faint tap of the striker on the bar.
+    const tap = (at) => {
+      const len = Math.ceil(ctx.sampleRate * 0.01);
+      const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+      const ch = buf.getChannelData(0);
+      for (let i = 0; i < len; i++) ch[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 4);
+      const src = ctx.createBufferSource();
+      const hp = ctx.createBiquadFilter();
+      const g = ctx.createGain();
+      src.buffer = buf;
+      hp.type = 'highpass';
+      hp.frequency.value = 2500;
+      g.gain.value = 0.04;
+      src.connect(hp).connect(g).connect(out);
+      src.start(at);
+    };
+    // Each bar: a long-ringing tone plus brief, quiet overtones (a metal bar's partials), struck softly.
+    const bar = (freq, partials, at, level) => {
+      tone(freq, at, level, 5.5);
+      partials.forEach(([mult, l, fade]) => tone(freq * mult, at, level * l * 0.4, fade));
+      tap(at);
+    };
+    const t = ctx.currentTime + 0.05;
+    bar(759, [[2.68, 0.13, 0.45], [5.29, 0.08, 0.3]], t, 0.5);                     // ding
+    bar(624, [[2.68, 0.1, 0.4], [5.3, 0.1, 0.35], [9.3, 0.04, 0.25]], t + 0.42, 0.4); // dong, a minor third down
+    setTimeout(() => ctx.close(), 6500);
   }
 
   /* ---------- The front door (hero) ----------
