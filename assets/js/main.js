@@ -1526,8 +1526,8 @@
     if (sheen) sheen.setAttribute('gradientTransform', `translate(${(-0.24 * o).toFixed(3)} 0)`);
   };
   if (scene) {
-    // Clicking the door walks you through it, down to Welcome to Wellness.
-    scene.addEventListener('click', () => glideTo('#shelves'));
+    // Clicking the door walks you through it, to meet Chelsea.
+    scene.addEventListener('click', () => glideTo('#note'));
     if (motion) {
       renderDoor();
       const hoverTo = (val) => gsap.to(door, {

@@ -834,18 +834,11 @@ body.menu-open .brand__mark { --m-line: url(#uw-gold-bright); --m-light: url(#uw
   .shelf-row--full .shelf-unit--full .shelf-unit__items { gap: calc(var(--u) * 4); padding-inline: calc(var(--u) * 2); }
 }
 /* Personalized health: one slim line until it opens, no empty shelf */
-.shelf-row.shelf-row--soon { display: flex; flex-wrap: wrap; align-items: baseline; gap: .4rem 1.5rem; padding-top: clamp(1.75rem, 1.25rem + 1.5vw, 2.5rem); border-top: 1px solid var(--line); }
+.shelf-row.shelf-row--soon { display: flex; flex-direction: column; align-items: center; gap: .5rem; text-align: center; padding-top: clamp(1.75rem, 1.25rem + 1.5vw, 2.5rem); border-top: 1px solid var(--line); }
 .shelf-row--soon .shelf__name { font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.3rem); }
-.shelf-row--soon .shelf__text { flex: 1 1 18rem; }
-/* The note pinned to the wall: on the right and centered with the heading on desktop, under the text on a phone */
-.shelf-soon__aside { display: grid; justify-items: center; gap: 1.1rem; flex: 0 0 auto; margin-top: 1.25rem; }
-@media (min-width: 900px) {
-  .shelf-row.shelf-row--soon { flex-wrap: nowrap; align-items: center; padding-bottom: 3rem; }
-  .shelf-row--soon .shelf__text { flex: 0 1 26rem; }
-  .shelf-soon__aside { position: relative; margin: 0 0 0 auto; }
-  /* The card itself lines up with the heading; Learn more hangs just below it */
-  .shelf-soon__aside .shelf__ask { position: absolute; top: calc(100% + 1.1rem); left: 50%; transform: translateX(-50%); white-space: nowrap; }
-}
+.shelf-row--soon .shelf__text { max-width: 30rem; }
+/* One centered column: heading, line, the note pinned below, then Learn more */
+.shelf-soon__aside { display: grid; justify-items: center; gap: 1.1rem; margin-top: 1.5rem; }
 .shelf-card {
   position: relative; margin-bottom: calc(var(--u) * .6);
   display: grid; justify-items: center; gap: .1rem;
