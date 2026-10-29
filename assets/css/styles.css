@@ -288,7 +288,9 @@ html.hero-in-view .site-header.is-solid { -webkit-backdrop-filter: none; backdro
 .brand__well { font-style: italic; font-weight: 360; }
 @media (max-width: 420px) { .brand__rule { display: none; } .brand { gap: .6rem; } }
 
-.nav ul { display: flex; gap: 2.25rem; }
+.nav ul { display: flex; gap: 1.75rem; }
+/* Narrower desktops: tighter links, and Say hi steps out (it's still in the closing invitation on every page), so the menu clears the hero's split */
+@media (max-width: 1199px) { .nav ul { gap: 1.25rem; } .header-actions .header-cta:not(.header-cta--start) { display: none; } }
 .nav a {
   position: relative; display: inline-flex; min-height: 44px; align-items: center;
   font-size: .9375rem; font-weight: 500; text-decoration: none;
@@ -335,7 +337,8 @@ html.hero-in-view .site-header.is-solid { -webkit-backdrop-filter: none; backdro
 .menu-toggle[aria-expanded="true"] .menu-toggle__lines i:first-child { top: 4.25px; transform: rotate(45deg); }
 .menu-toggle[aria-expanded="true"] .menu-toggle__lines i:last-child { top: 4.25px; transform: rotate(-45deg); }
 
-@media (max-width: 899px) {
+/* Under 1000px the full menu won't fit on the door side of the hero, so the Menu button takes over */
+@media (max-width: 999px) {
   .nav, .header-actions { display: none; }
   .menu-toggle { display: inline-flex; }
 }
@@ -380,7 +383,8 @@ body.menu-open .brand__mark { --m-line: url(#uw-gold-bright); --m-light: url(#uw
   padding: calc(var(--header-h) + clamp(2rem, 6vw, 3rem)) var(--gutter) clamp(2.5rem, 7vw, 3.5rem);
 }
 @media (min-width: 900px) {
-  .hero__pin { grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); min-height: 100svh; }
+  /* The copy side ends a little before the header menu starts, so no menu link sits across the split */
+  .hero__pin { grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr); min-height: 100svh; }
   .hero__copy { padding: calc(var(--header-h) + clamp(.75rem, 3svh, 2rem)) clamp(2.5rem, 5vw, 5rem) clamp(1rem, 3svh, 3rem) max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter))); }
 }
 /* Pin only when the window is tall enough for the whole copy stack; shorter windows scroll normally */

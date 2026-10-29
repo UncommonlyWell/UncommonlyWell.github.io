@@ -202,7 +202,7 @@
     if (e.shiftKey && i <= 0) { e.preventDefault(); items[items.length - 1].focus(); }
     else if (!e.shiftKey && i === items.length - 1) { e.preventDefault(); items[0].focus(); }
   });
-  window.matchMedia('(min-width: 900px)').addEventListener('change', (m) => { if (m.matches && menuOpen) closeMenu(false); });
+  window.matchMedia('(min-width: 1000px)').addEventListener('change', (m) => { if (m.matches && menuOpen) closeMenu(false); });
 
   /* ---------- Message drawer ---------- */
   const drawer = $('[data-drawer]');
