@@ -1505,6 +1505,42 @@
   // Starting the survey from a need closes the need first, so the survey isn't stacked on top.
   $('[data-open-quiz]', needDlg).addEventListener('click', () => { hideDialog(needDlg, () => { needId = null; }); }, true);
 
+  /* ---------- The doorbell ----------
+     A soft two-note ding-dong, made in the browser (no sound file). Browsers only allow sound after a
+     tap, click or key, so it rings on the visitor's first one during the opening, or on clicking the door,
+     and only once a visit. */
+  function ringDoorbell() {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    try { if (sessionStorage.getItem('uw-bell-rung') === '1') return; sessionStorage.setItem('uw-bell-rung', '1'); } catch (e) {
+      if (ringDoorbell.rung) return;
+    }
+    ringDoorbell.rung = true;
+    const ctx = new AC();
+    if (ctx.state === 'suspended') ctx.resume();
+    const out = ctx.createGain();
+    out.gain.value = 0.16;
+    out.connect(ctx.destination);
+    // Each note: the tone plus a quiet bell overtone, struck quickly and left to ring out.
+    const note = (freq, at) => {
+      [[1, 1, 1.6], [2.76, 0.18, 0.7], [5.4, 0.05, 0.35]].forEach(([mult, level, fade]) => {
+        const osc = ctx.createOscillator();
+        const g = ctx.createGain();
+        osc.frequency.value = freq * mult;
+        g.gain.setValueAtTime(0.0001, at);
+        g.gain.exponentialRampToValueAtTime(level, at + 0.012);
+        g.gain.exponentialRampToValueAtTime(0.0001, at + fade);
+        osc.connect(g).connect(out);
+        osc.start(at);
+        osc.stop(at + fade + 0.05);
+      });
+    };
+    const t = ctx.currentTime + 0.03;
+    note(659.25, t);        // ding (E)
+    note(523.25, t + 0.55); // dong (C)
+    setTimeout(() => ctx.close(), 2600);
+  }
+
   /* ---------- The front door (hero) ----------
      One value, --o, drives the swing, the light in the room, the beams, the spill on the floor
      and the sheen on the brass. It rests slightly ajar after the page loads; scrolling opens it;
@@ -1526,8 +1562,8 @@
     if (sheen) sheen.setAttribute('gradientTransform', `translate(${(-0.24 * o).toFixed(3)} 0)`);
   };
   if (scene) {
-    // Clicking the door walks you through it, to meet Chelsea.
-    scene.addEventListener('click', () => glideTo('#note'));
+    // Clicking the door rings the bell (once a visit) and walks you through it, to meet Chelsea.
+    scene.addEventListener('click', () => { ringDoorbell(); glideTo('#note'); });
     if (motion) {
       renderDoor();
       const hoverTo = (val) => gsap.to(door, {
@@ -1611,6 +1647,11 @@
       if (tl.time() < tl.labels.out) tl.seek('out');
     };
     ['pointerdown', 'keydown', 'wheel', 'touchstart'].forEach((ev) => window.addEventListener(ev, skip, { passive: true }));
+    // The first tap, click or key while the doors open rings the bell (phones only allow it once a tap ends).
+    const bellEvents = ['click', 'touchend', 'keydown'];
+    const ring = () => { bellEvents.forEach((ev) => window.removeEventListener(ev, ring)); ringDoorbell(); };
+    bellEvents.forEach((ev) => window.addEventListener(ev, ring, { passive: true }));
+    tl.eventCallback('onComplete', () => { bellEvents.forEach((ev) => window.removeEventListener(ev, ring)); html.classList.remove('has-intro'); el.remove(); });
   }
 
   /* ---------- Motion ---------- */
