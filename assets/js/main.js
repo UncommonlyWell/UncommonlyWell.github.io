@@ -7,6 +7,7 @@
   /* ------------------------------------------------------------------
      Settings. Connect forms here when you're ready (see README).
      mode: 'preview'  → forms validate and confirm, but nothing is sent
+           'sheet'    → posts to the Google Sheet script (paste its Web app URL into `endpoint`)
            'netlify'  → posts to Netlify Forms
            'endpoint' → posts JSON to `endpoint` (e.g. Formspree)
   ------------------------------------------------------------------ */
@@ -352,6 +353,11 @@
       const body = new URLSearchParams({ 'form-name': name, ...data }).toString();
       const r = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body });
       if (!r.ok) throw new Error('send failed');
+    } else if (CONFIG.forms.mode === 'sheet' && CONFIG.forms.endpoint) {
+      // Sent as plain text so the browser doesn't ask first (Google's script can't answer that); the script reads the JSON.
+      const r = await fetch(CONFIG.forms.endpoint, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ form: name, ...data }) });
+      const res = r.ok ? await r.json().catch(() => null) : null;
+      if (!res || !res.ok) throw new Error('send failed');
     } else if (CONFIG.forms.mode === 'endpoint' && CONFIG.forms.endpoint) {
       const r = await fetch(CONFIG.forms.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ form: name, ...data }) });
       if (!r.ok) throw new Error('send failed');
