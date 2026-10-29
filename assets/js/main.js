@@ -12,7 +12,7 @@
            'endpoint' → posts JSON to `endpoint` (e.g. Formspree)
   ------------------------------------------------------------------ */
   const CONFIG = {
-    forms: { mode: 'preview', endpoint: '' },
+    forms: { mode: 'sheet', endpoint: 'https://script.google.com/macros/s/AKfycbwSoU2QTHoM9j0BiSTqLoPmwpfGmlVKhtMGUjFytgbCJjs8a2aUo9O0bAeMop9ohS7B/exec' },
     // Your Amway MyShop link. Until it's set, shop buttons read "Shop opening soon".
     shopUrl: 'https://www.amway.com/myshop/uncommonlywell',
     // Launch days (year-month-day). From that day on, "Opening…"/"launching…" wording switches to its after-launch
