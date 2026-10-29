@@ -1550,7 +1550,9 @@ body.menu-open .ys-pill { opacity: 0; pointer-events: none; }
 .mark--wax-shade { --m-line: rgba(255, 246, 222, .75); --m-light: transparent; --m-leaf: transparent; --m-w: 1.6; }
 .seal__gloss { pointer-events: none; }
 /* Chelsea's own signature (a photo of her pen, cut out), filled with the brass gradient */
-.note__sign { display: block; flex: none; width: clamp(8.5rem, 7rem + 4vw, 11.5rem); aspect-ratio: 657 / 287; transform: rotate(-7deg);
+.note__sign { display: block; flex: none; width: clamp(8.5rem, 7rem + 4vw, 11.5rem); aspect-ratio: 657 / 287;
+  /* Level on the line, and the letters' backward lean stood up straight */
+  transform: rotate(-7deg) skewX(-16deg);
   /* The brass gradient without its palest shine, so thin strokes stay readable on linen */
   background: linear-gradient(118deg, #6F5229 0%, #A8854F 20%, #CDAE7A 36%, #93723F 56%, #B08D57 78%, #6E532A 100%);
   -webkit-mask: url("../img/signature.png?v=1") center / contain no-repeat; mask: url("../img/signature.png?v=1") center / contain no-repeat; }
