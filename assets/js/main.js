@@ -235,6 +235,9 @@
   const eventDay = (e) => { const [y, m, d] = e.date.split('-').map(Number); return new Date(y, m - 1, d); };
   const today = new Date(); today.setHours(0, 0, 0, 0);
   const EVENTS = (window.UW_EVENTS || []).filter((e) => eventDay(e) >= today).sort((a, b) => eventDay(a) - eventDay(b));
+  // With nothing scheduled, the "coming up" wording (Gather hero, homepage line) gives way to its no-events version.
+  $$('[data-if-events]').forEach((el) => { el.hidden = !EVENTS.length; });
+  $$('[data-no-events]').forEach((el) => { el.hidden = !!EVENTS.length; });
   const gatherFields = $('[data-gather-fields]', mform);
   const eventSel = $('#m-event');
   const shortDay = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' });
@@ -243,7 +246,8 @@
   if (eventSel) EVENTS.forEach((e) => eventSel.add(new Option(eventLabel(e), eventLabel(e))));
   function syncGather() {
     if (!gatherFields) return;
-    gatherFields.hidden = gatherFields.disabled = $('#m-topic').value !== 'Gatherings';
+    // Which gathering / how many only make sense when there's something to save a spot for.
+    gatherFields.hidden = gatherFields.disabled = $('#m-topic').value !== 'Gatherings' || !EVENTS.length;
   }
   $('#m-topic').addEventListener('change', syncGather);
 
@@ -254,7 +258,9 @@
     'An order or a return': ['About your order', 'What you ordered, about when, and what’s going on…'],
     'A custom gift': ['Tell me about them', 'What they love, what they’re into, anything to avoid…'],
     'Wishlist a gift': ['Anything I should know for the hint?', 'Keep it a surprise? A good time to reach them?'],
-    'Gatherings': ['Anything I should know?', 'Bringing a friend, food allergies, questions about the event…'],
+    'Gatherings': EVENTS.length
+      ? ['Anything I should know?', 'Bringing a friend, food allergies, questions about the event…']
+      : ['What would you love to do?', 'The kind of gathering you’d come to, good days and times, any questions…'],
     'Host a gathering': ['Tell me about your gathering', 'Who you’d invite, a few dates that work, your place or online…'],
     'Personalized health': ['Anything you’d like me to know', 'What you’re hoping for, and any questions you have…'],
     'Amway Membership': ['Your question', 'What you’d like to know about the membership…'],
@@ -988,8 +994,35 @@
       if (img.complete && img.naturalWidth) done();
       else img.addEventListener('load', done, { once: true });
     });
-    const empty = $('[data-events-empty]');
-    if (empty) empty.hidden = EVENTS.length > 0;
+  });
+
+  // Past gatherings: each a pile of snapshots (the About page's prints) beside what it was.
+  const kindLabel = { virtual: 'Virtual', 'in-person': 'In person' };
+  $$('[data-past-events]').forEach((list) => {
+    const long = new Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+    const snap = (sn, i) => {
+      const src = (ext) => `assets/img/past-${sn.photo}-480.${ext} 480w, assets/img/past-${sn.photo}-800.${ext} 800w`;
+      return `<figure class="snap snap--${i + 1}"><picture class="snap__ph"><source type="image/avif" srcset="${src('avif')}" sizes="(min-width: 900px) 18vw, 45vw"><img src="assets/img/past-${sn.photo}-480.jpg" srcset="${src('jpg')}" sizes="(min-width: 900px) 18vw, 45vw" width="480" height="600" alt="${esc(sn.alt)}" loading="lazy" decoding="async"></picture><figcaption>${esc(sn.caption)}</figcaption></figure>`;
+    };
+    list.innerHTML = (window.UW_PAST_EVENTS || []).map((e) => `<article class="past-event">
+        <div class="snaps past-event__snaps" role="group" aria-label="Snapshots from ${esc(e.title)}">${(e.snaps || []).slice(0, 4).map(snap).join('')}</div>
+        <div class="past-event__body">
+          <p class="event__kind event__kind--${e.kind}">${kindLabel[e.kind] || esc(e.kind)}</p>
+          <h3 class="event__title">${esc(e.title)}</h3>
+          ${e.sub ? `<p class="past-event__sub">${esc(e.sub)}</p>` : ''}
+          <p class="event__meta">${long.format(eventDay(e))}<br>${esc(e.place)}</p>
+          <p class="event__line">${esc(e.line)}</p>
+        </div>
+      </article>`).join('');
+  });
+
+  // While nothing is scheduled: a few gatherings I'd love to host next (no dates, so they never read as scheduled).
+  $$('[data-event-ideas]').forEach((list) => {
+    list.innerHTML = (window.UW_EVENT_IDEAS || []).map((e) => `<li class="idea">
+        <p class="event__kind event__kind--${e.kind}">${kindLabel[e.kind] || esc(e.kind)}</p>
+        <h3 class="idea__title">${esc(e.title)}</h3>
+        <p class="idea__line">${esc(e.line)}</p>
+      </li>`).join('');
   });
 
   // Shelf pages: every product on that shelf, each with one action.

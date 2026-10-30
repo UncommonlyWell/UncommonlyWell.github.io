@@ -90,16 +90,46 @@
     { id: 'gym-crate', name: 'The gym crate', photo: 'gym-crate', wide: true, alt: 'A wooden crate with XS Muscle Multiplier, Grass-Fed Whey, Post-Workout Recovery, Nutrilite Joint Health, XS Sports Protein Bars and CBD Pro Cream', line: 'Before, during and after the workout, all in a crate they’ll keep.', products: ['muscle', 'whey', 'postworkout', 'joint', 'sportsbar', 'cbdcream'] },
   ];
 
-  // Gatherings (the Gather page, and the "Which gathering?" list in Message Chelsea). PLACEHOLDERS for designing the
-  // page: replace them with your real events. kind: 'virtual' or 'in-person'. date: 'YYYY-MM-DD'; events whose date
-  // has passed hide themselves. Lines are about the get-together, with no product claims. photo (optional):
-  // assets/img/event-{photo}-480/800 (.jpg + .avif, 4:3); the placeholders' photos are from Unsplash (credited in
-  // gather.html's footer). Without a photo, the card shows a soft color block behind its date.
-  window.UW_EVENTS = [
-    { id: 'skincare-sip', photo: 'sip-station', alt: 'A pitcher of juice, cups and drink sticks set out on my kitchen counter', title: 'Skincare & sip night', kind: 'virtual', date: '2026-11-12', time: '7–8 PM', place: 'On Zoom (I’ll send the link when you save your spot)', line: 'Grab a cozy drink and your favorite face mask. We’ll chat routines, swap tips and try a few things together.' },
-    { id: 'smoothie-tasting', photo: 'protein-bites', alt: 'Trays of no-bake protein bites beside their recipe card', title: 'Smoothie tasting', kind: 'in-person', date: '2026-11-21', time: '10–11:30 AM', place: 'At my place, Lincoln', line: 'A blender, a big table and a few of my favorite recipes. Come hungry and bring a friend.' },
-    { id: 'gift-wrapping', photo: 'gift-bags', alt: 'A row of filled gift bags with XS Grass-Fed Whey and Nutrilite Perfect Pack', title: 'Holiday gift-wrapping party', kind: 'in-person', date: '2026-12-05', time: '2–4 PM', place: 'At my place, Lincoln', line: 'Bring your gifts and your playlist. I’ll have the paper, the ribbon and the cocoa.' },
-    { id: 'gentle-reset', photo: 'begin-station', alt: 'A table set with Nutrilite Begin 30, Plant Protein and gut-health favorites', title: 'New year, gentle reset', kind: 'virtual', date: '2027-01-06', time: '7–8 PM', place: 'On Zoom', line: 'No resolutions, no pressure. Just an hour to talk about what you want more of this year.' },
+  // Upcoming gatherings (the Gather page's "Coming up", and the "Which gathering?" list in Message Chelsea).
+  // Empty for now: with nothing scheduled, the page shows your past gatherings and a few ideas instead, and the
+  // hero, homepage line and RSVP questions switch to match. To add one, copy this shape:
+  //   { id: 'skincare-sip', title: 'Skincare & sip night', kind: 'virtual', date: '2026-12-03', time: '7–8 PM',
+  //     place: 'On Zoom (I’ll send the link when you save your spot)', line: 'One line about the get-together.' },
+  // kind: 'virtual' or 'in-person'. date: 'YYYY-MM-DD'; events whose date has passed hide themselves. Lines are about
+  // the get-together, with no product claims. photo (optional): assets/img/event-{photo}-480/800 (.jpg + .avif, 4:3);
+  // without one, the card shows a soft color block behind its date.
+  window.UW_EVENTS = [];
+
+  // Gatherings you've hosted, newest first, shown on the Gather page as a pile of snapshots. Each snap is
+  // assets/img/past-{photo}-480/800 (.jpg + .avif, 4:5), with a short handwritten-style caption.
+  window.UW_PAST_EVENTS = [
+    {
+      title: 'Artistry Beauty Unmasked', sub: 'A self-care social night', kind: 'virtual', date: '2026-09-15', place: 'On Zoom',
+      line: 'A cozy night in on Zoom. Everyone got a little spa kit in the mail, and we masked together, played trivia and laughed a lot.',
+      snaps: [
+        { photo: 'unmasked-flyer', caption: 'the invite', alt: 'The invite: Artistry Beauty Unmasked, a self-care social night, Tuesday, Sept 15, 7 to 7:45 PM' },
+        { photo: 'unmasked-kit', caption: 'spa kits in the mail', alt: 'A gift-wrapped Artistry spa kit in cellophane with curled ribbon' },
+        { photo: 'unmasked-zoom', caption: 'the whole crew', alt: 'A Zoom grid of guests in face masks, smiling and laughing' },
+        { photo: 'unmasked-text', caption: 'the kits were a hit', alt: 'A guest’s text: I just got your little goodie set, you are so cute! Exciting for Tuesday' },
+      ],
+    },
+    {
+      title: 'Neighborhood Wellness Pop-Up Shop', kind: 'in-person', date: '2026-06-14', place: 'At my home in Lincoln',
+      line: 'An open house at my place with tasting stations, free samples and a whole lot of fun!',
+      snaps: [
+        { photo: 'popup-flyer', caption: 'the invite', alt: 'The flyer: Neighborhood Wellness Pop-Up Shop, Sunday, June 14, 11 AM to 1 PM, at my home in Lincoln' },
+        { photo: 'popup-welcome', caption: 'come on in', alt: 'A welcome sign on an easel in my front room' },
+        { photo: 'popup-table', caption: 'the tasting table', alt: 'An orange-topped table with XS Grass-Fed Whey and other XS favorites' },
+        { photo: 'popup-kitchen', caption: 'snacks & sips', alt: 'My kitchen counter set with drinks and XS cans beside two small flags' },
+      ],
+    },
+  ];
+
+  // A few gatherings you'd love to host next, shown (without dates) only when nothing is scheduled.
+  window.UW_EVENT_IDEAS = [
+    { title: 'Skincare & sip night', kind: 'virtual', line: 'Grab a cozy drink and your favorite face mask. We’ll chat routines and try a few things together.' },
+    { title: 'Smoothie tasting', kind: 'in-person', line: 'A blender, a big table and a few of my favorite recipes. Come hungry and bring a friend.' },
+    { title: 'New year, gentle reset', kind: 'virtual', line: 'No resolutions, no pressure. Just an hour to talk about what you want more of this year.' },
   ];
 
   window.UW_PRODUCTS = [

@@ -23,7 +23,7 @@
 <script>document.documentElement.classList.replace('no-js', 'js');
   // The membership banner shows until this visitor closes it.
   try { if (localStorage.getItem('uw-promo-closed') !== 'membership-1') document.documentElement.classList.add('has-promo'); } catch (e) { document.documentElement.classList.add('has-promo'); }</script>
-<link rel="stylesheet" href="assets/css/styles.css?v=264">
+<link rel="stylesheet" href="assets/css/styles.css?v=265">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -132,25 +132,40 @@
     <h1 id="page-title" class="gather-hero__title">Pull up a chair. <em>You’re invited.</em></h1>
     <p class="gather-hero__lede">Virtual &amp; in-person gatherings, open to everyone, because wellness thrives in community.</p>
     <div class="gather-hero__actions">
-      <a class="btn btn--brass" href="#coming-up">See what’s coming up</a>
-      <a class="link link--light" href="#notify">Tell me first</a>
+      <!-- With a gathering scheduled, the first pair shows; with none, the second (switched in main.js) -->
+      <a class="btn btn--brass" href="#coming-up" data-if-events hidden>See what’s coming up</a>
+      <a class="link link--light" href="#notify" data-if-events hidden>Tell me first</a>
+      <a class="btn btn--brass" href="#notify" data-no-events>Tell me first</a>
+      <a class="link link--light" href="#host" data-no-events>Host with me</a>
     </div>
   </div>
 </section>
 
 <!-- ============ Coming up ============ -->
-<section class="gather-page section tex-oat" id="coming-up" aria-labelledby="events-title">
+<section class="gather-page section tex-oat" id="coming-up" aria-label="Gatherings">
   <div class="wrap">
-    <!-- Events are built from UW_EVENTS in products.js; past dates hide themselves -->
-    <h2 class="h2 events__title" id="events-title">Coming up</h2>
-    <ol class="events" data-events aria-label="Upcoming gatherings"></ol>
-    <p class="events__empty" data-events-empty hidden>More fun is being planned! <a class="link" href="#notify">Leave your contact info</a> and you’ll be the first to know when the next gathering is set.</p>
-    <noscript><p class="section-head__lede">Turn on JavaScript to see upcoming gatherings, or message me and I’ll tell you what’s next.</p></noscript>
+    <!-- Upcoming events come from UW_EVENTS in products.js (past dates hide themselves); past gatherings from
+         UW_PAST_EVENTS; and, while nothing is scheduled, a few ideas from UW_EVENT_IDEAS -->
+    <div class="events-up" data-if-events hidden>
+      <h2 class="h2 events__title">Coming up</h2>
+      <ol class="events" data-events aria-label="Upcoming gatherings"></ol>
+    </div>
+    <div class="past">
+      <h2 class="h2 events__title">Recent <em>gatherings</em></h2>
+      <div class="past__list" data-past-events></div>
+    </div>
+    <div class="ideas" data-no-events>
+      <h2 class="h3 ideas__title">What’s next</h2>
+      <p class="ideas__lede">No dates on the calendar just yet. Here are a few I’d love to host next.</p>
+      <ul class="ideas__list" data-event-ideas></ul>
+      <a class="btn btn--harbor" href="#notify">Tell me when the next one’s set</a>
+    </div>
+    <noscript><p class="section-head__lede">Turn on JavaScript to see past and upcoming gatherings, or message me and I’ll tell you what’s next.</p></noscript>
   </div>
 </section>
 
 <!-- ============ Host your own ============ -->
-<section class="host section" aria-labelledby="host-title">
+<section class="host section" id="host" aria-labelledby="host-title">
   <div class="wrap host__grid">
     <div class="host__img arch" data-reveal-img>
       <picture class="ph" style="--ph:#b5a58c"><source type="image/avif" srcset="assets/img/host-signin-480.avif 480w, assets/img/host-signin-800.avif 800w, assets/img/host-signin-1200.avif 1200w" sizes="(min-width: 900px) 34vw, 80vw"><img src="assets/img/host-signin-800.jpg" srcset="assets/img/host-signin-480.jpg 480w, assets/img/host-signin-800.jpg 800w, assets/img/host-signin-1200.jpg 1200w" sizes="(min-width: 900px) 34vw, 80vw" width="800" height="1000" alt="A guest signing in at the orange table, next to XS samples" loading="lazy" decoding="async"></picture>
@@ -454,7 +469,7 @@
 <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
 <script src="assets/vendor/SplitText.min.js" defer></script>
 <script src="assets/vendor/lenis.min.js" defer></script>
-<script src="assets/js/products.js?v=35" defer></script>
-<script src="assets/js/main.js?v=187" defer></script>
+<script src="assets/js/products.js?v=36" defer></script>
+<script src="assets/js/main.js?v=188" defer></script>
 </body>
 </html>
