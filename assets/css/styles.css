@@ -1783,6 +1783,7 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: non
 .field--check input:checked::after { transform: rotate(45deg) translate(-1px, -1px) scale(1); }
 
 .mdone { display: grid; gap: 1.1rem; justify-items: start; padding-top: 1rem; }
+.mdone__actions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; }
 .mdone:focus { outline: none; }
 .mdone__arch { width: 3.75rem; fill: none; stroke: url(#uw-gold); stroke-width: 1.5; margin-bottom: .5rem; }
 .mdone__arch path:last-child { stroke-dasharray: 40; stroke-dashoffset: 40; transition: stroke-dashoffset .8s .25s var(--ease-out); }

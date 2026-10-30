@@ -451,6 +451,8 @@
 
   const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const lc = (t) => t.charAt(0).toLowerCase() + t.slice(1);
+  // The Instagram button on the thank-you screens.
+  const IG_FOLLOW = '<a class="btn btn--line-dark ig-follow__btn" href="https://www.instagram.com/uncommonly.well/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#uw-ig"/></svg>Follow along on Instagram<span class="sr-only"> (opens a new tab)</span></a>';
   const listOf = (arr) => (arr.length < 2 ? arr.join('') : `${arr.slice(0, -1).join(', ')} and ${arr[arr.length - 1]}`);
 
   const CATS = ['Energy', 'Sleep', 'Gut health', 'Protein & workouts', 'Weight goals', 'Skin care', 'Stress & focus', 'Immunity', 'Joints & recovery', 'Cleaning & home', 'Family & kids'];
@@ -770,8 +772,8 @@
   function renderFinish(kind, v, preview = false, saved = []) {
     finished = true;
     const first = (kind === 'existing' ? v.name : v.first_name).trim().split(' ')[0];
-    // One way out, matching Send my Shelf: back to the site.
-    const keepLooking = '<div class="qf-actions"><button class="btn btn--line-dark" type="button" data-quiz-browse>Keep looking around</button></div>';
+    // Back to the site, or follow along on Instagram (same as the other thank-you screens).
+    const keepLooking = `<div class="qf-actions"><button class="btn btn--line-dark" type="button" data-quiz-browse>Keep looking around</button>${IG_FOLLOW}</div>`;
     const note = preview ? '<p class="mdone__preview">Preview only: the survey isn’t connected yet, so nothing was sent.</p>' : '';
     const reply = '<p class="qf-text">I read every answer myself, so expect a real reply from me by text or call.</p>';
     let html = '';
@@ -1365,7 +1367,7 @@
         <p data-ys-done-text></p>
         <p data-ys-done-reply></p>
         <p class="mdone__preview" data-ys-preview hidden>Preview only: this form isn’t connected yet, so nothing was sent.</p>
-        <button class="btn btn--line-dark" type="button" data-ys-close>Keep looking around</button>
+        <div class="mdone__actions"><button class="btn btn--line-dark" type="button" data-ys-close>Keep looking around</button>${IG_FOLLOW}</div>
       </div>
     </div>`;
   document.body.append(panel);
