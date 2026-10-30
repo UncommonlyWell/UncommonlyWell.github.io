@@ -1448,10 +1448,23 @@ body.menu-open .ys-pill { opacity: 0; pointer-events: none; }
 .ideas { margin-top: clamp(4.5rem, 9vw, 7rem); padding-top: clamp(3rem, 6vw, 4.5rem); border-top: 1px solid var(--line); display: grid; gap: 1rem; justify-items: start; }
 .ideas__title { font-family: var(--serif); font-weight: 360; font-variation-settings: "SOFT" 60; font-size: var(--fs-h3); line-height: 1.15; letter-spacing: -.01em; }
 .ideas__lede { color: var(--ink-soft); max-width: 36rem; }
-.ideas__list { list-style: none; padding: 0; display: grid; gap: 1rem; width: 100%; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); margin: .75rem 0 1rem; }
+.ideas__list { list-style: none; padding: 0; display: grid; gap: 1rem; width: 100%; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13.5rem), 1fr)); margin: .75rem 0 1rem; }
 .idea { display: grid; gap: .5rem; align-content: start; justify-items: start; padding: 1.4rem 1.4rem 1.5rem; background: var(--paper); border: 1px solid var(--line); border-radius: 1rem; }
 .idea__title { font-family: var(--serif); font-weight: 400; font-variation-settings: "SOFT" 60; font-size: 1.35rem; line-height: 1.15; }
 .idea__line { color: var(--ink-soft); font-size: var(--fs-small); line-height: 1.55; }
+.idea { grid-template-rows: auto auto 1fr auto; }
+.idea__vote { margin-top: .6rem; }
+/* "Have an idea?": the same card with a dashed edge, inviting their own */
+.idea--own { background: transparent; border-style: dashed; border-color: var(--brass); grid-template-rows: auto 1fr auto; }
+
+/* Vote for an idea, or suggest one: a small form in the product pop-up's shell */
+.interest { width: min(100% - 1.5rem, 34rem); }
+.interest__inner { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 2.25rem clamp(1.4rem, 4vw, 2.25rem) 2rem; }
+.interest__form { display: grid; gap: 1.1rem; }
+.interest__title { font-family: var(--serif); font-weight: 380; font-variation-settings: "SOFT" 60; font-size: clamp(1.5rem, 1.3rem + .8vw, 1.9rem); line-height: 1.15; padding-right: 2.5rem; }
+.interest__intro { color: var(--ink-soft); font-size: var(--fs-small); margin-top: -.5rem; }
+.interest [data-own-fields] { display: grid; gap: 1.1rem; }
+.interest [data-own-fields][hidden], .interest [hidden] { display: none; }
 .host__grid { display: grid; gap: clamp(2.5rem, 5vw, 5rem); align-items: center; grid-template-columns: minmax(0, 1fr); }
 @media (min-width: 900px) { .host__grid { grid-template-columns: minmax(0, .8fr) minmax(0, 1fr); } }
 .host__img { width: min(100%, 26rem); aspect-ratio: 4 / 5; justify-self: center; }

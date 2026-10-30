@@ -1135,12 +1135,182 @@
   });
 
   // While nothing is scheduled: a few gatherings I'd love to host next (no dates, so they never read as scheduled).
+  // Each has "I'd come!", and a last card invites their own idea; both open one small pop-up that goes to the sheet.
   $$('[data-event-ideas]').forEach((list) => {
-    list.innerHTML = (window.UW_EVENT_IDEAS || []).map((e) => `<li class="idea">
+    const ideas = window.UW_EVENT_IDEAS || [];
+    list.innerHTML = ideas.map((e, i) => `<li class="idea">
         <p class="event__kind event__kind--${e.kind}">${kindLabel[e.kind] || esc(e.kind)}</p>
         <h3 class="idea__title">${esc(e.title)}</h3>
         <p class="idea__line">${esc(e.line)}</p>
-      </li>`).join('');
+        <button class="btn btn--small btn--line-dark idea__vote" type="button" data-idea-vote="${i}" aria-haspopup="dialog">I’d come!</button>
+      </li>`).join('') + `<li class="idea idea--own">
+        <h3 class="idea__title">Have an idea?</h3>
+        <p class="idea__line">Something you’d love to do together? Tell me and I’ll see if I can make it happen.</p>
+        <button class="btn btn--small btn--line-dark idea__vote" type="button" data-idea-own aria-haspopup="dialog">Suggest one</button>
+      </li>`;
+
+    const chip = (name, value, label) => `<label class="chip"><input type="radio" name="${name}" value="${value}"><span>${label}</span></label>`;
+    const dlg = document.createElement('dialog');
+    dlg.className = 'qv interest';
+    dlg.setAttribute('aria-labelledby', 'interest-title');
+    dlg.innerHTML = `<button class="qv__close" type="button" data-interest-close aria-label="Close">${ICON.x}</button>
+      <div class="interest__inner">
+        <form class="mform interest__form" data-interest-form novalidate>
+          <div class="hp" aria-hidden="true"><label>Leave this empty <input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
+          <h2 class="interest__title" id="interest-title"></h2>
+          <p class="interest__intro" data-interest-intro></p>
+          <div data-own-fields>
+            <div class="field">
+              <label for="i-idea">Your idea</label>
+              <textarea id="i-idea" name="suggestion" rows="3" placeholder="A cozy night in, a walk-and-talk, a class you’d love…" aria-describedby="i-idea-error"></textarea>
+              <p class="field-error" id="i-idea-error" aria-live="polite"></p>
+            </div>
+            <div class="field">
+              <label id="i-format-label">Virtual or in person?</label>
+              <div class="chips" role="radiogroup" aria-labelledby="i-format-label" aria-describedby="i-format-error">${chip('format', 'Virtual', 'Virtual')}${chip('format', 'In person', 'In person')}${chip('format', 'Either', 'Either')}</div>
+              <p class="field-error" id="i-format-error" aria-live="polite"></p>
+            </div>
+            <div class="field" data-host-field hidden>
+              <label id="i-host-label">Who would host it?</label>
+              <div class="chips" role="radiogroup" aria-labelledby="i-host-label" aria-describedby="i-host-error">${chip('host', 'They’d host it with their people', 'I’d host it with my people')}${chip('host', 'Chelsea hosts, they’ll come', 'You host, I’ll come')}</div>
+              <p class="field-error" id="i-host-error" aria-live="polite"></p>
+            </div>
+          </div>
+          <div class="field--row field--names">
+            <div class="field">
+              <label for="i-first">First name</label>
+              <input id="i-first" name="first_name" type="text" autocomplete="given-name" required aria-describedby="i-first-error">
+              <p class="field-error" id="i-first-error"></p>
+            </div>
+            <div class="field">
+              <label for="i-last">Last name</label>
+              <input id="i-last" name="last_name" type="text" autocomplete="family-name" required aria-describedby="i-last-error">
+              <p class="field-error" id="i-last-error"></p>
+            </div>
+          </div>
+          <div class="field">
+            <label for="i-contact">Mobile number or email</label>
+            <input id="i-contact" name="contact" type="text" autocomplete="email" required aria-describedby="i-contact-error">
+            <p class="field-error" id="i-contact-error"></p>
+          </div>
+          <div class="field" data-note-field>
+            <label for="i-note">Anything you’d love to see? <span class="opt">(optional)</span></label>
+            <textarea id="i-note" name="note" rows="2"></textarea>
+          </div>
+          <div class="field field--check">
+            <input id="i-consent" name="consent" type="checkbox" required aria-describedby="i-consent-error">
+            <label for="i-consent">Yes, you may contact me about gatherings.</label>
+            <p class="field-error" id="i-consent-error"></p>
+          </div>
+          <button class="btn btn--harbor btn--block" type="submit" data-interest-submit></button>
+        </form>
+        <div class="mdone interest__done" data-interest-done hidden tabindex="-1">
+          <svg class="mdone__arch" viewBox="0 0 60 72" aria-hidden="true"><path d="M2 70V30a28 28 0 0 1 56 0v40"/><path d="M18 40l9 9 16-18"/></svg>
+          <p class="mdone__title" data-interest-done-title></p>
+          <p data-interest-done-text></p>
+          <div class="mdone__actions"><button class="btn btn--line-dark" type="button" data-interest-close>Keep looking around</button>${IG_FOLLOW}</div>
+        </div>
+      </div>`;
+    document.body.append(dlg);
+    const form = $('[data-interest-form]', dlg);
+    const done = $('[data-interest-done]', dlg);
+    const ownFields = $('[data-own-fields]', dlg);
+    const hostField = $('[data-host-field]', dlg);
+    const validate = wireValidation(form);
+    let current = null; // the idea voted for, or null for their own idea
+    let opener = null;
+    const close = () => hideDialog(dlg, () => { if (opener) opener.focus({ preventScroll: true }); });
+    $$('[data-interest-close]', dlg).forEach((b) => b.addEventListener('click', close));
+    dlg.addEventListener('cancel', (ev) => { ev.preventDefault(); close(); });
+    dlg.addEventListener('click', (ev) => { if (ev.target === dlg) close(); });
+    // "Who would host it?" only matters for an in-person gathering
+    const picked = (name) => ($(`input[name="${name}"]:checked`, form) || {}).value || '';
+    const syncHost = () => {
+      const show = !current && ['In person', 'Either'].includes(picked('format'));
+      hostField.hidden = !show;
+      if (!show) $$('input[name="host"]', form).forEach((r) => { r.checked = false; });
+    };
+    form.addEventListener('change', (ev) => {
+      if (ev.target.name === 'format') { syncHost(); $('#i-format-error', form).textContent = ''; }
+      if (ev.target.name === 'host') $('#i-host-error', form).textContent = '';
+    });
+    $('#i-idea', form).addEventListener('input', () => { $('#i-idea-error', form).textContent = ''; });
+
+    const open = (idea, from) => {
+      current = idea;
+      opener = from;
+      form.reset();
+      $$('[aria-invalid]', form).forEach((f) => f.removeAttribute('aria-invalid'));
+      $$('.field-error', form).forEach((f) => { f.textContent = ''; });
+      $$('[data-touched]', form).forEach((f) => delete f.dataset.touched);
+      ownFields.hidden = !!idea;
+      $('[data-note-field]', form).hidden = !idea;
+      hostField.hidden = true;
+      $('#interest-title', dlg).textContent = idea ? `Count me in: ${idea.title}` : 'Have an idea?';
+      $('[data-interest-intro]', dlg).textContent = idea
+        ? 'Leave your name and how to reach you, and I’ll let you know if it makes the calendar.'
+        : 'Tell me what you’d love to do, and how to reach you.';
+      $('[data-interest-submit]', dlg).textContent = idea ? 'Count me in' : 'Send my idea';
+      done.hidden = true;
+      done.classList.remove('is-shown');
+      form.hidden = false;
+      showDialog(dlg);
+      setTimeout(() => $(idea ? '#i-first' : '#i-idea', form).focus({ preventScroll: true }), reduced ? 0 : 300);
+    };
+    list.addEventListener('click', (ev) => {
+      const vote = ev.target.closest('[data-idea-vote]');
+      if (vote) open(ideas[+vote.dataset.ideaVote], vote);
+      const own = ev.target.closest('[data-idea-own]');
+      if (own) open(null, own);
+    });
+
+    form.addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      // Their own idea: what it is, and how it'd happen
+      let ok = true;
+      if (!current) {
+        if (!$('#i-idea', form).value.trim()) { $('#i-idea-error', form).textContent = 'Please tell me a little about your idea.'; ok = false; }
+        if (!picked('format')) { $('#i-format-error', form).textContent = 'Please choose one.'; ok = false; }
+        if (!hostField.hidden && !picked('host')) { $('#i-host-error', form).textContent = 'Please choose one.'; ok = false; }
+      }
+      if (!validate() || !ok) return;
+      const btn = $('[data-interest-submit]', dlg);
+      const label = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      const contact = $('#i-contact', form).value.trim();
+      const first = $('#i-first', form).value.trim().split(' ')[0];
+      try {
+        const preview = await send({
+          website: $('input[name="website"]', form).value,
+          idea: current ? current.title : 'Their own idea',
+          suggestion: current ? $('#i-note', form).value.trim() : $('#i-idea', form).value.trim(),
+          format: current ? '' : picked('format'),
+          host: current ? '' : picked('host'),
+          first_name: $('#i-first', form).value.trim(),
+          last_name: $('#i-last', form).value.trim(),
+          // One box takes either; it arrives as an email or a phone number, so the email shows the right buttons
+          [emailRe.test(contact) ? 'email' : 'phone']: contact,
+          consent: $('#i-consent', form).checked ? 'on' : '',
+        }, 'interest');
+        $('[data-interest-done-title]', dlg).textContent = current ? `You’re counted, ${first}!` : `Love it, ${first}!`;
+        $('[data-interest-done-text]', dlg).textContent = current
+          ? `I’ll let you know if ${current.title} makes the calendar.`
+          : 'I’ll let you know if your idea makes the calendar.';
+        if (preview) $('[data-interest-done-text]', dlg).textContent += ' (Preview only: nothing was sent.)';
+        form.hidden = true;
+        done.hidden = false;
+        requestAnimationFrame(() => done.classList.add('is-shown'));
+        done.focus();
+      } catch {
+        let err = $('.send-error', form);
+        if (!err) { err = document.createElement('p'); err.className = 'field-error send-error'; err.setAttribute('role', 'alert'); form.append(err); }
+        err.textContent = 'That didn’t go through. Please try again in a moment.';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = label;
+      }
+    });
   });
 
   // Shelf pages: every product on that shelf, each with one action.
