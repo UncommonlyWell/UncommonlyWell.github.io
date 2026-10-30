@@ -1356,7 +1356,14 @@ body.menu-open .ys-pill { opacity: 0; pointer-events: none; }
 .event__meta { font-size: var(--fs-small); font-weight: 500; color: var(--ink); line-height: 1.55; }
 .event__line { color: var(--ink-soft); max-width: 34rem; }
 .event .btn { margin-top: .6rem; }
-.events-up { margin-bottom: clamp(4rem, 8vw, 6.5rem); }
+/* Upcoming: the scheduled gatherings, or an empty calendar page when there aren't any */
+.upcoming__empty { display: grid; justify-items: center; gap: 1rem; text-align: center; padding: clamp(1rem, 3vw, 2rem) 0 clamp(.5rem, 2vw, 1rem); }
+.upcoming__cal { width: clamp(6.5rem, 5rem + 5vw, 8.5rem); height: auto; fill: none; stroke: var(--brass); stroke-width: 2.2; stroke-linecap: round; }
+.upcoming__cal rect { fill: var(--paper); }
+.upcoming__cal .upcoming__ring { stroke-width: 4; }
+.upcoming__days { fill: var(--brass); stroke: none; opacity: .45; }
+.upcoming__note { font-family: var(--serif); font-style: italic; font-weight: 340; font-variation-settings: "SOFT" 100; font-size: clamp(1.15rem, 1rem + .5vw, 1.4rem); color: var(--ink-soft); }
+.upcoming__empty .btn { margin-top: .5rem; }
 
 /* Recent gatherings: a long wooden table across the page, a stack of photos for each gathering lying on it
    (flip through by clicking), and each one's story underneath */
@@ -1444,18 +1451,21 @@ body.menu-open .ys-pill { opacity: 0; pointer-events: none; }
 }
 
 /* What's next: a few undated ideas, shown only while nothing is scheduled */
-.past + .ideas { margin-top: clamp(2.5rem, 5vw, 4rem); padding-top: 0; border-top: 0; } /* the table already sets it apart */
-.ideas { margin-top: clamp(4.5rem, 9vw, 7rem); padding-top: clamp(3rem, 6vw, 4.5rem); border-top: 1px solid var(--line); display: grid; gap: 1rem; justify-items: start; }
+.ideas { margin-top: clamp(3.5rem, 7vw, 5rem); padding-top: clamp(2.5rem, 5vw, 3.5rem); border-top: 1px dashed var(--brass); display: grid; gap: .9rem; justify-items: start; }
+.ideas + .past { margin-top: clamp(4.5rem, 9vw, 7rem); }
+.upcoming + .past { margin-top: clamp(4rem, 8vw, 6rem); }
+/* Ideas aren't scheduled, so they read as notes: a "Not scheduled yet" tag and dashed, see-through cards */
+.ideas__tag { font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--brass-ink); padding: .3rem .75rem; border: 1px dashed var(--brass); border-radius: 999px; }
 .ideas__title { font-family: var(--serif); font-weight: 360; font-variation-settings: "SOFT" 60; font-size: var(--fs-h3); line-height: 1.15; letter-spacing: -.01em; }
 .ideas__lede { color: var(--ink-soft); max-width: 36rem; }
 .ideas__list { list-style: none; padding: 0; display: grid; gap: 1rem; width: 100%; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13.5rem), 1fr)); margin: .75rem 0 1rem; }
-.idea { display: grid; gap: .5rem; align-content: start; justify-items: start; padding: 1.4rem 1.4rem 1.5rem; background: var(--paper); border: 1px solid var(--line); border-radius: 1rem; }
+.idea { display: grid; gap: .5rem; align-content: start; justify-items: start; padding: 1.4rem 1.4rem 1.5rem; background: rgba(250, 246, 238, .45); border: 1.5px dashed rgba(168, 133, 79, .7); border-radius: 1rem; }
 .idea__title { font-family: var(--serif); font-weight: 400; font-variation-settings: "SOFT" 60; font-size: 1.35rem; line-height: 1.15; }
 .idea__line { color: var(--ink-soft); font-size: var(--fs-small); line-height: 1.55; }
 .idea { grid-template-rows: auto auto 1fr auto; }
 .idea__vote { margin-top: .6rem; }
 /* "Have an idea?": the same card with a dashed edge, inviting their own */
-.idea--own { background: transparent; border-style: dashed; border-color: var(--brass); grid-template-rows: auto 1fr auto; }
+.idea--own { background: rgba(216, 196, 159, .28); border-style: solid; border-color: rgba(168, 133, 79, .45); grid-template-rows: auto 1fr auto; }
 
 /* Vote for an idea, or suggest one: a small form in the product pop-up's shell */
 .interest { width: min(100% - 1.5rem, 34rem); }

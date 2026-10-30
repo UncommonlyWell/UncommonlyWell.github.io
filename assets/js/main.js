@@ -1134,7 +1134,7 @@
     });
   });
 
-  // While nothing is scheduled: a few gatherings I'd love to host next (no dates, so they never read as scheduled).
+  // While nothing is scheduled: a few gatherings I'd love to host next, under the empty calendar (no dates, so they never read as scheduled).
   // Each has "I'd come!", and a last card invites their own idea; both open one small pop-up that goes to the sheet.
   $$('[data-event-ideas]').forEach((list) => {
     const ideas = window.UW_EVENT_IDEAS || [];
