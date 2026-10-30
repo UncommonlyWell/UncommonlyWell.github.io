@@ -1164,6 +1164,8 @@ body.menu-open .ys-pill { opacity: 0; pointer-events: none; }
 .ys-empty { padding: 2rem 0 1rem; color: var(--ink-soft); }
 .ys-empty .btn { margin-top: 1.25rem; }
 .field--row { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); }
+/* First and last name always sit side by side, even on phones */
+.field--row.field--names { grid-template-columns: 1fr 1fr; gap: .75rem; }
 
 /* ---------- Shop by need ---------- */
 .needs { display: grid; gap: .9rem; margin: calc(-1 * clamp(1.5rem, 1rem + 2vw, 2.75rem)) 0 clamp(3.5rem, 2.5rem + 3vw, 5rem); }
@@ -1521,7 +1523,7 @@ body.menu-open .ys-pill { opacity: 0; pointer-events: none; }
 .notify__status { font-size: var(--fs-small); color: var(--ink-soft); padding-left: 1rem; border-left: 1px solid var(--brass); }
 .notify__row { display: flex; gap: .6rem; flex-wrap: wrap; }
 .notify__row input { flex: 1 1 13rem; }
-.notify__row input[name="name"] { flex: 1 1 8rem; }
+.notify__row input[name="first_name"], .notify__row input[name="last_name"] { flex: 1 1 7rem; }
 
 /* ---------- Note ---------- */
 .note__grid { display: grid; gap: clamp(3rem, 6vw, 7rem); grid-template-columns: minmax(0, 1fr); align-items: center; }
@@ -1763,7 +1765,7 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: non
 .next-steps { display: grid; gap: .55rem; margin: -.25rem 0 .75rem; padding: 1rem 1.1rem; background: var(--paper); border: 1px solid var(--line); border-radius: .8rem; font-size: .9375rem; color: var(--ink); }
 .next-steps li { display: grid; grid-template-columns: 1.6rem 1fr; align-items: baseline; }
 .next-steps span { font-family: var(--serif); font-style: italic; color: var(--brass-ink); font-size: 1.1rem; }
-.field { display: grid; gap: .45rem; }
+.field { display: grid; gap: .45rem; align-content: start; } /* side-by-side boxes stay level when one shows an error */
 .field label { font-size: .9375rem; font-weight: 500; }
 .opt { font-weight: 400; color: var(--ink-soft); }
 .select { position: relative; }

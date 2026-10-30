@@ -15,7 +15,7 @@
 <script>document.documentElement.classList.replace('no-js', 'js');
   // The membership banner shows until this visitor closes it.
   try { if (localStorage.getItem('uw-promo-closed') !== 'membership-1') document.documentElement.classList.add('has-promo'); } catch (e) { document.documentElement.classList.add('has-promo'); }</script>
-<link rel="stylesheet" href="/assets/css/styles.css?v=262">
+<link rel="stylesheet" href="/assets/css/styles.css?v=264">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -202,10 +202,17 @@
     <form class="mform" data-form="message" novalidate>
       <div class="hp" aria-hidden="true"><label>Leave this empty <input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
       <p class="mform__intro" data-drawer-intro>Ask me anything: a product question, a gift idea, or just hi. I read every message myself.</p>
-      <div class="field">
-        <label for="m-name">Your first name</label>
-        <input id="m-name" name="name" type="text" autocomplete="given-name" required aria-describedby="m-name-error">
-        <p class="field-error" id="m-name-error"></p>
+      <div class="field--row field--names">
+        <div class="field">
+          <label for="m-first">First name</label>
+          <input id="m-first" name="first_name" type="text" autocomplete="given-name" required aria-describedby="m-first-error">
+          <p class="field-error" id="m-first-error"></p>
+        </div>
+        <div class="field">
+          <label for="m-last">Last name</label>
+          <input id="m-last" name="last_name" type="text" autocomplete="family-name" required aria-describedby="m-last-error">
+          <p class="field-error" id="m-last-error"></p>
+        </div>
       </div>
       <div class="field">
         <label for="m-phone">Mobile number</label>
@@ -285,10 +292,16 @@
         <fieldset class="mform__group" data-wish-only hidden disabled>
           <legend class="sr-only">Your wish list</legend>
           <p class="mform__note">Tell me who to drop a hint to, and I’ll let them know this one’s on your wish list.</p>
-          <div class="field">
-            <label for="m-wish-name">Who should I let know?</label>
-            <input id="m-wish-name" name="wish_name" type="text" placeholder="Their first name" required aria-describedby="m-wish-name-error">
-            <p class="field-error" id="m-wish-name-error"></p>
+          <div class="field--row field--names">
+            <div class="field">
+              <label for="m-wish-name">Their first name</label>
+              <input id="m-wish-name" name="wish_name" type="text" autocomplete="off" required aria-describedby="m-wish-name-error">
+              <p class="field-error" id="m-wish-name-error"></p>
+            </div>
+            <div class="field">
+              <label for="m-wish-last">Their last name</label>
+              <input id="m-wish-last" name="wish_last" type="text" autocomplete="off" placeholder="Optional">
+            </div>
           </div>
           <div class="field">
             <label for="m-wish-relation">How do you know them? <span class="opt">(optional)</span></label>
@@ -371,6 +384,6 @@
 <script src="/assets/vendor/SplitText.min.js" defer></script>
 <script src="/assets/vendor/lenis.min.js" defer></script>
 <script src="/assets/js/products.js?v=35" defer></script>
-<script src="/assets/js/main.js?v=186" defer></script>
+<script src="/assets/js/main.js?v=187" defer></script>
 </body>
 </html>

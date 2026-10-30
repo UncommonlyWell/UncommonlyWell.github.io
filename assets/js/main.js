@@ -283,7 +283,7 @@
     $('button[type="submit"]', mform).textContent = submitLabel;
     $('#m-msg').value = note;
     showDialog(drawer);
-    setTimeout(() => $('#m-name').focus(), reduced ? 0 : 350);
+    setTimeout(() => $('#m-first').focus(), reduced ? 0 : 350);
   }
   function closeDrawer() {
     hideDialog(drawer, () => { if (opener) opener.focus({ preventScroll: true }); });
@@ -435,7 +435,7 @@
     btn.textContent = 'Sending…';
     try {
       const preview = await send(mform, 'message');
-      const [title, text, more] = doneText($('#m-name').value.trim().split(' ')[0]);
+      const [title, text, more] = doneText($('#m-first').value.trim().split(' ')[0]);
       $('.mdone__title', done).textContent = title;
       $('[data-done-text]', done).textContent = text;
       const moreEl = $('[data-done-more]', done);
@@ -475,7 +475,7 @@
       if (!validateNotify()) return;
       try {
         const preview = await send(nform, 'gatherings');
-        const first = esc($('#notify-name', nform).value.trim().split(' ')[0]);
+        const first = esc($('#notify-first', nform).value.trim().split(' ')[0]);
         nform.innerHTML = `<p class="notify__status" role="status">You’re on the list, ${first}!<br>Keep an eye on your inbox for when the next gathering is announced!</p>` +
           (preview ? '<p class="mdone__preview">Preview only: this form isn’t connected yet, so nothing was sent.</p>' : '');
       } catch {
@@ -591,7 +591,8 @@
     },
     contact: {
       title: (v) => (v.connected === 'existing' ? 'What’s the best way to reach you?' : 'What’s the best way to reach you?'),
-      body: `<div class="qfields" data-show-if="connected:existing" hidden>${field('q-name', 'Your first name', text('q-name', 'name', 'autocomplete="given-name"'))}</div>` +
+      // Their own name boxes (e_first/e_last), so they don't clash with the new-visitor path's; sent as first_name/last_name.
+      body: `<div class="qfields qfields--names" data-show-if="connected:existing" hidden>${field('q-first', 'First name', text('q-first', 'e_first', 'autocomplete="given-name"'))}${field('q-last', 'Last name', text('q-last', 'e_last', 'autocomplete="family-name"'))}</div>` +
         '<div class="qfields">' +
         field('q-phone', 'Phone number', '<input id="q-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" aria-describedby="q-phone-error">') +
         '<div class="field"><label id="q-reach-label">How should I reach you?</label><div class="chips" role="radiogroup" aria-labelledby="q-reach-label">' +
@@ -601,7 +602,8 @@
         '</div>',
       check: (v) => {
         const e = [];
-        if (v.connected === 'existing' && !v.name.trim()) e.push(['q-name', 'Please add your first name.']);
+        if (v.connected === 'existing' && !v.e_first.trim()) e.push(['q-first', 'Please add your first name.']);
+        if (v.connected === 'existing' && !v.e_last.trim()) e.push(['q-last', 'Please add your last name.']);
         if (!phoneOk(v.phone)) e.push(['q-phone', 'Please add a phone number with area code.']);
         if (!v.consent) e.push(['q-consent', 'Please check this box so I’m allowed to reach out.']);
         return e;
@@ -652,7 +654,7 @@
        <div>${st.body}<p class="field-error" id="err-${id}" aria-live="polite"></p></div>
      </fieldset>`).join('');
 
-  const SINGLE = ['reach', 'connected', 'focus', 'story', 'using', 'using_what', 'avoid_other', 'name', 'phone', 'consent', 'first_name', 'last_name', 'street', 'apt', 'city', 'state', 'zip', 'local', 'bmonth', 'bday', 'e_love', 'e_low', 'e_try_other', 'e_recur'];
+  const SINGLE = ['reach', 'e_first', 'e_last', 'connected', 'focus', 'story', 'using', 'using_what', 'avoid_other', 'name', 'phone', 'consent', 'first_name', 'last_name', 'street', 'apt', 'city', 'state', 'zip', 'local', 'bmonth', 'bday', 'e_love', 'e_low', 'e_try_other', 'e_recur'];
   function values() {
     const fd = new FormData(qform);
     const v = { help: fd.getAll('help'), avoid: fd.getAll('avoid'), e_try: fd.getAll('e_try') };
@@ -782,6 +784,8 @@
     qnext.textContent = 'Sending…';
     try {
       const flat = Object.fromEntries(Object.entries(v).map(([k, x]) => [k, Array.isArray(x) ? x.join(', ') : x]));
+      if (v.connected === 'existing') { flat.first_name = v.e_first; flat.last_name = v.e_last; }
+      delete flat.e_first; delete flat.e_last;
       const saved = ys.map((id) => byId[id].name);
       const preview = await send({
         ...flat,
@@ -822,7 +826,7 @@
 
   function renderFinish(kind, v, preview = false, saved = []) {
     finished = true;
-    const first = (kind === 'existing' ? v.name : v.first_name).trim().split(' ')[0];
+    const first = (kind === 'existing' ? v.e_first : v.first_name).trim().split(' ')[0];
     // Back to the site, or follow along on Instagram (same as the other thank-you screens).
     const keepLooking = `<div class="qf-actions"><button class="btn btn--line-dark" type="button" data-quiz-browse>Keep looking around</button>${IG_FOLLOW}</div>`;
     const note = preview ? '<p class="mdone__preview">Preview only: the survey isn’t connected yet, so nothing was sent.</p>' : '';
@@ -1371,7 +1375,7 @@
         <p class="ys-start" data-ys-start hidden>Not sure what to pick? <button class="btn btn--small btn--brass" type="button" data-open-quiz>Start here</button></p>
         <form class="mform" data-form="shelf" novalidate data-ys-form>
           <input type="hidden" name="picks" data-ys-samples>
-          <div class="field--row">
+          <div class="field--row field--names">
             <div class="field">
               <label for="ys-first">First name</label>
               <input id="ys-first" name="first_name" type="text" autocomplete="given-name" required aria-describedby="ys-first-error">
