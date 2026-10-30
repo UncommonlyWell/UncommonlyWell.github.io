@@ -106,12 +106,14 @@
   window.UW_PAST_EVENTS = [
     {
       title: 'Artistry Beauty Unmasked', sub: 'A self-care social night', kind: 'virtual', date: '2026-09-15', place: 'On Zoom',
-      style: 'strip', stripCaption: 'a cozy night in · Sept 2026',
+      style: 'strip', stripCaption: 'a cozy night in · Sept 2026', showDate: false,
       line: 'A cozy night in on Zoom. Everyone got a little spa kit in the mail, and we masked together, played trivia and laughed a lot.',
+      // The invite, shown above the title (5:4); cropped above its "drawing for a fun prize" line pending upline
+      flyer: { photo: 'unmasked-invite', alt: 'The invite: Artistry Beauty Unmasked, a self-care social night. Join us for a fun and casual spa experience from the comfort of your own home. Tuesday, Sept 15th, 7 to 7:45 PM. RSVP today to receive your free kit.' },
       snaps: [
-        { photo: 'unmasked-flyer', pos: 'top', caption: 'the invite', alt: 'The invite: Artistry Beauty Unmasked, a self-care social night, Tuesday, Sept 15, 7 to 7:45 PM' },
-        { photo: 'unmasked-kit', caption: 'spa kits in the mail', alt: 'A gift-wrapped Artistry spa kit in cellophane with curled ribbon' },
-        { photo: 'unmasked-zoom', caption: 'the whole crew', alt: 'A Zoom grid of guests in face masks, smiling and laughing' },
+        { photo: 'unmasked-chelsea', caption: 'me, mid-glow', alt: 'Me grinning at my desk, getting ready for the night' },
+        { photo: 'unmasked-mailer', caption: 'what was in the mail', alt: 'The kit laid out: the Unmasked card, Artistry samples, a lavender scrunchie, greenery and a black ribbon' },
+        { photo: 'unmasked-zoom', caption: 'the whole crew', alt: 'Seven of us on Zoom, smiling and laughing, some in face masks' },
         { photo: 'unmasked-text', caption: 'the kits were a hit', alt: 'A guest’s text: I just got your little goodie set, you are so cute! Exciting for Tuesday' },
       ],
     },

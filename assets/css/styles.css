@@ -1397,6 +1397,9 @@ body.menu-open .ys-pill { opacity: 0; pointer-events: none; }
 .photostrip figcaption { padding: .75rem .25rem .9rem; text-align: center; font-family: var(--serif); font-style: italic; font-weight: 340; font-variation-settings: "SOFT" 100; font-size: 1rem; color: var(--ink-soft); }
 @media (prefers-reduced-motion: reduce) { .tprint, .photostrip { transition: none; } }
 .past-event__body { display: grid; gap: .5rem; justify-items: start; }
+/* A gathering's flyer, set above its title like an invite left on the table */
+.past-event__flyer { width: min(100%, 22rem); margin-bottom: 1.1rem; transform: rotate(-1.5deg); border-radius: 4px; overflow: hidden; box-shadow: 0 1px 2px rgba(30, 24, 14, .15), 0 14px 26px -12px rgba(30, 24, 14, .45); }
+.past-event__flyer picture, .past-event__flyer img { display: block; width: 100%; height: auto; }
 .past-event__sub { font-family: var(--serif); font-style: italic; font-weight: 340; font-variation-settings: "SOFT" 100; font-size: 1.1rem; color: var(--ink-soft); margin-top: -.2rem; }
 @media (min-width: 900px) {
   .past-event { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(3rem, 6vw, 6rem); }

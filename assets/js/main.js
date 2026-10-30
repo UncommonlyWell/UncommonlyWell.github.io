@@ -1015,10 +1015,11 @@
     list.innerHTML = (window.UW_PAST_EVENTS || []).map((e) => `<article class="past-event">
         <div class="past-event__snaps">${e.style === 'strip' ? strip(e) : table(e)}</div>
         <div class="past-event__body">
+          ${e.flyer ? `<div class="past-event__flyer">${pic(e.flyer, esc(e.flyer.alt)).replace('width="480" height="600"', 'width="480" height="384"')}</div>` : ''}
           <p class="event__kind event__kind--${e.kind}">${kindLabel[e.kind] || esc(e.kind)}</p>
           <h3 class="event__title">${esc(e.title)}</h3>
           ${e.sub ? `<p class="past-event__sub">${esc(e.sub)}</p>` : ''}
-          <p class="event__meta">${long.format(eventDay(e))}<br>${esc(e.place)}</p>
+          <p class="event__meta">${e.showDate === false ? '' : `${long.format(eventDay(e))}<br>`}${esc(e.place)}</p>
           <p class="event__line">${esc(e.line)}</p>
         </div>
       </article>`).join('');
