@@ -368,6 +368,20 @@
     return CONFIG.forms.mode === 'preview';
   }
 
+  // The thank-you line names what they asked about: the gathering, the gift, or who to tell about their wish list.
+  function doneText() {
+    const topic = $('#m-topic').value;
+    const val = (sel) => { const el = $(sel, mform); return el && !el.disabled && !el.closest('[disabled]') ? el.value.trim() : ''; };
+    const event = val('#m-event');
+    if (topic === 'Gatherings' && event && !/^Tell me about future/.test(event)) return `I’ll reach out to confirm your spot at ${event}.`;
+    if (topic === 'Wishlist a gift') return `Consider it done! I’ll reach out to ${val('#m-wish-name') || 'them'} about your wish list, just like you asked.`;
+    if (topic === 'A custom gift') {
+      const gift = val('#m-gift');
+      return `I’ll reach out soon to plan ${gift && gift !== 'Something custom' ? `the ${gift} gift` : 'the gift'} together.`;
+    }
+    return 'I’ll be in touch soon. Until then, take your time looking around.';
+  }
+
   const validateMessage = wireValidation(mform);
   mform.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -378,6 +392,7 @@
     try {
       const preview = await send(mform, 'message');
       $('[data-done-name]', done).textContent = $('#m-name').value.trim().split(' ')[0];
+      $('[data-done-text]', done).textContent = doneText();
       $('[data-preview-note]', done).hidden = !preview;
       mform.hidden = true;
       done.hidden = false;
@@ -524,7 +539,7 @@
       check: (v) => (v.e_recur ? [] : [['err-e_recur', 'Choose the one that fits best.']]),
     },
     contact: {
-      title: (v) => (v.connected === 'existing' ? 'What’s the best way to reach you?' : 'I’ll check in a couple of days after your samples arrive. What’s the best way to reach you?'),
+      title: (v) => (v.connected === 'existing' ? 'What’s the best way to reach you?' : 'What’s the best way to reach you?'),
       help: 'Text or call.',
       body: `<div class="qfields" data-show-if="connected:existing" hidden>${field('q-name', 'Your first name', text('q-name', 'name', 'autocomplete="given-name"'))}</div>` +
         '<div class="qfields">' +
@@ -759,7 +774,7 @@
       ? `<a class="btn ${primary ? 'btn--harbor' : 'btn--line-dark'}" href="${esc(CONFIG.shopUrl)}" target="_blank" rel="noopener">Browse the shop</a>`
       : `<button class="btn ${primary ? 'btn--harbor' : 'btn--line-dark'}" type="button" disabled>Shop opening soon</button>`;
     const note = preview ? '<p class="mdone__preview">Preview only: the survey isn’t connected yet, so nothing was sent.</p>' : '';
-    const savedLine = saved.length ? `<p class="qf-text">I’ll also bring up the ${esc(listOf(saved))} you saved.</p>` : '';
+    const reply = '<p class="qf-text">I read every answer myself, so expect a real reply from me by text or call.</p>';
     let html = '';
 
     if (kind === 'samples') {
@@ -767,14 +782,14 @@
       html = `<h2 class="qf-title">Thanks, ${esc(first)}. Here’s where I’d start.</h2>
         <p class="qf-text">Based on what you shared, these are a few good places to begin. I chose them because of what you told me, not because they’re what everyone gets.</p>
         <div class="qf-cards">${shelfCards(picks)}</div>
-        ${savedLine}
-        <p class="qf-text">I’ll hand-pick a few free samples, while supplies last, and check in a couple of days after they arrive.</p>
+        <p class="qf-text">${saved.length ? `I’ll reach out about the ${esc(listOf(saved))} you shelved` : 'I’ll reach out soon'} &amp; we’ll chat about free samples, where it makes sense.</p>
+        ${reply}
         ${note}
         <div class="qf-actions">${shopBtn(false)}<button class="link" type="button" data-quiz-browse>I’ll keep browsing</button></div>`;
     } else {
       html = `<h2 class="qf-title">Thanks, ${esc(first)}. I’ll be in touch about what you need next.</h2>
-        <p class="qf-text">I read every answer myself, so expect a real reply by text or call.</p>
-        ${savedLine}
+        ${reply}
+        ${saved.length ? `<p class="qf-text">I’ll bring up the ${esc(listOf(saved))} you shelved, too.</p>` : ''}
         ${note}
         <div class="qf-actions">${shopBtn(true)}<button class="link" type="button" data-quiz-browse>I’ll keep browsing</button></div>`;
     }
@@ -1298,7 +1313,7 @@
         <button class="drawer__close" type="button" data-ys-close aria-label="Close">${ICON.x}</button>
       </div>
       <div data-ys-main>
-        <p class="ys-intro">Save up to 3 you’re curious about. Send me your shelf and I’ll reach out to talk them through, with free samples while supplies last.</p>
+        <p class="ys-intro">Save up to 3 you’re curious about. Send me your shelf and I’ll reach out to talk them through &amp; we’ll chat about free samples, where it makes sense.</p>
         <p class="qv__status" role="status" aria-live="polite" data-ys-status></p>
         <ul class="ys-list" data-ys-list></ul>
         <p class="ys-start" data-ys-start hidden>Not sure what to pick? <button class="btn btn--small btn--brass" type="button" data-open-quiz>Start here</button></p>
@@ -1349,6 +1364,7 @@
         <svg class="mdone__arch" viewBox="0 0 60 72" aria-hidden="true"><path d="M2 70V30a28 28 0 0 1 56 0v40"/><path d="M18 40l9 9 16-18"/></svg>
         <p class="mdone__title">Thanks, <span data-ys-done-name>friend</span>!</p>
         <p data-ys-done-text></p>
+        <p data-ys-done-reply></p>
         <p class="mdone__preview" data-ys-preview hidden>Preview only: this form isn’t connected yet, so nothing was sent.</p>
         <button class="btn btn--line-dark" type="button" data-ys-close>Keep looking around</button>
       </div>
@@ -1422,7 +1438,10 @@
       const names = ys.map((id) => byId[id].name);
       const preview = await send(ysForm, 'shelf');
       $('[data-ys-done-name]', panel).textContent = $('#ys-first').value.trim().split(' ')[0];
-      $('[data-ys-done-text]', panel).textContent = `I’ll be in touch soon to talk about ${listOf(names)}.`;
+      $('[data-ys-done-text]', panel).textContent = `I’ll reach out about the ${listOf(names)} you shelved & we’ll chat about free samples, where it makes sense.`;
+      // The reply line follows how they asked to be reached.
+      const by = ($('input[name="reach"]:checked', ysForm) || {}).value === 'Call' ? 'with a call' : 'by text';
+      $('[data-ys-done-reply]', panel).textContent = `I read every one myself, so expect a real reply from me ${by}.`;
       $('[data-ys-preview]', panel).hidden = !preview;
       $('[data-ys-main]', panel).hidden = true;
       const doneEl = $('[data-ys-done]', panel);
