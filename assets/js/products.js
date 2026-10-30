@@ -131,10 +131,11 @@
   ];
 
   // A few gatherings you'd love to host next, shown (without dates) only when nothing is scheduled.
+  // kind: 'virtual', 'in-person' or 'either' (In person or virtual).
   window.UW_EVENT_IDEAS = [
-    { title: 'Skincare & sip night', kind: 'virtual', line: 'Grab a cozy drink and your favorite face mask. We’ll chat routines and try a few things together.' },
-    { title: 'Smoothie tasting', kind: 'in-person', line: 'A blender, a big table and a few of my favorite recipes. Come hungry and bring a friend.' },
-    { title: 'New year, gentle reset', kind: 'virtual', line: 'No resolutions, no pressure. Just an hour to talk about what you want more of this year.' },
+    { title: 'One word for the year', kind: 'either', line: 'Skip the resolutions. Pick one word for how you want this year to feel, make a mini vision board around it, and leave with a few small wellness goals to match.' },
+    { title: 'Spa night in', kind: 'virtual', line: 'A little kit in your mailbox, a cozy night in on Zoom. We’ll mask together, laugh a lot and slow down for an hour.' },
+    { title: 'Stocking stuffer pop-up', kind: 'in-person', line: 'A festive open house to browse, sample and pick up little gifts for everyone on your list, wrapped while you wait.' },
   ];
 
   window.UW_PRODUCTS = [

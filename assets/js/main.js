@@ -998,7 +998,7 @@
 
   // Past gatherings: a stack of photos for each, lying on a long wooden table with its name beside it. Clicking a
   // stack opens a pop-up with the stack (flyer on top; click, arrows, ← → or a swipe flip through it) and its story.
-  const kindLabel = { virtual: 'Virtual', 'in-person': 'In person' };
+  const kindLabel = { virtual: 'Virtual', 'in-person': 'In person', either: 'In person or virtual' };
   // Each print's resting tilt and nudge in the pile, so it looks set down by hand
   const PILE = [['-2deg', '0%', '0%'], ['4deg', '3%', '2%'], ['-6deg', '-4%', '3%'], ['7deg', '2%', '-3%'], ['-4deg', '-3%', '-2%']];
   const MONTH = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
