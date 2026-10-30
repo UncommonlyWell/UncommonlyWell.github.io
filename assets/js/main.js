@@ -411,7 +411,8 @@
       if (!validateNotify()) return;
       try {
         const preview = await send(nform, 'gatherings');
-        nform.innerHTML = '<p class="notify__status" role="status">You’re on the list. You’ll hear first when the next gathering is set.</p>' +
+        const first = esc($('#notify-name', nform).value.trim().split(' ')[0]);
+        nform.innerHTML = `<p class="notify__status" role="status">You’re on the list, ${first}. You’ll hear first when the next gathering is set.</p>` +
           (preview ? '<p class="mdone__preview">Preview only: this form isn’t connected yet, so nothing was sent.</p>' : '');
       } catch {
         $('#notify-error').textContent = 'That didn’t go through. Please try again in a moment.';

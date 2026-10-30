@@ -23,7 +23,7 @@
 <script>document.documentElement.classList.replace('no-js', 'js');
   // The membership banner shows until this visitor closes it.
   try { if (localStorage.getItem('uw-promo-closed') !== 'membership-1') document.documentElement.classList.add('has-promo'); } catch (e) { document.documentElement.classList.add('has-promo'); }</script>
-<link rel="stylesheet" href="assets/css/styles.css?v=259">
+<link rel="stylesheet" href="assets/css/styles.css?v=260">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -172,10 +172,13 @@
       <div class="hp" aria-hidden="true"><label>Leave this empty <input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
       <p class="notify__status">More fun is being planned! Leave your contact info and you’ll be the first to know when the next gathering is set.</p>
       <div class="notify__row">
+        <label class="sr-only" for="notify-name">First name</label>
+        <input id="notify-name" name="name" type="text" autocomplete="given-name" placeholder="First name" required aria-describedby="notify-name-error">
         <label class="sr-only" for="notify-email">Email address</label>
         <input id="notify-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required aria-describedby="notify-error">
         <button class="btn btn--harbor" type="submit">Tell me first</button>
       </div>
+      <p class="field-error" id="notify-name-error" aria-live="polite"></p>
       <p class="field-error" id="notify-error" aria-live="polite"></p>
     </form>
     <p class="ig-line">Follow along on Instagram <a class="ig-link" href="https://www.instagram.com/uncommonly.well/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#uw-ig"/></svg>@uncommonly.well<span class="sr-only"> on Instagram (opens a new tab)</span></a></p>
@@ -420,6 +423,6 @@
 <script src="assets/vendor/SplitText.min.js" defer></script>
 <script src="assets/vendor/lenis.min.js" defer></script>
 <script src="assets/js/products.js?v=35" defer></script>
-<script src="assets/js/main.js?v=178" defer></script>
+<script src="assets/js/main.js?v=179" defer></script>
 </body>
 </html>

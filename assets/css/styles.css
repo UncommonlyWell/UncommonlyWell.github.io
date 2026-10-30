@@ -1520,6 +1520,7 @@ body.menu-open .ys-pill { opacity: 0; pointer-events: none; }
 .notify__status { font-size: var(--fs-small); color: var(--ink-soft); padding-left: 1rem; border-left: 1px solid var(--brass); }
 .notify__row { display: flex; gap: .6rem; flex-wrap: wrap; }
 .notify__row input { flex: 1 1 13rem; }
+.notify__row input[name="name"] { flex: 1 1 8rem; }
 
 /* ---------- Note ---------- */
 .note__grid { display: grid; gap: clamp(3rem, 6vw, 7rem); grid-template-columns: minmax(0, 1fr); align-items: center; }
