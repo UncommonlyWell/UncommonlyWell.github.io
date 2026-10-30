@@ -996,43 +996,97 @@
     });
   });
 
-  // Past gatherings, beside what each one was: prints scattered on a table (they lift when hovered or tapped),
-  // or a photo-booth strip with one caption along the bottom.
+  // Past gatherings: a stack of photos for each, lying on a long wooden table, with its story underneath.
+  // The flyer is on top; clicking (or tapping, Enter, →) slides the top print aside and tucks it under the pile,
+  // ← brings the last one back, and on phones a swipe flips too.
   const kindLabel = { virtual: 'Virtual', 'in-person': 'In person' };
-  // Where the four prints land on the table (left, top, tilt)
-  const PRINT_SPOTS = [['6%', '6%', '-7deg'], ['53%', '3%', '5deg'], ['10%', '50%', '4deg'], ['51%', '47%', '-5deg']];
-  $$('[data-past-events]').forEach((list) => {
+  // Each print's resting tilt and nudge in the pile, so it looks set down by hand
+  const PILE = [['-2deg', '0%', '0%'], ['4deg', '3%', '2%'], ['-6deg', '-4%', '3%'], ['7deg', '2%', '-3%'], ['-4deg', '-3%', '-2%']];
+  $$('[data-past-events]').forEach((grid) => {
+    const events = window.UW_PAST_EVENTS || [];
     const long = new Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
-    const pic = (sn, alt) => {
-      // ?v= changes when a photo is replaced, so browsers fetch the new one (set per snap with v: 2, 3…)
-      const v = sn.v ? `?v=${sn.v}` : '';
-      const src = (ext) => `assets/img/past-${sn.photo}-480.${ext}${v} 480w, assets/img/past-${sn.photo}-800.${ext}${v} 800w`;
-      return `<picture><source type="image/avif" srcset="${src('avif')}" sizes="(min-width: 900px) 20vw, 45vw"><img src="assets/img/past-${sn.photo}-480.jpg${v}" srcset="${src('jpg')}" sizes="(min-width: 900px) 20vw, 45vw" width="480" height="600" alt="${alt}" loading="lazy" decoding="async"${sn.pos ? ` style="object-position:${sn.pos}"` : ''}></picture>`;
+    const pic = (p) => {
+      // ?v= changes when a photo is replaced, so browsers fetch the new one
+      const v = p.v ? `?v=${p.v}` : '';
+      const src = (ext) => `assets/img/past-${p.photo}-480.${ext}${v} 480w, assets/img/past-${p.photo}-800.${ext}${v} 800w`;
+      return `<picture><source type="image/avif" srcset="${src('avif')}" sizes="(min-width: 900px) 18rem, 62vw"><img src="assets/img/past-${p.photo}-480.jpg${v}" srcset="${src('jpg')}" sizes="(min-width: 900px) 18rem, 62vw" width="480" height="${p.wide ? 384 : 600}" alt="${esc(p.alt)}" loading="lazy" decoding="async"></picture>`;
     };
-    const table = (e) => `<div class="table-prints" role="group" aria-label="Photos from ${esc(e.title)}">${(e.snaps || []).slice(0, 4).map((sn, i) => {
-      const [x, y, r] = PRINT_SPOTS[i];
-      return `<button class="tprint" type="button" style="--x:${x};--y:${y};--r:${r}" aria-pressed="false" aria-label="${esc(sn.alt)}">${pic(sn, '')}</button>`;
-    }).join('')}</div>`;
-    const strip = (e) => `<figure class="photostrip"><div class="photostrip__frames">${(e.snaps || []).slice(0, 4).map((sn) => `<div class="photostrip__frame">${pic(sn, esc(sn.alt))}</div>`).join('')}</div><figcaption>${esc(e.stripCaption || '')}</figcaption></figure>`;
-    list.innerHTML = (window.UW_PAST_EVENTS || []).map((e) => `<article class="past-event">
-        <div class="past-event__snaps">${e.style === 'strip' ? strip(e) : table(e)}</div>
-        <div class="past-event__body">
-          ${e.flyer ? `<div class="past-event__flyer">${pic(e.flyer, esc(e.flyer.alt)).replace('width="480" height="600"', 'width="480" height="384"')}</div>` : ''}
-          <p class="event__kind event__kind--${e.kind}">${kindLabel[e.kind] || esc(e.kind)}</p>
-          <h3 class="event__title">${esc(e.title)}</h3>
-          ${e.sub ? `<p class="past-event__sub">${esc(e.sub)}</p>` : ''}
-          <p class="event__meta">${e.showDate === false ? '' : `${long.format(eventDay(e))}<br>`}${esc(e.place)}</p>
-          <p class="event__line">${esc(e.line)}</p>
-        </div>
-      </article>`).join('');
-    // Tap (or click, or Enter) lifts a print off the table; tapping it again, or another, sets it back down.
-    list.addEventListener('click', (ev) => {
-      const print = ev.target.closest('.tprint');
-      if (!print) return;
-      const up = !print.classList.contains('is-up');
-      $$('.tprint', print.parentElement).forEach((p) => { p.classList.remove('is-up'); p.setAttribute('aria-pressed', 'false'); });
-      print.classList.toggle('is-up', up);
-      print.setAttribute('aria-pressed', String(up));
+    const stack = (e, n) => `<div class="stack stack--${n}" data-stack role="group" aria-roledescription="photo stack" aria-label="Photos from ${esc(e.title)}">
+        <button class="stack__pile" type="button" aria-label="Next photo">${(e.photos || []).map((p, i) => {
+          const [r, x, y] = PILE[i % PILE.length];
+          return `<div class="stack__print${p.wide ? ' stack__print--wide' : ''}" style="--r:${r};--x:${x};--y:${y}">${pic(p)}</div>`;
+        }).join('')}</button>
+        <p class="stack__hint"><button class="stack__prev" type="button" aria-label="Previous photo">‹</button><span class="stack__count" aria-live="polite">1 / ${(e.photos || []).length}</span><span class="stack__tip">tap to flip through</span></p>
+      </div>`;
+    const story = (e, n) => `<article class="past-story past-story--${n}">
+        <p class="event__kind event__kind--${e.kind}">${kindLabel[e.kind] || esc(e.kind)}</p>
+        <h3 class="event__title">${esc(e.title)}</h3>
+        ${e.sub ? `<p class="past-event__sub">${esc(e.sub)}</p>` : ''}
+        <p class="event__meta">${e.showDate === false ? '' : `${long.format(eventDay(e))}<br>`}${esc(e.place)}</p>
+        <p class="event__line">${esc(e.line)}</p>
+      </article>`;
+    // One table behind every stack on wide screens; on phones each stack gets its own stretch of table
+    grid.innerHTML = '<div class="gather-table" aria-hidden="true"></div>' + events.map((e, i) => stack(e, i + 1) + story(e, i + 1)).join('');
+    grid.style.setProperty('--n', events.length);
+
+    $$('[data-stack]', grid).forEach((st) => {
+      const prints = $$('.stack__print', st);
+      const count = $('.stack__count', st);
+      const order = prints.map((_, i) => i);
+      let busy = false;
+      const show = () => {
+        order.forEach((idx, pos) => {
+          const el = prints[idx];
+          el.style.zIndex = prints.length - pos;
+          el.classList.toggle('is-top', pos === 0);
+          el.querySelector('img').setAttribute('aria-hidden', pos === 0 ? 'false' : 'true');
+        });
+        count.textContent = `${order[0] + 1} / ${prints.length}`;
+      };
+      const next = () => {
+        if (busy || prints.length < 2) return;
+        busy = true;
+        const top = prints[order[0]];
+        top.classList.add('is-off');
+        setTimeout(() => {
+          order.push(order.shift());
+          show();
+          top.classList.remove('is-off');
+          setTimeout(() => { busy = false; }, reduced ? 0 : 380);
+        }, reduced ? 120 : 360);
+      };
+      const prev = () => {
+        if (busy || prints.length < 2) return;
+        busy = true;
+        const back = prints[order[order.length - 1]];
+        back.style.transition = 'none';
+        back.classList.add('is-off');
+        back.getBoundingClientRect();
+        back.style.transition = '';
+        order.unshift(order.pop());
+        show();
+        requestAnimationFrame(() => {
+          back.classList.remove('is-off');
+          setTimeout(() => { busy = false; }, reduced ? 120 : 380);
+        });
+      };
+      // A swipe flips; a plain tap or click goes to the next photo.
+      let x0 = null, swiped = false;
+      const pile = $('.stack__pile', st);
+      pile.addEventListener('pointerdown', (ev) => { x0 = ev.clientX; swiped = false; });
+      pile.addEventListener('pointerup', (ev) => {
+        if (x0 === null) return;
+        const dx = ev.clientX - x0;
+        x0 = null;
+        if (Math.abs(dx) > 40) { swiped = true; if (dx < 0) next(); else prev(); }
+      });
+      pile.addEventListener('click', () => { if (swiped) { swiped = false; return; } next(); });
+      $('.stack__prev', st).addEventListener('click', prev);
+      st.addEventListener('keydown', (ev) => {
+        if (ev.key === 'ArrowRight') { ev.preventDefault(); next(); }
+        if (ev.key === 'ArrowLeft') { ev.preventDefault(); prev(); }
+      });
+      show();
     });
   });
 

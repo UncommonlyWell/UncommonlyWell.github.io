@@ -100,32 +100,32 @@
   // without one, the card shows a soft color block behind its date.
   window.UW_EVENTS = [];
 
-  // Gatherings you've hosted, newest first, on the Gather page. style: 'strip' (a photo-booth strip of four frames
-  // with one caption along the bottom, stripCaption) or 'table' (prints scattered on a table that lift when hovered
-  // or tapped). Each snap is assets/img/past-{photo}-480/800 (.jpg + .avif, 4:5); alt describes it for screen readers.
+  // Gatherings you've hosted, newest first. On the Gather page each one is a stack of photos lying on a long wooden
+  // table: the first photo (the flyer) is on top, and clicking the stack flips through the rest. photos: in order,
+  // each assets/img/past-{photo}-480/800 (.jpg + .avif); alt describes it for screen readers; v: bump when a photo
+  // file is replaced; wide: true for a landscape photo. showDate: false leaves the date out of the details.
   window.UW_PAST_EVENTS = [
     {
-      title: 'Artistry Beauty Unmasked', sub: 'A self-care social night', kind: 'virtual', date: '2026-09-15', place: 'On Zoom',
-      style: 'strip', stripCaption: 'a cozy night in · Sept 2026', showDate: false,
+      title: 'Artistry Beauty Unmasked', sub: 'A self-care social night', kind: 'virtual', date: '2026-09-15', place: 'On Zoom', showDate: false,
       line: 'A cozy night in on Zoom. Everyone got a little spa kit in the mail, and we masked together, played trivia and laughed a lot.',
-      // The invite, shown above the title (5:4); cropped above its "drawing for a fun prize" line pending upline
-      flyer: { photo: 'unmasked-invite', alt: 'The invite: Artistry Beauty Unmasked, a self-care social night. Join us for a fun and casual spa experience from the comfort of your own home. Tuesday, Sept 15th, 7 to 7:45 PM. RSVP today to receive your free kit.' },
-      snaps: [
-        { photo: 'unmasked-chelsea', caption: 'me, mid-glow', alt: 'Me grinning at my desk, getting ready for the night' },
-        { photo: 'unmasked-mailer', caption: 'what was in the mail', alt: 'The kit laid out: the Unmasked card, Artistry samples, a lavender scrunchie, greenery and a black ribbon' },
-        { photo: 'unmasked-zoom', v: 2, caption: 'the whole crew', alt: 'Seven of us on Zoom in a grid, smiling and laughing, one in a face mask' },
-        { photo: 'unmasked-text', caption: 'the kits were a hit', alt: 'A guest’s text: I just got your little goodie set, you are so cute! Exciting for Tuesday' },
+      photos: [
+        // The invite is cropped above its "drawing for a fun prize" line, pending upline
+        { photo: 'unmasked-invite', wide: true, alt: 'The invite: Artistry Beauty Unmasked, a self-care social night. Join us for a fun and casual spa experience from the comfort of your own home. Tuesday, Sept 15th, 7 to 7:45 PM. RSVP today to receive your free kit.' },
+        { photo: 'unmasked-chelsea', alt: 'Me grinning at my desk, getting ready for the night' },
+        { photo: 'unmasked-mailer', alt: 'The kit laid out: the Unmasked card, Artistry samples, a lavender scrunchie, greenery and a black ribbon' },
+        { photo: 'unmasked-zoom', v: 2, alt: 'Seven of us on Zoom in a grid, smiling and laughing, one in a face mask' },
+        { photo: 'unmasked-text', alt: 'A guest’s text: I just got your little goodie set, you are so cute! Exciting for Tuesday' },
       ],
     },
     {
       title: 'Neighborhood Wellness Pop-Up Shop', kind: 'in-person', date: '2026-06-14', place: 'At my home in Lincoln',
-      style: 'table',
       line: 'An open house at my place with tasting stations, free samples and a whole lot of fun!',
-      snaps: [
-        { photo: 'popup-flyer', caption: 'the invite', alt: 'The flyer: Neighborhood Wellness Pop-Up Shop, Sunday, June 14, 11 AM to 1 PM, at my home in Lincoln' },
-        { photo: 'popup-welcome', caption: 'come on in', alt: 'A welcome sign on an easel in my front room' },
-        { photo: 'popup-table', caption: 'the tasting table', alt: 'An orange-topped table with XS Grass-Fed Whey and other XS favorites' },
-        { photo: 'popup-kitchen', caption: 'snacks & sips', alt: 'My kitchen counter set with drinks and XS cans beside two small flags' },
+      photos: [
+        // The flyer is cropped above its "Free Grand Prize drawing!" line, pending upline
+        { photo: 'popup-flyer', alt: 'The flyer: Neighborhood Wellness Pop-Up Shop, Sunday, June 14, 11 AM to 1 PM, at my home in Lincoln' },
+        { photo: 'popup-welcome', alt: 'A welcome sign on an easel in my front room' },
+        { photo: 'popup-table', alt: 'An orange-topped table with XS Grass-Fed Whey and other XS favorites' },
+        { photo: 'popup-kitchen', alt: 'My kitchen counter set with drinks and XS cans beside two small flags' },
       ],
     },
   ];
