@@ -996,16 +996,24 @@
     });
   });
 
-  // Past gatherings: each a pile of snapshots (the About page's prints) beside what it was.
+  // Past gatherings, beside what each one was: prints scattered on a table (they lift when hovered or tapped),
+  // or a photo-booth strip with one caption along the bottom.
   const kindLabel = { virtual: 'Virtual', 'in-person': 'In person' };
+  // Where the four prints land on the table (left, top, tilt)
+  const PRINT_SPOTS = [['6%', '6%', '-7deg'], ['53%', '3%', '5deg'], ['10%', '50%', '4deg'], ['51%', '47%', '-5deg']];
   $$('[data-past-events]').forEach((list) => {
     const long = new Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
-    const snap = (sn, i) => {
+    const pic = (sn, alt) => {
       const src = (ext) => `assets/img/past-${sn.photo}-480.${ext} 480w, assets/img/past-${sn.photo}-800.${ext} 800w`;
-      return `<figure class="snap snap--${i + 1}"><picture class="snap__ph"><source type="image/avif" srcset="${src('avif')}" sizes="(min-width: 900px) 18vw, 45vw"><img src="assets/img/past-${sn.photo}-480.jpg" srcset="${src('jpg')}" sizes="(min-width: 900px) 18vw, 45vw" width="480" height="600" alt="${esc(sn.alt)}" loading="lazy" decoding="async"></picture><figcaption>${esc(sn.caption)}</figcaption></figure>`;
+      return `<picture><source type="image/avif" srcset="${src('avif')}" sizes="(min-width: 900px) 20vw, 45vw"><img src="assets/img/past-${sn.photo}-480.jpg" srcset="${src('jpg')}" sizes="(min-width: 900px) 20vw, 45vw" width="480" height="600" alt="${alt}" loading="lazy" decoding="async"${sn.pos ? ` style="object-position:${sn.pos}"` : ''}></picture>`;
     };
+    const table = (e) => `<div class="table-prints" role="group" aria-label="Photos from ${esc(e.title)}">${(e.snaps || []).slice(0, 4).map((sn, i) => {
+      const [x, y, r] = PRINT_SPOTS[i];
+      return `<button class="tprint" type="button" style="--x:${x};--y:${y};--r:${r}" aria-pressed="false" aria-label="${esc(sn.alt)}">${pic(sn, '')}</button>`;
+    }).join('')}</div>`;
+    const strip = (e) => `<figure class="photostrip"><div class="photostrip__frames">${(e.snaps || []).slice(0, 4).map((sn) => `<div class="photostrip__frame">${pic(sn, esc(sn.alt))}</div>`).join('')}</div><figcaption>${esc(e.stripCaption || '')}</figcaption></figure>`;
     list.innerHTML = (window.UW_PAST_EVENTS || []).map((e) => `<article class="past-event">
-        <div class="snaps past-event__snaps" role="group" aria-label="Snapshots from ${esc(e.title)}">${(e.snaps || []).slice(0, 4).map(snap).join('')}</div>
+        <div class="past-event__snaps">${e.style === 'strip' ? strip(e) : table(e)}</div>
         <div class="past-event__body">
           <p class="event__kind event__kind--${e.kind}">${kindLabel[e.kind] || esc(e.kind)}</p>
           <h3 class="event__title">${esc(e.title)}</h3>
@@ -1014,6 +1022,15 @@
           <p class="event__line">${esc(e.line)}</p>
         </div>
       </article>`).join('');
+    // Tap (or click, or Enter) lifts a print off the table; tapping it again, or another, sets it back down.
+    list.addEventListener('click', (ev) => {
+      const print = ev.target.closest('.tprint');
+      if (!print) return;
+      const up = !print.classList.contains('is-up');
+      $$('.tprint', print.parentElement).forEach((p) => { p.classList.remove('is-up'); p.setAttribute('aria-pressed', 'false'); });
+      print.classList.toggle('is-up', up);
+      print.setAttribute('aria-pressed', String(up));
+    });
   });
 
   // While nothing is scheduled: a few gatherings I'd love to host next (no dates, so they never read as scheduled).
