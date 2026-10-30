@@ -369,18 +369,23 @@
   }
 
   // The thank-you names what they asked about: the gathering, the gift, or who to tell about their wish list.
-  // Returns [first paragraph, second paragraph].
-  function doneText() {
+  // Returns the header and up to two paragraphs.
+  function doneText(first) {
+    const reply = 'I read every message myself, so expect a real reply from me by text or call.';
+    const topic = $('#m-topic').value;
+    if (topic === 'Wishlist a gift') {
+      const who = ($('#m-wish-name', mform).value || '').trim() || 'they';
+      return ['Consider it done!', doneLine(), `I read every message myself, so ${who} can expect a real reply from me by text or call.`];
+    }
     const line = doneLine();
-    return line ? [line, 'I read every message myself, so expect a real reply from me by text or call.']
-      : ['I’ll be in touch soon. I read every message myself, so expect a real reply from me by text or call.', 'Until then, take your time looking around.'];
+    return [`Got it! Thanks, ${first}.`, line || `I’ll be in touch soon. ${reply}`, line ? reply : ''];
   }
   function doneLine() {
     const topic = $('#m-topic').value;
     const val = (sel) => { const el = $(sel, mform); return el && !el.disabled && !el.closest('[disabled]') ? el.value.trim() : ''; };
     const event = val('#m-event');
     if (topic === 'Gatherings' && event && !/^Tell me about future/.test(event)) return `I’ll reach out to confirm your spot at ${event}.`;
-    if (topic === 'Wishlist a gift') return `Consider it done! I’ll reach out to ${val('#m-wish-name') || 'them'} about your wish list, just like you asked.`;
+    if (topic === 'Wishlist a gift') return `I’ll reach out to ${val('#m-wish-name') || 'them'} about your wish list, just like you asked.`;
     if (topic === 'A custom gift') {
       const gift = val('#m-gift');
       return `I’ll reach out soon to plan ${gift && gift !== 'Something custom' ? `the ${gift} gift` : 'the gift'} together.`;
@@ -397,8 +402,12 @@
     btn.textContent = 'Sending…';
     try {
       const preview = await send(mform, 'message');
-      $('[data-done-name]', done).textContent = $('#m-name').value.trim().split(' ')[0];
-      [$('[data-done-text]', done).textContent, $('[data-done-more]', done).textContent] = doneText();
+      const [title, text, more] = doneText($('#m-name').value.trim().split(' ')[0]);
+      $('.mdone__title', done).textContent = title;
+      $('[data-done-text]', done).textContent = text;
+      const moreEl = $('[data-done-more]', done);
+      moreEl.textContent = more;
+      moreEl.hidden = !more;
       $('[data-preview-note]', done).hidden = !preview;
       mform.hidden = true;
       done.hidden = false;
@@ -433,7 +442,7 @@
       try {
         const preview = await send(nform, 'gatherings');
         const first = esc($('#notify-name', nform).value.trim().split(' ')[0]);
-        nform.innerHTML = `<p class="notify__status" role="status">You’re on the list, ${first}! Keep an eye on your inbox for when the next gathering is announced!</p>` +
+        nform.innerHTML = `<p class="notify__status" role="status">You’re on the list, ${first}!<br>Keep an eye on your inbox for when the next gathering is announced!</p>` +
           (preview ? '<p class="mdone__preview">Preview only: this form isn’t connected yet, so nothing was sent.</p>' : '');
       } catch {
         $('#notify-error').textContent = 'That didn’t go through. Please try again in a moment.';
@@ -794,7 +803,7 @@
         ${note}
         ${keepLooking}`;
     } else {
-      html = `<h2 class="qf-title">Thanks, ${esc(first)}. I’ll be in touch about what you need next.</h2>
+      html = `<h2 class="qf-title">Good to hear from you, ${esc(first)}! I’ll be in touch about what you need next.</h2>
         ${reply}
         ${saved.length ? `<p class="qf-text">I’ll bring up the ${esc(listOf(saved))} you shelved, too.</p>` : ''}
         ${note}
