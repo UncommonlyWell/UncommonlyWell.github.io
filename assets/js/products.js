@@ -113,7 +113,7 @@
       snaps: [
         { photo: 'unmasked-chelsea', caption: 'me, mid-glow', alt: 'Me grinning at my desk, getting ready for the night' },
         { photo: 'unmasked-mailer', caption: 'what was in the mail', alt: 'The kit laid out: the Unmasked card, Artistry samples, a lavender scrunchie, greenery and a black ribbon' },
-        { photo: 'unmasked-zoom', caption: 'the whole crew', alt: 'Seven of us on Zoom, smiling and laughing, some in face masks' },
+        { photo: 'unmasked-zoom', v: 2, caption: 'the whole crew', alt: 'Seven of us on Zoom in a grid, smiling and laughing, one in a face mask' },
         { photo: 'unmasked-text', caption: 'the kits were a hit', alt: 'A guest’s text: I just got your little goodie set, you are so cute! Exciting for Tuesday' },
       ],
     },

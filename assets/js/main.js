@@ -1004,8 +1004,10 @@
   $$('[data-past-events]').forEach((list) => {
     const long = new Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
     const pic = (sn, alt) => {
-      const src = (ext) => `assets/img/past-${sn.photo}-480.${ext} 480w, assets/img/past-${sn.photo}-800.${ext} 800w`;
-      return `<picture><source type="image/avif" srcset="${src('avif')}" sizes="(min-width: 900px) 20vw, 45vw"><img src="assets/img/past-${sn.photo}-480.jpg" srcset="${src('jpg')}" sizes="(min-width: 900px) 20vw, 45vw" width="480" height="600" alt="${alt}" loading="lazy" decoding="async"${sn.pos ? ` style="object-position:${sn.pos}"` : ''}></picture>`;
+      // ?v= changes when a photo is replaced, so browsers fetch the new one (set per snap with v: 2, 3…)
+      const v = sn.v ? `?v=${sn.v}` : '';
+      const src = (ext) => `assets/img/past-${sn.photo}-480.${ext}${v} 480w, assets/img/past-${sn.photo}-800.${ext}${v} 800w`;
+      return `<picture><source type="image/avif" srcset="${src('avif')}" sizes="(min-width: 900px) 20vw, 45vw"><img src="assets/img/past-${sn.photo}-480.jpg${v}" srcset="${src('jpg')}" sizes="(min-width: 900px) 20vw, 45vw" width="480" height="600" alt="${alt}" loading="lazy" decoding="async"${sn.pos ? ` style="object-position:${sn.pos}"` : ''}></picture>`;
     };
     const table = (e) => `<div class="table-prints" role="group" aria-label="Photos from ${esc(e.title)}">${(e.snaps || []).slice(0, 4).map((sn, i) => {
       const [x, y, r] = PRINT_SPOTS[i];
