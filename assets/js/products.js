@@ -111,7 +111,7 @@
       photos: [
         // The invite is cropped above its "drawing for a fun prize" line, pending upline
         { photo: 'unmasked-invite', wide: true, alt: 'The invite: Artistry Beauty Unmasked, a self-care social night. Join us for a fun and casual spa experience from the comfort of your own home. Tuesday, Sept 15th, 7 to 7:45 PM. RSVP today to receive your free kit.' },
-        { photo: 'unmasked-chelsea', alt: 'Me grinning at my desk, getting ready for the night' },
+        { photo: 'unmasked-chelsea', v: 2, alt: 'Me grinning at my desk, getting ready for the night' },
         { photo: 'unmasked-mailer', alt: 'The kit laid out: the Unmasked card, Artistry samples, a lavender scrunchie, greenery and a black ribbon' },
         { photo: 'unmasked-zoom', v: 2, alt: 'Seven of us on Zoom in a grid, smiling and laughing, one in a face mask' },
         { photo: 'unmasked-text', alt: 'A guest’s text: I just got your little goodie set, you are so cute! Exciting for Tuesday' },

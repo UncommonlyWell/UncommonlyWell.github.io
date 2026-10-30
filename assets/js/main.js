@@ -996,97 +996,141 @@
     });
   });
 
-  // Past gatherings: a stack of photos for each, lying on a long wooden table, with its story underneath.
-  // The flyer is on top; clicking (or tapping, Enter, →) slides the top print aside and tucks it under the pile,
-  // ← brings the last one back, and on phones a swipe flips too.
+  // Past gatherings: a stack of photos for each, lying on a long wooden table with its name beside it. Clicking a
+  // stack opens a pop-up with the stack (flyer on top; click, arrows, ← → or a swipe flip through it) and its story.
   const kindLabel = { virtual: 'Virtual', 'in-person': 'In person' };
   // Each print's resting tilt and nudge in the pile, so it looks set down by hand
   const PILE = [['-2deg', '0%', '0%'], ['4deg', '3%', '2%'], ['-6deg', '-4%', '3%'], ['7deg', '2%', '-3%'], ['-4deg', '-3%', '-2%']];
+  const MONTH = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+  const pastPic = (p, sizes) => {
+    // ?v= changes when a photo is replaced, so browsers fetch the new one
+    const v = p.v ? `?v=${p.v}` : '';
+    const src = (ext) => `assets/img/past-${p.photo}-480.${ext}${v} 480w, assets/img/past-${p.photo}-800.${ext}${v} 800w`;
+    return `<picture><source type="image/avif" srcset="${src('avif')}" sizes="${sizes}"><img src="assets/img/past-${p.photo}-480.jpg${v}" srcset="${src('jpg')}" sizes="${sizes}" width="480" height="${p.wide ? 384 : 600}" alt="${esc(p.alt)}" loading="lazy" decoding="async"></picture>`;
+  };
+  const pastPrints = (photos, sizes) => photos.map((p, i) => {
+    const [r, x, y] = PILE[i % PILE.length];
+    return `<div class="stack__print${p.wide ? ' stack__print--wide' : ''}" style="--r:${r};--x:${x};--y:${y}">${pastPic(p, sizes)}</div>`;
+  }).join('');
+
+  // Flip through a pile: the top print slides aside and tucks under; back brings the last one up again.
+  function flipper(pile, onChange) {
+    const prints = $$('.stack__print', pile);
+    let order = prints.map((_, i) => i);
+    let busy = false;
+    const show = () => {
+      order.forEach((idx, pos) => {
+        const el = prints[idx];
+        el.style.zIndex = prints.length - pos;
+        el.classList.toggle('is-top', pos === 0);
+        el.querySelector('img').setAttribute('aria-hidden', pos === 0 ? 'false' : 'true');
+      });
+      if (onChange) onChange(order[0]);
+    };
+    const settle = () => setTimeout(() => { busy = false; }, reduced ? 120 : 380);
+    const next = () => {
+      if (busy || prints.length < 2) return;
+      busy = true;
+      const top = prints[order[0]];
+      top.classList.add('is-off');
+      setTimeout(() => { order.push(order.shift()); show(); top.classList.remove('is-off'); settle(); }, reduced ? 120 : 360);
+    };
+    const prev = () => {
+      if (busy || prints.length < 2) return;
+      busy = true;
+      const back = prints[order[order.length - 1]];
+      back.style.transition = 'none';
+      back.classList.add('is-off');
+      back.getBoundingClientRect();
+      back.style.transition = '';
+      order.unshift(order.pop());
+      show();
+      requestAnimationFrame(() => { back.classList.remove('is-off'); settle(); });
+    };
+    const go = (i) => { if (busy) return; order = prints.map((_, k) => (i + k) % prints.length); show(); };
+    // A swipe flips; a plain tap or click goes to the next photo.
+    let x0 = null, swiped = false;
+    pile.addEventListener('pointerdown', (ev) => { x0 = ev.clientX; swiped = false; });
+    pile.addEventListener('pointerup', (ev) => {
+      if (x0 === null) return;
+      const dx = ev.clientX - x0;
+      x0 = null;
+      if (Math.abs(dx) > 40) { swiped = true; if (dx < 0) next(); else prev(); }
+    });
+    pile.addEventListener('click', () => { if (swiped) { swiped = false; return; } next(); });
+    show();
+    return { next, prev, go };
+  }
+
   $$('[data-past-events]').forEach((grid) => {
     const events = window.UW_PAST_EVENTS || [];
     const long = new Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
-    const pic = (p) => {
-      // ?v= changes when a photo is replaced, so browsers fetch the new one
-      const v = p.v ? `?v=${p.v}` : '';
-      const src = (ext) => `assets/img/past-${p.photo}-480.${ext}${v} 480w, assets/img/past-${p.photo}-800.${ext}${v} 800w`;
-      return `<picture><source type="image/avif" srcset="${src('avif')}" sizes="(min-width: 900px) 18rem, 62vw"><img src="assets/img/past-${p.photo}-480.jpg${v}" srcset="${src('jpg')}" sizes="(min-width: 900px) 18rem, 62vw" width="480" height="${p.wide ? 384 : 600}" alt="${esc(p.alt)}" loading="lazy" decoding="async"></picture>`;
-    };
-    const stack = (e, n) => `<div class="stack stack--${n}" data-stack role="group" aria-roledescription="photo stack" aria-label="Photos from ${esc(e.title)}">
-        <button class="stack__pile" type="button" aria-label="Next photo">${(e.photos || []).map((p, i) => {
-          const [r, x, y] = PILE[i % PILE.length];
-          return `<div class="stack__print${p.wide ? ' stack__print--wide' : ''}" style="--r:${r};--x:${x};--y:${y}">${pic(p)}</div>`;
-        }).join('')}</button>
-        <p class="stack__hint"><button class="stack__prev" type="button" aria-label="Previous photo">‹</button><span class="stack__count" aria-live="polite">1 / ${(e.photos || []).length}</span><span class="stack__tip">tap to flip through</span></p>
+    grid.innerHTML = '<div class="gather-table" aria-hidden="true"></div>' + events.map((e, i) => {
+      const d = eventDay(e);
+      return `<div class="stack stack--${i + 1}">
+          <button class="stack__pile" type="button" data-open-gathering="${i}" aria-haspopup="dialog" aria-label="${esc(e.title)}: see the photos and the story">${pastPrints(e.photos || [], '(min-width: 900px) 18rem, 62vw').replace(/ alt="[^"]*"/g, ' alt=""')}</button>
+          <p class="stack__label" aria-hidden="true">${esc(e.title)} · ${MONTH[d.getMonth()]} ${d.getFullYear()}</p>
+        </div>`;
+    }).join('');
+    $$('.stack__print', grid).forEach((el, i, all) => { el.style.zIndex = 9 - [...el.parentElement.children].indexOf(el); el.classList.toggle('is-top', !el.previousElementSibling); });
+
+    // The pop-up, built once and filled with whichever gathering was opened
+    const dlg = document.createElement('dialog');
+    dlg.className = 'qv gathering';
+    dlg.setAttribute('aria-labelledby', 'gathering-title');
+    dlg.innerHTML = `<button class="qv__close" type="button" data-gathering-close aria-label="Close">${ICON.x}</button>
+      <div class="gathering__inner">
+        <div class="gathering__media">
+          <button class="gathering__nav gathering__nav--prev" type="button" aria-label="Previous photo">${ICON.prev}</button>
+          <div class="stack__pile gathering__pile" role="button" tabindex="0" aria-label="Next photo"></div>
+          <button class="gathering__nav gathering__nav--next" type="button" aria-label="Next photo">${ICON.next}</button>
+          <div class="gathering__dots" role="group" aria-label="Photos"></div>
+        </div>
+        <div class="gathering__body"></div>
       </div>`;
-    const story = (e, n) => `<article class="past-story past-story--${n}">
-        <p class="event__kind event__kind--${e.kind}">${kindLabel[e.kind] || esc(e.kind)}</p>
-        <h3 class="event__title">${esc(e.title)}</h3>
+    document.body.append(dlg);
+    const gPile = $('.gathering__pile', dlg);
+    const gDots = $('.gathering__dots', dlg);
+    const gBody = $('.gathering__body', dlg);
+    let flip = null;
+    let opener = null;
+    const close = () => hideDialog(dlg, () => { if (opener) opener.focus({ preventScroll: true }); });
+    $('[data-gathering-close]', dlg).addEventListener('click', close);
+    dlg.addEventListener('cancel', (ev) => { ev.preventDefault(); close(); });
+    dlg.addEventListener('click', (ev) => { if (ev.target === dlg) close(); });
+    $('.gathering__nav--prev', dlg).addEventListener('click', () => flip && flip.prev());
+    $('.gathering__nav--next', dlg).addEventListener('click', () => flip && flip.next());
+    dlg.addEventListener('keydown', (ev) => {
+      if (!flip) return;
+      if (ev.key === 'ArrowRight') { ev.preventDefault(); flip.next(); }
+      if (ev.key === 'ArrowLeft') { ev.preventDefault(); flip.prev(); }
+      if ((ev.key === 'Enter' || ev.key === ' ') && ev.target === gPile) { ev.preventDefault(); flip.next(); }
+    });
+    gDots.addEventListener('click', (ev) => { const dot = ev.target.closest('[data-dot]'); if (dot && flip) flip.go(+dot.dataset.dot); });
+
+    const open = (i, from) => {
+      const e = events[i];
+      const photos = e.photos || [];
+      opener = from;
+      // A fresh pile each time, so the old one's click and swipe handlers go with it
+      const pile = gPile.cloneNode(false);
+      gPile.replaceWith(pile);
+      pile.innerHTML = pastPrints(photos, '(min-width: 900px) 26rem, 80vw').replace(/ loading="lazy"/g, '');
+      gDots.innerHTML = photos.map((_, k) => `<button class="gathering__dot" type="button" data-dot="${k}" aria-label="Photo ${k + 1} of ${photos.length}"></button>`).join('');
+      gBody.innerHTML = `<p class="event__kind event__kind--${e.kind}">${kindLabel[e.kind] || esc(e.kind)}</p>
+        <h2 class="event__title" id="gathering-title">${esc(e.title)}</h2>
         ${e.sub ? `<p class="past-event__sub">${esc(e.sub)}</p>` : ''}
         <p class="event__meta">${e.showDate === false ? '' : `${long.format(eventDay(e))}<br>`}${esc(e.place)}</p>
-        <p class="event__line">${esc(e.line)}</p>
-      </article>`;
-    // One table behind every stack on wide screens; on phones each stack gets its own stretch of table
-    grid.innerHTML = '<div class="gather-table" aria-hidden="true"></div>' + events.map((e, i) => stack(e, i + 1) + story(e, i + 1)).join('');
-    grid.style.setProperty('--n', events.length);
-
-    $$('[data-stack]', grid).forEach((st) => {
-      const prints = $$('.stack__print', st);
-      const count = $('.stack__count', st);
-      const order = prints.map((_, i) => i);
-      let busy = false;
-      const show = () => {
-        order.forEach((idx, pos) => {
-          const el = prints[idx];
-          el.style.zIndex = prints.length - pos;
-          el.classList.toggle('is-top', pos === 0);
-          el.querySelector('img').setAttribute('aria-hidden', pos === 0 ? 'false' : 'true');
-        });
-        count.textContent = `${order[0] + 1} / ${prints.length}`;
-      };
-      const next = () => {
-        if (busy || prints.length < 2) return;
-        busy = true;
-        const top = prints[order[0]];
-        top.classList.add('is-off');
-        setTimeout(() => {
-          order.push(order.shift());
-          show();
-          top.classList.remove('is-off');
-          setTimeout(() => { busy = false; }, reduced ? 0 : 380);
-        }, reduced ? 120 : 360);
-      };
-      const prev = () => {
-        if (busy || prints.length < 2) return;
-        busy = true;
-        const back = prints[order[order.length - 1]];
-        back.style.transition = 'none';
-        back.classList.add('is-off');
-        back.getBoundingClientRect();
-        back.style.transition = '';
-        order.unshift(order.pop());
-        show();
-        requestAnimationFrame(() => {
-          back.classList.remove('is-off');
-          setTimeout(() => { busy = false; }, reduced ? 120 : 380);
-        });
-      };
-      // A swipe flips; a plain tap or click goes to the next photo.
-      let x0 = null, swiped = false;
-      const pile = $('.stack__pile', st);
-      pile.addEventListener('pointerdown', (ev) => { x0 = ev.clientX; swiped = false; });
-      pile.addEventListener('pointerup', (ev) => {
-        if (x0 === null) return;
-        const dx = ev.clientX - x0;
-        x0 = null;
-        if (Math.abs(dx) > 40) { swiped = true; if (dx < 0) next(); else prev(); }
+        <p class="event__line">${esc(e.line)}</p>`;
+      flip = flipper(pile, (top) => {
+        $$('.gathering__dot', gDots).forEach((dot, k) => dot.setAttribute('aria-current', k === top ? 'true' : 'false'));
       });
-      pile.addEventListener('click', () => { if (swiped) { swiped = false; return; } next(); });
-      $('.stack__prev', st).addEventListener('click', prev);
-      st.addEventListener('keydown', (ev) => {
-        if (ev.key === 'ArrowRight') { ev.preventDefault(); next(); }
-        if (ev.key === 'ArrowLeft') { ev.preventDefault(); prev(); }
-      });
-      show();
+      showDialog(dlg);
+      pile.focus({ preventScroll: true });
+    };
+    grid.addEventListener('click', (ev) => {
+      const b = ev.target.closest('[data-open-gathering]');
+      if (b) open(+b.dataset.openGathering, b);
     });
   });
 
