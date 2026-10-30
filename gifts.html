@@ -284,9 +284,15 @@
       </div>
       <div class="field">
         <label for="m-phone">Mobile number</label>
-        <input id="m-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required aria-describedby="m-phone-hint m-phone-error">
-        <p class="field-hint" id="m-phone-hint">I’ll text or call you here.</p>
+        <input id="m-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required aria-describedby="m-phone-error">
         <p class="field-error" id="m-phone-error"></p>
+      </div>
+      <div class="field">
+        <label id="m-reach-label">How should I reach you?</label>
+        <div class="chips" role="radiogroup" aria-labelledby="m-reach-label">
+          <label class="chip"><input type="radio" name="reach" value="Text" checked><span>Text</span></label>
+          <label class="chip"><input type="radio" name="reach" value="Call"><span>Call</span></label>
+        </div>
       </div>
       <div class="field">
         <label for="m-topic">What can I help with?</label>
@@ -369,6 +375,15 @@
             <p class="field-error" id="m-wish-contact-error"></p>
           </div>
           <div class="field">
+            <label id="m-wish-reach-label">How should I reach <span data-wish-who>them</span>?</label>
+            <div class="chips" role="radiogroup" aria-labelledby="m-wish-reach-label" aria-describedby="m-wish-reach-error">
+              <label class="chip"><input type="radio" name="wish_reach" value="Text" checked><span>Text</span></label>
+              <label class="chip"><input type="radio" name="wish_reach" value="Call"><span>Call</span></label>
+              <label class="chip"><input type="radio" name="wish_reach" value="Email"><span>Email</span></label>
+            </div>
+            <p class="field-error" id="m-wish-reach-error" aria-live="polite"></p>
+          </div>
+          <div class="field">
             <label for="m-wish-date">When’s the occasion? <span class="opt">(optional)</span></label>
             <input id="m-wish-date" name="wish_date" type="date">
           </div>
@@ -431,6 +446,6 @@
 <script src="assets/vendor/SplitText.min.js" defer></script>
 <script src="assets/vendor/lenis.min.js" defer></script>
 <script src="assets/js/products.js?v=35" defer></script>
-<script src="assets/js/main.js?v=185" defer></script>
+<script src="assets/js/main.js?v=186" defer></script>
 </body>
 </html>

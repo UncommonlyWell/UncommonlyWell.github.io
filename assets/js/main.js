@@ -370,15 +370,47 @@
 
   // The thank-you names what they asked about: the gathering, the gift, or who to tell about their wish list.
   // Returns the header and up to two paragraphs.
+  const BY = { Text: 'by text', Call: 'with a call', Email: 'by email' };
+  const picked = (name) => ($(`input[name="${name}"]:checked`, mform) || {}).value || 'Text';
   function doneText(first) {
-    const reply = 'I read every message myself, so expect a real reply from me by text or call.';
+    const reply = `I read every message myself, so expect a real reply from me ${BY[picked('reach')]}.`;
     const topic = $('#m-topic').value;
     if (topic === 'Wishlist a gift') {
       const who = ($('#m-wish-name', mform).value || '').trim() || 'they';
-      return ['Consider it done!', doneLine(), `I read every message myself, so ${who} can expect a real reply from me by text or call.`];
+      return ['Consider it done!', doneLine(), `I read every message myself, so ${who} can expect a real reply from me ${BY[picked('wish_reach')]}.`];
     }
     const line = doneLine();
     return [`Got it! Thanks, ${first}.`, line || `I’ll be in touch soon. ${reply}`, line ? reply : ''];
+  }
+
+  // Wish list: "How should I reach Sam?" uses their name, and follows what was typed:
+  // an email address picks Email, a phone number picks Text (Call stays if they chose it).
+  const wishWho = $('[data-wish-who]', mform);
+  const wishContact = $('#m-wish-contact', mform);
+  const wishReachError = $('#m-wish-reach-error', mform);
+  const setWishReach = (val) => { const r = $(`input[name="wish_reach"][value="${val}"]`, mform); if (r) r.checked = true; };
+  if (wishWho) {
+    $('#m-wish-name', mform).addEventListener('input', (e) => { wishWho.textContent = e.target.value.trim().split(' ')[0] || 'them'; });
+    wishContact.addEventListener('input', () => {
+      const v = wishContact.value.trim();
+      if (emailRe.test(v)) setWishReach('Email');
+      else if (phoneOk(v) && picked('wish_reach') === 'Email') setWishReach('Text');
+      wishReachError.textContent = '';
+    });
+    $$('input[name="wish_reach"]', mform).forEach((r) => r.addEventListener('change', () => { wishReachError.textContent = ''; }));
+  }
+  // The way to reach them has to match what was typed in their contact box.
+  function wishReachOk() {
+    const fields = $('[data-wish-only]', mform);
+    if (!wishWho || !fields || fields.disabled) return true;
+    const v = wishContact.value.trim();
+    const how = picked('wish_reach');
+    const who = wishWho.textContent === 'them' ? 'their' : `${wishWho.textContent}’s`;
+    let msg = '';
+    if (how === 'Email' && !emailRe.test(v)) msg = `Add ${who} email, or choose Text or Call.`;
+    if (how !== 'Email' && emailRe.test(v)) msg = `Add ${who} mobile number, or choose Email.`;
+    wishReachError.textContent = msg;
+    return !msg;
   }
   function doneLine() {
     const topic = $('#m-topic').value;
@@ -397,6 +429,7 @@
   mform.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!validateMessage()) return;
+    if (!wishReachOk()) { $('input[name="wish_reach"]:checked', mform).focus(); return; }
     const btn = $('button[type="submit"]', mform);
     btn.disabled = true;
     btn.textContent = 'Sending…';
@@ -428,6 +461,7 @@
     $$('[aria-invalid]', mform).forEach((f) => f.removeAttribute('aria-invalid'));
     $$('.field-error', mform).forEach((f) => { f.textContent = ''; });
     $$('[data-touched]', mform).forEach((f) => delete f.dataset.touched);
+    if (wishWho) wishWho.textContent = 'them';
     done.classList.remove('is-shown');
     done.hidden = true;
     mform.hidden = false;
@@ -557,10 +591,12 @@
     },
     contact: {
       title: (v) => (v.connected === 'existing' ? 'What’s the best way to reach you?' : 'What’s the best way to reach you?'),
-      help: 'Text or call.',
       body: `<div class="qfields" data-show-if="connected:existing" hidden>${field('q-name', 'Your first name', text('q-name', 'name', 'autocomplete="given-name"'))}</div>` +
         '<div class="qfields">' +
         field('q-phone', 'Phone number', '<input id="q-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" aria-describedby="q-phone-error">') +
+        '<div class="field"><label id="q-reach-label">How should I reach you?</label><div class="chips" role="radiogroup" aria-labelledby="q-reach-label">' +
+        '<label class="chip"><input type="radio" name="reach" value="Text" checked><span>Text</span></label>' +
+        '<label class="chip"><input type="radio" name="reach" value="Call"><span>Call</span></label></div></div>' +
         `<div class="field field--check"><input id="q-consent" name="consent" type="checkbox" aria-describedby="q-consent-error"><label for="q-consent">Yes, you may text or call me about my answers. I can opt out anytime.</label><p class="field-error" id="q-consent-error" aria-live="polite"></p></div>` +
         '</div>',
       check: (v) => {
@@ -616,7 +652,7 @@
        <div>${st.body}<p class="field-error" id="err-${id}" aria-live="polite"></p></div>
      </fieldset>`).join('');
 
-  const SINGLE = ['connected', 'focus', 'story', 'using', 'using_what', 'avoid_other', 'name', 'phone', 'consent', 'first_name', 'last_name', 'street', 'apt', 'city', 'state', 'zip', 'local', 'bmonth', 'bday', 'e_love', 'e_low', 'e_try_other', 'e_recur'];
+  const SINGLE = ['reach', 'connected', 'focus', 'story', 'using', 'using_what', 'avoid_other', 'name', 'phone', 'consent', 'first_name', 'last_name', 'street', 'apt', 'city', 'state', 'zip', 'local', 'bmonth', 'bday', 'e_love', 'e_low', 'e_try_other', 'e_recur'];
   function values() {
     const fd = new FormData(qform);
     const v = { help: fd.getAll('help'), avoid: fd.getAll('avoid'), e_try: fd.getAll('e_try') };
@@ -790,7 +826,7 @@
     // Back to the site, or follow along on Instagram (same as the other thank-you screens).
     const keepLooking = `<div class="qf-actions"><button class="btn btn--line-dark" type="button" data-quiz-browse>Keep looking around</button>${IG_FOLLOW}</div>`;
     const note = preview ? '<p class="mdone__preview">Preview only: the survey isn’t connected yet, so nothing was sent.</p>' : '';
-    const reply = '<p class="qf-text">I read every answer myself, so expect a real reply from me by text or call.</p>';
+    const reply = `<p class="qf-text">I read every answer myself, so expect a real reply from me ${v.reach === 'Call' ? 'with a call' : 'by text'}.</p>`;
     let html = '';
 
     if (kind === 'samples') {
