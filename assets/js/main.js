@@ -770,9 +770,8 @@
   function renderFinish(kind, v, preview = false, saved = []) {
     finished = true;
     const first = (kind === 'existing' ? v.name : v.first_name).trim().split(' ')[0];
-    const shopBtn = (primary) => CONFIG.shopUrl
-      ? `<a class="btn ${primary ? 'btn--harbor' : 'btn--line-dark'}" href="${esc(CONFIG.shopUrl)}" target="_blank" rel="noopener">Browse the shop</a>`
-      : `<button class="btn ${primary ? 'btn--harbor' : 'btn--line-dark'}" type="button" disabled>Shop opening soon</button>`;
+    // One way out, matching Send my Shelf: back to the site.
+    const keepLooking = '<div class="qf-actions"><button class="btn btn--line-dark" type="button" data-quiz-browse>Keep looking around</button></div>';
     const note = preview ? '<p class="mdone__preview">Preview only: the survey isn’t connected yet, so nothing was sent.</p>' : '';
     const reply = '<p class="qf-text">I read every answer myself, so expect a real reply from me by text or call.</p>';
     let html = '';
@@ -785,13 +784,13 @@
         <p class="qf-text">${saved.length ? `I’ll reach out about the ${esc(listOf(saved))} you shelved` : 'I’ll reach out soon'} &amp; we’ll chat about free samples, where it makes sense.</p>
         ${reply}
         ${note}
-        <div class="qf-actions">${shopBtn(false)}<button class="link" type="button" data-quiz-browse>I’ll keep browsing</button></div>`;
+        ${keepLooking}`;
     } else {
       html = `<h2 class="qf-title">Thanks, ${esc(first)}. I’ll be in touch about what you need next.</h2>
         ${reply}
         ${saved.length ? `<p class="qf-text">I’ll bring up the ${esc(listOf(saved))} you shelved, too.</p>` : ''}
         ${note}
-        <div class="qf-actions">${shopBtn(true)}<button class="link" type="button" data-quiz-browse>I’ll keep browsing</button></div>`;
+        ${keepLooking}`;
     }
     html += '<p class="qf-disclaimer">These products aren’t intended to diagnose, treat or cure anything. If you have a medical condition or take medication, check with your healthcare provider before trying something new.</p>';
 
