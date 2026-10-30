@@ -368,8 +368,14 @@
     return CONFIG.forms.mode === 'preview';
   }
 
-  // The thank-you line names what they asked about: the gathering, the gift, or who to tell about their wish list.
+  // The thank-you names what they asked about: the gathering, the gift, or who to tell about their wish list.
+  // Returns [first paragraph, second paragraph].
   function doneText() {
+    const line = doneLine();
+    return line ? [line, 'I read every message myself, so expect a real reply from me by text or call.']
+      : ['I’ll be in touch soon. I read every message myself, so expect a real reply from me by text or call.', 'Until then, take your time looking around.'];
+  }
+  function doneLine() {
     const topic = $('#m-topic').value;
     const val = (sel) => { const el = $(sel, mform); return el && !el.disabled && !el.closest('[disabled]') ? el.value.trim() : ''; };
     const event = val('#m-event');
@@ -379,7 +385,7 @@
       const gift = val('#m-gift');
       return `I’ll reach out soon to plan ${gift && gift !== 'Something custom' ? `the ${gift} gift` : 'the gift'} together.`;
     }
-    return 'I’ll be in touch soon. Until then, take your time looking around.';
+    return '';
   }
 
   const validateMessage = wireValidation(mform);
@@ -392,7 +398,7 @@
     try {
       const preview = await send(mform, 'message');
       $('[data-done-name]', done).textContent = $('#m-name').value.trim().split(' ')[0];
-      $('[data-done-text]', done).textContent = doneText();
+      [$('[data-done-text]', done).textContent, $('[data-done-more]', done).textContent] = doneText();
       $('[data-preview-note]', done).hidden = !preview;
       mform.hidden = true;
       done.hidden = false;
