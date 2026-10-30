@@ -238,7 +238,9 @@
   const gatherFields = $('[data-gather-fields]', mform);
   const eventSel = $('#m-event');
   const shortDay = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' });
-  if (eventSel) EVENTS.forEach((e) => eventSel.add(new Option(`${e.title} (${shortDay.format(eventDay(e))})`, e.title)));
+  // Each choice sends the gathering's name and date, so the RSVP says exactly which one.
+  const eventLabel = (e) => `${e.title} (${shortDay.format(eventDay(e))})`;
+  if (eventSel) EVENTS.forEach((e) => eventSel.add(new Option(eventLabel(e), eventLabel(e))));
   function syncGather() {
     if (!gatherFields) return;
     gatherFields.hidden = gatherFields.disabled = $('#m-topic').value !== 'Gatherings';
@@ -274,7 +276,8 @@
     $('#m-topic').value = topic || 'Just saying hello';
     if (giftSel) giftSel.value = (GIFTS.find((g) => g.id === gift) || {}).name || 'Something custom';
     syncGift();
-    if (eventSel) eventSel.value = (EVENTS.find((e) => e.id === event) || {}).title || eventSel.options[0].value;
+    const picked = EVENTS.find((e) => e.id === event);
+    if (eventSel) eventSel.value = picked ? eventLabel(picked) : eventSel.options[0].value;
     syncGather();
     syncMsgPrompt();
     $('button[type="submit"]', mform).textContent = submitLabel;
