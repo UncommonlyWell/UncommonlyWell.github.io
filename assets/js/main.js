@@ -1089,7 +1089,7 @@
         <div class="gathering__body"></div>
       </div>`;
     document.body.append(dlg);
-    const gPile = $('.gathering__pile', dlg);
+    let gPile = $('.gathering__pile', dlg); // swapped for a fresh one each time the pop-up opens
     const gDots = $('.gathering__dots', dlg);
     const gBody = $('.gathering__body', dlg);
     let flip = null;
@@ -1115,6 +1115,7 @@
       // A fresh pile each time, so the old one's click and swipe handlers go with it
       const pile = gPile.cloneNode(false);
       gPile.replaceWith(pile);
+      gPile = pile;
       pile.innerHTML = pastPrints(photos, '(min-width: 900px) 26rem, 80vw').replace(/ loading="lazy"/g, '');
       gDots.innerHTML = photos.map((_, k) => `<button class="gathering__dot" type="button" data-dot="${k}" aria-label="Photo ${k + 1} of ${photos.length}"></button>`).join('');
       gBody.innerHTML = `<p class="event__kind event__kind--${e.kind}">${kindLabel[e.kind] || esc(e.kind)}</p>
