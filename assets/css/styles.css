@@ -2011,3 +2011,32 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: non
 .av-how__note { margin-top: 1.5rem; color: var(--ink-soft); font-size: var(--fs-small); }
 
 .av-fine { display: grid; gap: .5rem; max-width: 44rem; margin-top: 1rem; padding-top: 1.5rem; border-top: 1px solid var(--line-light); font-size: .8125rem; line-height: 1.55; color: var(--sage); }
+
+/* Valdura: a navy band like the hero, the app screen beside Avellum's feature list */
+.av-valdura { background: url("../img/grain-light.svg?v=2") 0 0 / 220px, radial-gradient(110% 80% at 10% 0%, #1B3253, #11233C 60%); color: var(--linen); }
+.av-valdura__inner { display: grid; gap: clamp(2.5rem, 2rem + 3vw, 4.5rem); }
+@media (min-width: 960px) { .av-valdura__inner { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); align-items: start; } .av-valdura__media { position: sticky; top: calc(var(--header-h) + 2rem); } }
+.av-valdura__media img { width: 100%; max-width: 412px; height: auto; border-radius: 14px; box-shadow: 0 0 0 1px rgba(233, 215, 178, .25), 0 30px 60px -25px rgba(0, 0, 0, .6); }
+.av-valdura .eyebrow { color: #E9D7B2; }
+.av-valdura__title { font-size: clamp(2rem, 1.4rem + 2.4vw, 3.4rem); }
+.av-valdura__title em { display: block; }
+.av-valdura__lead { margin-top: 1.25rem; font-family: var(--serif); font-style: italic; font-size: clamp(1.2rem, 1.05rem + .6vw, 1.5rem); font-weight: 340; color: #E9D7B2; }
+.av-valdura__intro { margin-top: .9rem; max-width: 36rem; color: rgba(244, 237, 225, .88); }
+.av-valdura__list { display: grid; margin: 1.75rem 0 0; padding: 0; list-style: none; border-bottom: 1px solid rgba(216, 196, 159, .28); }
+.av-valdura__list li { padding: .85rem 0; border-top: 1px solid rgba(216, 196, 159, .28); font-size: var(--fs-small); line-height: 1.5; color: var(--sage); }
+.av-valdura__list strong { display: block; margin-bottom: .1rem; font-family: var(--serif); font-size: 1.15rem; font-weight: 400; font-variation-settings: "SOFT" 60; color: var(--linen); }
+.av-valdura__perk { display: grid; gap: .6rem; justify-items: start; margin-top: 1.75rem; padding: 1.25rem 1.4rem; border-radius: 6px; background: rgba(233, 215, 178, .08); box-shadow: inset 0 0 0 1px rgba(233, 215, 178, .35); color: rgba(244, 237, 225, .9); font-size: var(--fs-small); line-height: 1.5; }
+.av-valdura__perk strong { color: #E9D7B2; font-weight: 600; }
+.av-valdura__fine { margin-top: 1.25rem; font-size: .8125rem; line-height: 1.55; color: var(--sage); max-width: 36rem; }
+
+/* Alongside your journey: Chelsea's everyday support, three small cards */
+.av-door .av-head { max-width: 22ch; margin-bottom: 1.25rem; }
+.av-door__lede { max-width: 38rem; margin-bottom: clamp(2rem, 1.5rem + 2vw, 3rem); color: var(--ink-soft); }
+@media (min-width: 760px) { .av-door__cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.av-card { position: relative; }
+.av-card__link { padding: 0; border: 0; background: none; font: inherit; color: inherit; text-align: left; text-decoration: none; cursor: pointer; }
+.av-card__link::after { content: ""; position: absolute; inset: 0; border-radius: 6px; }
+.av-card:has(.av-card__link):hover { border-color: var(--brass); }
+.av-door__note { margin-top: 1.5rem; color: var(--ink-soft); font-size: .8125rem; }
+.av-door__actions { display: flex; flex-wrap: wrap; gap: .75rem 1rem; margin-top: 1.75rem; }
+.av-how { background: var(--linen); }

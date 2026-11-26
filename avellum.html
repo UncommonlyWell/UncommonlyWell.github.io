@@ -23,7 +23,7 @@
 <script>document.documentElement.classList.replace('no-js', 'js');
   // The membership banner shows until this visitor closes it.
   try { if (localStorage.getItem('uw-promo-closed') !== 'membership-1') document.documentElement.classList.add('has-promo'); } catch (e) { document.documentElement.classList.add('has-promo'); }</script>
-<link rel="stylesheet" href="assets/css/styles.css?v=274">
+<link rel="stylesheet" href="assets/css/styles.css?v=275">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -224,8 +224,65 @@
   </div>
 </section>
 
+<!-- Valdura: Avellum's wording from avellumhealth.com/valdura; the phone is cropped from Amway's slide. No prices. -->
+<section class="av-valdura section" aria-labelledby="av-valdura-title">
+  <div class="wrap av-valdura__inner">
+    <div class="av-valdura__media"><img src="assets/img/avellum/valdura-app.jpg" width="412" height="320" alt="The Valdura app on a phone, showing a daily check-in" loading="lazy" decoding="async"></div>
+    <div class="av-valdura__body">
+      <p class="eyebrow">Valdura · the health app</p>
+      <h2 class="h2 av-valdura__title" id="av-valdura-title">How do you know what to take <em>if you don’t know where you’re starting?</em></h2>
+      <p class="av-valdura__lead">See where you stand before you change anything.</p>
+      <p class="av-valdura__intro">Valdura is a health app from the same company family as Avellum. It reads your bloodwork and lab results, tracks them over time and answers questions about them.</p>
+      <ul class="av-valdura__list">
+        <li><strong>An assistant that knows your numbers.</strong> Reads your labs, wearables and logs, and remembers your goals.</li>
+        <li><strong>Your bloodwork in plain language.</strong> Every marker explained, and how each one changes over time.</li>
+        <li><strong>A plan built from your data.</strong> One plan for eating, training and what to take, plus a seven-day meal plan.</li>
+        <li><strong>A few taps a day.</strong> A daily check-in, streaks and daily puzzles.</li>
+        <li><strong>Meals and wearables in one place.</strong> Snap a photo for calories and macros; connect Apple Health or Health Connect.</li>
+        <li><strong>Private by design.</strong> Never sold. Export or delete anytime.</li>
+      </ul>
+      <div class="av-valdura__perk">
+        <p><strong>Amway Membership members get 50% off</strong> the monthly Valdura subscription. It’s free for your first 30 days with a panel or protocol.</p>
+        <a class="link link--light" href="membership.html">See Amway Membership <span aria-hidden="true">→</span></a>
+      </div>
+      <p class="av-valdura__fine">Valdura is a health and wellness app: it explains results and supports healthy habits, and does not diagnose or prescribe.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Alongside your journey: Chelsea's role is everyday products and support, never medical care -->
+<section class="av-door section tex-oat" aria-labelledby="av-door-title">
+  <div class="wrap">
+    <p class="eyebrow">Alongside your journey</p>
+    <h2 class="h2 av-head" id="av-door-title">Every wellness journey is your own. <em>I’m here to support it.</em></h2>
+    <p class="av-door__lede">Avellum is one more doorway into wellness. Wherever you’re starting, I’m here with the everyday products I trust and a friendly person to ask.</p>
+    <ul class="av-cards av-door__cards">
+      <li class="av-card">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20.5h18M4.5 20.5V9.5M19.5 20.5V9.5M3 9.5h18M7.5 9.5V6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3.5M14 9.5V4.5a1 1 0 0 1 1-1h1.5a1 1 0 0 1 1 1v5"/></svg>
+        <h3 class="av-card__title"><a class="av-card__link" href="index.html#shelves">Everyday essentials</a></h3>
+        <p>Nutrition, beauty, personal care and home products I use myself.</p>
+      </li>
+      <li class="av-card">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.5a8 8 0 0 1-11.7 7.1L3.5 20l1.4-4.9A8 8 0 1 1 20.5 11.5z"/></svg>
+        <h3 class="av-card__title"><button class="av-card__link" type="button" data-open-message data-topic="Avellum Health">A friend in your corner</button></h3>
+        <p>Questions about products, routines or what to try next. I answer every message myself.</p>
+      </li>
+      <li class="av-card">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 12.6V4.5a1 1 0 0 1 1-1h8.1l8 8a1.4 1.4 0 0 1 0 2l-7.1 7.1a1.4 1.4 0 0 1-2 0z"/><circle cx="8.2" cy="8.2" r="1.6"/></svg>
+        <h3 class="av-card__title"><a class="av-card__link" href="membership.html">Member savings</a></h3>
+        <p>Amway Membership adds member perks, including 50% off Valdura.</p>
+      </li>
+    </ul>
+    <p class="av-door__note">I’m not a clinician. Medical questions belong with your Avellum clinician or your own doctor.</p>
+    <div class="av-door__actions">
+      <a class="btn btn--brass" href="index.html#shelves">Browse the shelves</a>
+      <button class="btn btn--line-dark" type="button" data-open-message data-topic="Avellum Health">Send me a message</button>
+    </div>
+  </div>
+</section>
+
 <!-- How it works: three steps; Chelsea sends the link herself -->
-<section class="av-how section tex-oat" id="how" aria-labelledby="av-how-title">
+<section class="av-how section" id="how" aria-labelledby="av-how-title">
   <div class="wrap">
     <h2 class="h2 av-head" id="av-how-title">How it <em>works</em></h2>
     <ol class="av-steps">
@@ -233,7 +290,7 @@
       <li><span class="av-steps__n" aria-hidden="true">2</span><h3>Create your account</h3><p>Connect it to your Amway account. One email works for Avellum and Valdura.</p></li>
       <li><span class="av-steps__n" aria-hidden="true">3</span><h3>Pick your panel or protocol</h3><p>Order a panel, or begin a protocol once a licensed clinician reviews it.</p></li>
     </ol>
-    <p class="av-how__note">Valdura is optional, and eligible Amway accounts try it free for 30 days.</p>
+    <p class="av-how__note">Valdura is optional; Amway Membership members get 50% off.</p>
   </div>
 </section>
 
