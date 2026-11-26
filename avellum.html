@@ -23,7 +23,7 @@
 <script>document.documentElement.classList.replace('no-js', 'js');
   // The membership banner shows until this visitor closes it.
   try { if (localStorage.getItem('uw-promo-closed') !== 'membership-1') document.documentElement.classList.add('has-promo'); } catch (e) { document.documentElement.classList.add('has-promo'); }</script>
-<link rel="stylesheet" href="assets/css/styles.css?v=273">
+<link rel="stylesheet" href="assets/css/styles.css?v=274">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -132,6 +132,8 @@
      and she sends the Avellum link herself. The Allergy Panel stays off until it's available. -->
 <section class="av-hero" aria-labelledby="page-title">
   <div class="wrap av-hero__inner">
+    <div class="av-hero__media arch"><picture class="ph" style="--ph:#8a6a45"><img src="assets/img/avellum/hero-vials-480.jpg" width="480" height="670" alt="Two amber vials on a wooden table beside a cup of coffee" fetchpriority="high" decoding="async"></picture></div>
+    <div class="av-hero__text">
     <img class="av-hero__logo" src="assets/img/avellum-logo.png?v=2" width="420" height="125" alt="Avellum Health">
     <p class="eyebrow">An Amway partner store</p>
     <h1 id="page-title" class="av-hero__title">A personalized <em>wellness experience</em></h1>
@@ -139,6 +141,7 @@
     <div class="av-hero__actions">
       <button class="btn btn--brass" type="button" data-open-message data-topic="Avellum Health">Ask me about Avellum</button>
       <a class="link link--light" href="#how">See how it works</a>
+    </div>
     </div>
   </div>
 </section>
@@ -176,25 +179,47 @@
 <section class="av-shelf section" aria-labelledby="av-shelf-title">
   <div class="wrap">
     <h2 class="h2 av-head" id="av-shelf-title">On the Avellum <em>shelf</em></h2>
-    <div class="av-shelf__cols">
-      <div class="av-list av-list--stack">
-        <h3 class="av-list__head">Bloodwork</h3>
-        <ul>
-          <li><strong>Hormonal-Longevity Panel</strong><span>Men or women · 46 results · at home with Tasso</span></li>
-        </ul>
-        <p class="av-list__note">Valdura, Avellum’s sister-company app, explains your labs in plain language.</p>
-      </div>
-      <div class="av-list">
-        <h3 class="av-list__head">Peptide protocols</h3>
-        <ul>
-          <li><strong>Tirzepatide</strong><span>GLP-1/GIP · weekly injection</span></li>
-          <li><strong>Semaglutide</strong><span>GLP-1 · weekly injection</span></li>
-          <li><strong>Sermorelin</strong><span>Peptide · nightly injection</span></li>
-          <li><strong>NAD+</strong><span>Cellular energy · injectable or nasal spray</span></li>
-          <li><strong>Glutathione</strong><span>Antioxidant · injection</span></li>
-        </ul>
-        <p class="av-list__note">Every peptide protocol starts with a medical evaluation, and a licensed clinician reviews it before prescribing anything. Each includes the telehealth consultation, prescription, 24/7 support and delivery on ice.</p>
-      </div>
+    <ul class="av-prods">
+      <li class="av-prod">
+        <div class="av-prod__img"><img src="assets/img/avellum/panel-800.jpg" width="640" height="800" alt="The Valdura blood panel kit box" loading="lazy" decoding="async"></div>
+        <p class="av-prod__kind">Bloodwork</p>
+        <h3 class="av-prod__name">Hormonal-Longevity Panel</h3>
+        <p class="av-prod__line">Men or women · 46 results · at home with Tasso</p>
+      </li>
+      <li class="av-prod">
+        <div class="av-prod__img"><img src="assets/img/avellum/tirzepatide-800.jpg" width="640" height="800" alt="An amber vial labeled GLP-GIP" loading="lazy" decoding="async"></div>
+        <p class="av-prod__kind">Peptide protocol</p>
+        <h3 class="av-prod__name">Tirzepatide</h3>
+        <p class="av-prod__line">GLP-1/GIP · weekly injection</p>
+      </li>
+      <li class="av-prod">
+        <div class="av-prod__img"><img src="assets/img/avellum/semaglutide-800.jpg" width="640" height="800" alt="An amber vial labeled GLP" loading="lazy" decoding="async"></div>
+        <p class="av-prod__kind">Peptide protocol</p>
+        <h3 class="av-prod__name">Semaglutide</h3>
+        <p class="av-prod__line">GLP-1 · weekly injection</p>
+      </li>
+      <li class="av-prod">
+        <div class="av-prod__img"><img src="assets/img/avellum/sermorelin-800.jpg" width="640" height="800" alt="An amber vial labeled sermorelin" loading="lazy" decoding="async"></div>
+        <p class="av-prod__kind">Peptide protocol</p>
+        <h3 class="av-prod__name">Sermorelin</h3>
+        <p class="av-prod__line">Peptide · nightly injection</p>
+      </li>
+      <li class="av-prod">
+        <div class="av-prod__img" style="--y:40%"><img src="assets/img/avellum/nad-800.jpg" width="640" height="800" alt="An NAD+ vial beside a nasal spray bottle" loading="lazy" decoding="async"></div>
+        <p class="av-prod__kind">Peptide protocol</p>
+        <h3 class="av-prod__name">NAD+</h3>
+        <p class="av-prod__line">Cellular energy · injectable or nasal spray</p>
+      </li>
+      <li class="av-prod">
+        <div class="av-prod__img"><img src="assets/img/avellum/glutathione-800.jpg" width="640" height="800" alt="An amber vial labeled glutathione" loading="lazy" decoding="async"></div>
+        <p class="av-prod__kind">Peptide protocol</p>
+        <h3 class="av-prod__name">Glutathione</h3>
+        <p class="av-prod__line">Antioxidant · injection</p>
+      </li>
+    </ul>
+    <div class="av-notes">
+      <p>Valdura, Avellum’s sister-company app, explains your labs in plain language.</p>
+      <p>Every peptide protocol starts with a medical evaluation, and a licensed clinician reviews it before prescribing anything. Each includes the telehealth consultation, prescription, 24/7 support and delivery on ice.</p>
     </div>
   </div>
 </section>
@@ -206,7 +231,7 @@
     <ol class="av-steps">
       <li><span class="av-steps__n" aria-hidden="true">1</span><h3>Message me</h3><p>I’ll answer your questions and send you the link.</p></li>
       <li><span class="av-steps__n" aria-hidden="true">2</span><h3>Create your account</h3><p>Connect it to your Amway account. One email works for Avellum and Valdura.</p></li>
-      <li><span class="av-steps__n" aria-hidden="true">3</span><h3>Start with your blood</h3><p>Order a panel, or begin a protocol once a licensed clinician reviews it.</p></li>
+      <li><span class="av-steps__n" aria-hidden="true">3</span><h3>Pick your panel or protocol</h3><p>Order a panel, or begin a protocol once a licensed clinician reviews it.</p></li>
     </ol>
     <p class="av-how__note">Valdura is optional, and eligible Amway accounts try it free for 30 days.</p>
   </div>
@@ -260,7 +285,7 @@
   <div class="wrap footer__legal">
     <p>Chelsea Herschelman, Amway Independent Business Owner. Uncommonly Well is an independent business and is not Amway.</p>
     <p>These statements have not been evaluated by the Food and Drug Administration. These products are not intended to diagnose, treat, cure or prevent any disease.</p>
-    <p>Photography via Unsplash: Svitlana, 21 swan, Kadarius Seegars, Joyful, Mia Golic, The Cleveland Museum of Art, Olga Thelavart, Content Pixie, Monica Valls, Carmela Lustre and Spacejoy. Every other photo is my own or Amway’s.</p>
+    <p>Photography via Unsplash: Svitlana, 21 swan, Kadarius Seegars, Joyful, Mia Golic, The Cleveland Museum of Art, Olga Thelavart, Content Pixie, Monica Valls, Carmela Lustre and Spacejoy. Photos on the Avellum page come from Avellum Health. Every other photo is my own or Amway’s.</p>
     <p>© <span data-year>2026</span> Uncommonly Well</p>
   </div>
   <p class="footer__word" aria-hidden="true">Uncommonly Well</p>
