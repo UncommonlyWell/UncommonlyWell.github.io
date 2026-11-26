@@ -203,7 +203,7 @@
     if (e.shiftKey && i <= 0) { e.preventDefault(); items[items.length - 1].focus(); }
     else if (!e.shiftKey && i === items.length - 1) { e.preventDefault(); items[0].focus(); }
   });
-  window.matchMedia('(min-width: 1000px)').addEventListener('change', (m) => { if (m.matches && menuOpen) closeMenu(false); });
+  window.matchMedia('(min-width: 1100px)').addEventListener('change', (m) => { if (m.matches && menuOpen) closeMenu(false); });
 
   /* ---------- Message drawer ---------- */
   const drawer = $('[data-drawer]');
@@ -262,7 +262,7 @@
       ? ['Anything I should know?', 'Bringing a friend, food allergies, questions about the event…']
       : ['What would you love to do?', 'The kind of gathering you’d come to, good days and times, any questions…'],
     'Host a gathering': ['Tell me about your gathering', 'Who you’d invite, a few dates that work, your place or online…'],
-    'Personalized health': ['Anything you’d like me to know', 'What you’re hoping for, and any questions you have…'],
+    'Avellum Health': ['Anything you’d like me to know', 'What you’re curious about: bloodwork, a protocol, Valdura…'],
     'Amway Membership': ['Your question', 'What you’d like to know about the membership…'],
   };
   const msgBox = $('#m-msg');

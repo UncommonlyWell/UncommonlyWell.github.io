@@ -289,9 +289,11 @@ html.hero-in-view .site-header.is-solid { -webkit-backdrop-filter: none; backdro
 .brand__well { font-style: italic; font-weight: 360; }
 @media (max-width: 420px) { .brand__rule { display: none; } .brand { gap: .6rem; } }
 
-.nav ul { display: flex; gap: 1.75rem; }
-/* Narrower desktops: tighter links, and Say hi steps out (it's still in the closing invitation on every page), so the menu clears the hero's split */
-@media (max-width: 1199px) { .nav ul { gap: 1.25rem; } .header-actions .header-cta:not(.header-cta--start) { display: none; } }
+.nav ul { display: flex; gap: 1.5rem; }
+/* Say hi stays out of the desktop header (it's in the closing invitation on every page and in the mobile menu), and narrower desktops
+   get tighter links, so the menu clears the hero's split */
+.header-actions .header-cta:not(.header-cta--start) { display: none; }
+@media (max-width: 1199px) { .nav ul { gap: 1rem; } }
 .nav a {
   position: relative; display: inline-flex; min-height: 44px; align-items: center;
   font-size: .9375rem; font-weight: 500; text-decoration: none;
@@ -338,8 +340,8 @@ html.hero-in-view .site-header.is-solid { -webkit-backdrop-filter: none; backdro
 .menu-toggle[aria-expanded="true"] .menu-toggle__lines i:first-child { top: 4.25px; transform: rotate(45deg); }
 .menu-toggle[aria-expanded="true"] .menu-toggle__lines i:last-child { top: 4.25px; transform: rotate(-45deg); }
 
-/* Under 1000px the full menu won't fit on the door side of the hero, so the Menu button takes over */
-@media (max-width: 999px) {
+/* Under 1100px the full menu won't fit on the door side of the hero, so the Menu button takes over */
+@media (max-width: 1099px) {
   .nav, .header-actions { display: none; }
   .menu-toggle { display: inline-flex; }
 }
@@ -1952,3 +1954,53 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: non
 .lost__inner { display: grid; gap: 1.5rem; justify-items: start; max-width: 46rem; }
 .lost__inner .eyebrow { margin-bottom: 0; }
 .lost__actions { display: flex; flex-wrap: wrap; gap: .75rem 1rem; margin-top: .5rem; }
+
+/* ---------- Avellum Health (avellum.html) ---------- */
+/* The hero takes Avellum's own navy (sampled from their slides) so the logo sits on its native background */
+.av-hero {
+  --av-navy: #11233C;
+  background: url("../img/grain-light.svg?v=2") 0 0 / 220px, radial-gradient(120% 90% at 85% 0%, #1B3253, var(--av-navy) 60%);
+  color: var(--linen);
+}
+.av-hero__inner { display: grid; gap: 1rem; justify-items: start; padding-top: calc(var(--header-h) + clamp(3rem, 2rem + 4vw, 5.5rem)); padding-bottom: clamp(3.5rem, 2.5rem + 5vw, 6.5rem); }
+.av-hero__logo { width: clamp(11rem, 9rem + 6vw, 15rem); height: auto; margin: 0 0 1.25rem -.4rem; }
+.av-hero .eyebrow { color: #E9D7B2; margin-bottom: 0; }
+.av-hero__title { font-family: var(--serif); font-weight: 340; font-variation-settings: "SOFT" 60; font-size: clamp(2.6rem, 1.4rem + 5vw, 5.5rem); line-height: 1; letter-spacing: -.025em; max-width: 13ch; text-wrap: balance; }
+.av-hero__title em { font-style: italic; font-weight: 300; color: #E9D7B2; }
+.av-hero__lede { max-width: 32rem; color: rgba(244, 237, 225, .88); font-size: clamp(1.05rem, 1rem + .3vw, 1.2rem); }
+.av-hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.5rem; margin-top: .75rem; }
+
+.av-head { margin-bottom: clamp(2rem, 1.5rem + 2.5vw, 3.5rem); }
+
+.av-cards { display: grid; gap: 1rem; margin: 0; padding: 0; list-style: none; }
+@media (min-width: 640px) { .av-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .av-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.av-card { display: grid; align-content: start; gap: .6rem; padding: clamp(1.5rem, 1.25rem + 1vw, 2rem); background: var(--paper); border: 1px solid var(--line); border-radius: 6px; }
+.av-card svg { width: 2.25rem; height: 2.25rem; margin-bottom: .6rem; fill: none; stroke: var(--brass); stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
+.av-card__title { font-family: var(--serif); font-size: clamp(1.3rem, 1.15rem + .5vw, 1.55rem); font-weight: 380; font-variation-settings: "SOFT" 60; line-height: 1.15; text-wrap: balance; }
+.av-card p { color: var(--ink-soft); font-size: var(--fs-small); line-height: 1.5; }
+
+.av-shelf { background: var(--linen); }
+.av-shelf__cols { display: grid; gap: clamp(2.5rem, 2rem + 2vw, 4rem); }
+@media (min-width: 900px) { .av-shelf__cols { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); align-items: start; } }
+.av-list__head { font-family: var(--sans); font-size: .8125rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--brass-ink); padding-bottom: .9rem; border-bottom: 1px solid var(--line); }
+.av-list ul { margin: 0; padding: 0; list-style: none; }
+.av-list li { display: grid; gap: .2rem 1.5rem; padding: 1rem 0; border-bottom: 1px solid var(--line); }
+@media (min-width: 600px) { .av-list li { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); align-items: baseline; } }
+.av-list--stack li { grid-template-columns: minmax(0, 1fr); }
+.av-list strong { font-family: var(--serif); font-size: 1.3rem; font-weight: 400; font-variation-settings: "SOFT" 60; line-height: 1.2; }
+.av-list li span { color: var(--ink-soft); font-size: var(--fs-small); }
+.av-list__note { margin-top: 1.1rem; color: var(--ink-soft); font-size: var(--fs-small); line-height: 1.55; max-width: 34rem; }
+
+.av-steps { display: grid; gap: 1rem; margin: 0; padding: 0; list-style: none; counter-reset: none; }
+@media (min-width: 800px) { .av-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; } }
+.av-steps li { display: grid; align-content: start; gap: .5rem; padding: clamp(1.5rem, 1.25rem + 1vw, 2rem); background: var(--paper); border: 1px solid var(--line); border-radius: 6px; }
+.av-steps__n {
+  display: grid; place-items: center; width: 2.5rem; height: 2.5rem; margin-bottom: .5rem; border-radius: 50%;
+  background: #11233C; color: #E9D7B2; font-family: var(--serif); font-size: 1.15rem; font-weight: 400; box-shadow: inset 0 0 0 1px rgba(233, 215, 178, .35);
+}
+.av-steps h3 { font-family: var(--serif); font-size: clamp(1.35rem, 1.2rem + .5vw, 1.6rem); font-weight: 380; font-variation-settings: "SOFT" 60; line-height: 1.15; }
+.av-steps p { color: var(--ink-soft); font-size: var(--fs-small); line-height: 1.5; }
+.av-how__note { margin-top: 1.5rem; color: var(--ink-soft); font-size: var(--fs-small); }
+
+.av-fine { display: grid; gap: .5rem; max-width: 44rem; margin-top: 1rem; padding-top: 1.5rem; border-top: 1px solid var(--line-light); font-size: .8125rem; line-height: 1.55; color: var(--sage); }
