@@ -834,45 +834,11 @@ body.menu-open .brand__mark { --m-line: url(#uw-gold-bright); --m-light: url(#uw
 .shelves { position: relative; --u: clamp(4.6px, 1.45vw, 5.6px); }
 @media (min-width: 900px) { .shelves { --u: clamp(6px, .55vw, 7.4px); } }
 .shelf-rows { display: grid; gap: clamp(3.5rem, 7vw, 5.5rem); }
-/* Desktop: the four shelves pair up two by two, each showing as many favorites as fit (stackShelf in main.js); the need pills and Personalized health run full width */
+/* Desktop: the four shelves pair up two by two, each showing as many favorites as fit (stackShelf in main.js); the need pills and the Avellum card run full width */
 @media (min-width: 900px) {
   .shelf-rows { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(3rem, 5vw, 4.5rem) clamp(3rem, 6vw, 6rem); }
-  .shelf-rows > .shelf-needs, .shelf-rows > .shelf-row--soon { grid-column: 1 / -1; }
+  .shelf-rows > .shelf-needs, .shelf-rows > .shelf-av { grid-column: 1 / -1; }
   .shelf-row--full .shelf-unit--full .shelf-unit__items { gap: calc(var(--u) * 4); padding-inline: calc(var(--u) * 2); }
-}
-/* Personalized health: one slim line until it opens, no empty shelf */
-.shelf-row.shelf-row--soon { display: flex; flex-direction: column; align-items: center; gap: .5rem; text-align: center; padding-top: clamp(1.75rem, 1.25rem + 1.5vw, 2.5rem); border-top: 1px solid var(--line); }
-.shelf-row--soon .shelf__name { font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.3rem); }
-.shelf-row--soon .shelf__text { max-width: 30rem; }
-/* One centered column: heading, line, the note pinned below, then Learn more */
-.shelf-soon__aside { display: grid; justify-items: center; gap: 1.1rem; margin-top: 1.5rem; }
-.shelf-card {
-  position: relative; margin-bottom: calc(var(--u) * .6);
-  display: grid; justify-items: center; gap: .1rem;
-  min-width: calc(var(--u) * 26); padding: calc(var(--u) * 3) calc(var(--u) * 3.5);
-  background: url("../img/grain-light.svg?v=2") 0 0 / 220px, var(--harbor);
-  border-radius: 2px; transform: rotate(-4deg); transform-origin: 50% 0;
-  box-shadow: 0 1px 0 rgba(216, 196, 159, .25) inset, calc(var(--u) * -.8) calc(var(--u) * 1) calc(var(--u) * 2.2) rgba(14, 30, 26, .45);
-  font-family: var(--serif); text-align: center; color: var(--linen);
-  animation: card-sway 3.2s ease-in-out infinite;
-}
-/* The note swings gently from its pin, and a little more when you hover it */
-@keyframes card-sway { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(-2deg); } }
-@keyframes card-sway-big { 0%, 100% { transform: rotate(-9deg); } 50% { transform: rotate(1deg); } }
-.shelf-row--soon:hover .shelf-card { animation: card-sway-big 1.6s ease-in-out infinite; }
-@media (prefers-reduced-motion: reduce) { .shelf-card, .shelf-row--soon:hover .shelf-card { animation: none; transform: rotate(-4deg); } }
-/* Metallic gold lettering, the same gradient as the How it works numbers */
-.shelf-card span, .shelf-card strong {
-  background: var(--gold); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: #D9C196;
-  filter: drop-shadow(0 1px 0 rgba(8, 22, 20, .55));
-}
-.shelf-card span { font-style: italic; font-size: .95rem; }
-.shelf-card strong { white-space: nowrap; font-weight: 500; font-size: clamp(1.3rem, 1rem + 1vw, 1.65rem); letter-spacing: -.01em; padding-right: .06em; }
-.shelf-card::after {
-  content: ""; position: absolute; left: 50%; top: calc(var(--u) * -1.2); width: calc(var(--u) * 1.6); height: calc(var(--u) * 1.6);
-  border-radius: 50%; transform: translateX(-50%);
-  background: radial-gradient(circle at 35% 30%, #f3e4c2, #ad8a55 55%, #58401f);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, .35);
 }
 .shelf-row {
   position: relative; display: grid; gap: 1.5rem; align-items: end;
@@ -888,7 +854,6 @@ body.menu-open .brand__mark { --m-line: url(#uw-gold-bright); --m-light: url(#uw
   font-size: clamp(2rem, 1.2rem + 2.6vw, 3.4rem); line-height: 1.02; letter-spacing: -.022em;
   transition: color var(--t-med);
 }
-.shelf-row--soon .shelf__name { font-style: italic; }
 .shelf__text { color: var(--ink-soft); max-width: 26rem; }
 /* The ask link stretches over the whole row, so the shelf itself is clickable */
 .shelf__ask {
@@ -2040,3 +2005,23 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: non
 .av-door__note { margin-top: 1.5rem; color: var(--ink-soft); font-size: .8125rem; }
 .av-door__actions { display: flex; flex-wrap: wrap; gap: .75rem 1rem; margin-top: 1.75rem; }
 .av-how { background: var(--linen); }
+
+/* Homepage: Avellum Health closes the shelves, a navy card like the Avellum page's hero */
+.shelf-av {
+  display: grid; gap: clamp(1.75rem, 1.25rem + 2vw, 3rem); align-items: center; padding: clamp(1.75rem, 1.25rem + 2.5vw, 3.25rem);
+  border-radius: 6px; color: var(--linen);
+  background: url("../img/grain-light.svg?v=2") 0 0 / 220px, radial-gradient(120% 100% at 90% 0%, #1B3253, #11233C 60%);
+  box-shadow: 0 1px 2px rgba(17, 35, 60, .2), 0 30px 60px -30px rgba(17, 35, 60, .6);
+}
+@media (min-width: 900px) { .shelf-av { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .shelf-av__media { order: 2; } }
+.shelf-av__media { display: flex; align-items: flex-end; gap: .9rem; }
+.shelf-av__arch { flex: 0 1 38%; max-width: 12rem; aspect-ratio: 480 / 670; box-shadow: 0 0 0 1px rgba(233, 215, 178, .45); }
+.shelf-av__arch img { width: 100%; height: 100%; object-fit: cover; }
+.shelf-av__tiles { flex: 1 1 0; display: flex; gap: .9rem; min-width: 0; max-width: 19rem; }
+.shelf-av__tiles img { flex: 1 1 0; min-width: 0; height: auto; aspect-ratio: 1; object-fit: cover; object-position: 50% var(--y, 70%); border-radius: 6px; }
+.shelf-av__text { display: grid; gap: .9rem; justify-items: start; }
+.shelf-av .eyebrow { margin-bottom: 0; color: #E9D7B2; }
+.shelf-av__name img { width: clamp(11rem, 9rem + 5vw, 14rem); height: auto; margin-left: -.35rem; }
+.shelf-av__line { max-width: 30rem; color: rgba(244, 237, 225, .88); }
+.shelf-av__perk { color: #E9D7B2; font-size: var(--fs-small); font-weight: 600; }
+.shelf-av__actions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.5rem; margin-top: .4rem; }

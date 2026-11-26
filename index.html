@@ -38,7 +38,7 @@
     }
   })(document);
 </script>
-<link rel="stylesheet" href="assets/css/styles.css?v=275">
+<link rel="stylesheet" href="assets/css/styles.css?v=276">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -363,14 +363,24 @@
           <div class="plank" aria-hidden="true"><span class="plank__top"></span><span class="plank__front"></span></div>
         </div>
       </li>
-      <li class="shelf-row shelf-row--soon">
-        <!-- Needs upline review before publishing: Avellum Health (see avellum.html). -->
-        <h3 class="shelf__name"><a class="shelf__link" href="avellum.html">Personalized health<span aria-hidden="true">→</span></a></h3>
-        <p class="shelf__text">At-home blood testing &amp; peptide protocols<br> through Avellum Health, an Amway partner store.</p>
-        <!-- A note pinned to the wall: it switches to "Now open" on the launch day in CONFIG.launches -->
-        <div class="shelf-soon__aside">
-          <p class="shelf-card"><span data-until="health">Opening</span><span data-from="health" hidden>Now</span> <strong data-until="health">November 2</strong><strong data-from="health" hidden>open</strong></p>
-          <a class="shelf__ask" href="avellum.html">Learn more</a>
+      <!-- Avellum Health, an Amway partner store, closes the shelves (full page: avellum.html). Needs upline review; no prices. -->
+      <li class="shelf-av">
+        <div class="shelf-av__media" aria-hidden="true">
+          <div class="shelf-av__arch arch"><img src="assets/img/avellum/hero-vials-480.jpg" width="480" height="670" alt="" loading="lazy" decoding="async"></div>
+          <div class="shelf-av__tiles">
+            <img src="assets/img/avellum/panel-800.jpg" width="640" height="800" alt="" loading="lazy" decoding="async">
+            <img src="assets/img/avellum/nad-800.jpg" width="640" height="800" alt="" loading="lazy" decoding="async" style="--y:40%">
+          </div>
+        </div>
+        <div class="shelf-av__text">
+          <p class="eyebrow">Personalized health · An Amway partner store</p>
+          <h3 class="shelf-av__name"><img src="assets/img/avellum-logo.png?v=2" width="420" height="125" alt="Avellum Health"></h3>
+          <p class="shelf-av__line">At-home blood testing and peptide protocols, with Valdura to explain your labs in plain language.</p>
+          <p class="shelf-av__perk">Amway Membership members get 50% off Valdura.</p>
+          <div class="shelf-av__actions">
+            <a class="btn btn--brass" href="avellum.html">Explore Avellum</a>
+            <button class="link link--light" type="button" data-open-message data-topic="Avellum Health">Ask me about it</button>
+          </div>
         </div>
       </li>
     </ul>
