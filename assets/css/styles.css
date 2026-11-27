@@ -1953,6 +1953,16 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: non
 .av-card p { color: var(--ink-soft); font-size: var(--fs-small); line-height: 1.5; }
 
 .av-shelf { background: var(--linen); }
+/* The bloodwork question opens the shelf, leading into the panel card */
+.av-start { display: grid; justify-items: center; gap: 1rem; max-width: 46rem; margin: 0 auto clamp(3.5rem, 2.5rem + 4vw, 6rem); padding-bottom: clamp(3rem, 2rem + 3vw, 4.5rem); text-align: center; border-bottom: 1px solid; border-image: var(--gold-rule) 1; }
+.av-start .eyebrow { margin-bottom: 0; }
+.av-start__q { font-family: var(--serif); font-weight: 340; font-variation-settings: "SOFT" 60; font-size: clamp(2rem, 1.3rem + 2.6vw, 3.4rem); line-height: 1.1; letter-spacing: -.015em; text-wrap: balance; }
+.av-start__q em {
+  display: block; font-style: italic; font-weight: 300; font-variation-settings: "SOFT" 100;
+  background: var(--gold-text); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; padding-right: .06em;
+}
+.av-start__lead { font-family: var(--serif); font-style: italic; font-size: clamp(1.2rem, 1.05rem + .6vw, 1.5rem); font-weight: 340; color: var(--brass-ink); }
+.av-start__line { max-width: 34rem; color: var(--ink-soft); }
 .av-prods { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.75rem, 1rem + 2vw, 2.75rem) clamp(.9rem, .5rem + 1.5vw, 1.75rem); margin: 0; padding: 0; list-style: none; }
 @media (min-width: 900px) { .av-prods { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .av-prod { display: grid; align-content: start; gap: .3rem; }
@@ -1985,7 +1995,6 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: non
 .av-valdura .eyebrow { color: #E9D7B2; }
 .av-valdura__title { font-size: clamp(2rem, 1.4rem + 2.4vw, 3.4rem); }
 .av-valdura__title em { display: block; }
-.av-valdura__lead { margin-top: 1.25rem; font-family: var(--serif); font-style: italic; font-size: clamp(1.2rem, 1.05rem + .6vw, 1.5rem); font-weight: 340; color: #E9D7B2; }
 .av-valdura__intro { margin-top: .9rem; max-width: 36rem; color: rgba(244, 237, 225, .88); }
 .av-valdura__list { display: grid; margin: 1.75rem 0 0; padding: 0; list-style: none; border-bottom: 1px solid rgba(216, 196, 159, .28); }
 .av-valdura__list li { padding: .85rem 0; border-top: 1px solid rgba(216, 196, 159, .28); font-size: var(--fs-small); line-height: 1.5; color: var(--sage); }
