@@ -23,7 +23,7 @@
 <script>document.documentElement.classList.replace('no-js', 'js');
   // The membership banner shows until this visitor closes it.
   try { if (localStorage.getItem('uw-promo-closed') !== 'membership-1') document.documentElement.classList.add('has-promo'); } catch (e) { document.documentElement.classList.add('has-promo'); }</script>
-<link rel="stylesheet" href="assets/css/styles.css?v=280">
+<link rel="stylesheet" href="assets/css/styles.css?v=281">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -321,8 +321,10 @@
 <section class="av-learn section tex-oat" aria-labelledby="av-learn-title">
   <div class="wrap av-learn__inner">
     <a class="av-learn__poster" href="https://www.avellumhealth.com/videos/first-webinar" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+      <!-- The video's opening title card, rebuilt so it stays sharp -->
+      <img class="av-learn__logo" src="assets/img/avellum-logo.png?v=2" width="420" height="125" alt="">
+      <span class="av-learn__label">Avellum: The Beginning of Your Personalized Health Journey</span>
       <span class="av-learn__play"><svg viewBox="0 0 24 24"><path d="M9 6.5v11l9-5.5z"/></svg></span>
-      <span class="av-learn__label">Avellum Educational Webinar</span>
       <span class="av-learn__meta">About an hour · English or Spanish</span>
     </a>
     <div class="av-learn__body">
