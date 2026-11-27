@@ -23,7 +23,7 @@
 <script>document.documentElement.classList.replace('no-js', 'js');
   // The membership banner shows until this visitor closes it.
   try { if (localStorage.getItem('uw-promo-closed') !== 'membership-1') document.documentElement.classList.add('has-promo'); } catch (e) { document.documentElement.classList.add('has-promo'); }</script>
-<link rel="stylesheet" href="assets/css/styles.css?v=277">
+<link rel="stylesheet" href="assets/css/styles.css?v=278">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -255,30 +255,34 @@
   </div>
 </section>
 
-<!-- Alongside your journey: Chelsea's role is everyday products and support, never medical care -->
+<!-- Alongside your journey: Chelsea's role is everyday products and support, never medical care.
+     The two Amway support solutions and their wording come from amway.com/avellum-health. No prices.
+     TODO: swap the two "Shop the set" links for your Amway share links. -->
 <section class="av-door section tex-oat" aria-labelledby="av-door-title">
   <div class="wrap">
     <p class="eyebrow">Alongside your journey</p>
-    <h2 class="h2 av-head" id="av-door-title">Every wellness journey is your own. <em>I’m here to support it.</em></h2>
-    <p class="av-door__lede">Avellum is one more doorway into wellness. Wherever you’re starting, I’m here with the everyday products I trust and a friendly person to ask.</p>
-    <ul class="av-cards av-door__cards">
-      <li class="av-card">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20.5h18M4.5 20.5V9.5M19.5 20.5V9.5M3 9.5h18M7.5 9.5V6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3.5M14 9.5V4.5a1 1 0 0 1 1-1h1.5a1 1 0 0 1 1 1v5"/></svg>
-        <h3 class="av-card__title"><a class="av-card__link" href="index.html#shelves">Everyday essentials</a></h3>
-        <p>Nutrition, beauty, personal care and home products I use myself.</p>
+    <h2 class="h2 av-head" id="av-door-title">Your wellness journey is yours. <em>I’m here to support it.</em></h2>
+    <p class="av-door__lede">Avellum is a window into your wellness. Discover where you are &amp; I’ll be here with a friendly face &amp; support you can trust.</p>
+    <p class="av-door__amway">Foundational wellness habits, including nutrition, movement, hydration, sleep and key nutrients, are critical components for supporting any wellness journey that includes prescription therapies. Amway’s new support solutions are curated product bundles for that journey.</p>
+    <ul class="av-sols">
+      <li class="av-sol" data-set="whey,prebiotic,muscle">
+        <ul class="av-sol__shelf" aria-label="What’s in the GLP-1 Support Solution"><li style="--cm:29"><button class="av-sol__prod" type="button" data-product="whey" aria-label="XS Grass-Fed Whey Protein: see details"><img src="assets/img/products/whey.png" width="297" height="360" alt="" loading="lazy" decoding="async"></button></li><li style="--cm:14"><button class="av-sol__prod" type="button" data-product="prebiotic" aria-label="Nutrilite Prebiotic Fiber: see details"><img src="assets/img/products/prebiotic.png" width="184" height="360" alt="" loading="lazy" decoding="async"></button></li><li style="--cm:17"><button class="av-sol__prod" type="button" data-product="muscle" aria-label="XS Muscle Multiplier: see details"><img src="assets/img/products/muscle.png" width="267" height="360" alt="" loading="lazy" decoding="async"></button></li></ul>
+        <p class="av-sol__kind">New · Amway support solution</p>
+        <h3 class="av-sol__name">GLP-1 Support Solution</h3>
+        <p class="av-sol__line">This set combines protein powder, fiber and muscle support for filling key nutrient gaps for individuals looking to lose weight and to maintain lean muscle.†</p>
+        <p class="av-sol__in"><strong>What’s included:</strong> XS™ Grass-Fed Whey or Nutrilite™ Organics All-in-One Meal Powder · Nutrilite™ Prebiotic Fiber · XS™ Muscle Multiplier or XS™ Creatine+</p>
+        <a class="link av-sol__shop" href="https://www.amway.com/-s-USS0036" target="_blank" rel="noopener">Shop the set<span class="sr-only"> on Amway (opens a new tab)</span> <span aria-hidden="true">→</span></a>
       </li>
-      <li class="av-card">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.5a8 8 0 0 1-11.7 7.1L3.5 20l1.4-4.9A8 8 0 1 1 20.5 11.5z"/></svg>
-        <h3 class="av-card__title"><button class="av-card__link" type="button" data-open-message data-topic="Avellum Health">A friend in your corner</button></h3>
-        <p>Questions about products, routines or what to try next. I answer every message myself.</p>
-      </li>
-      <li class="av-card">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 12.6V4.5a1 1 0 0 1 1-1h8.1l8 8a1.4 1.4 0 0 1 0 2l-7.1 7.1a1.4 1.4 0 0 1-2 0z"/><circle cx="8.2" cy="8.2" r="1.6"/></svg>
-        <h3 class="av-card__title"><a class="av-card__link" href="membership.html">Member savings</a></h3>
-        <p>Amway Membership adds member perks, including 50% off Valdura.</p>
+      <li class="av-sol" data-set="doublex,cellular">
+        <ul class="av-sol__shelf" style="--k:11px" aria-label="What’s in the Cellular Health Support Solution"><li style="--cm:7"><button class="av-sol__prod" type="button" data-product="doublex" aria-label="Nutrilite Double X Multivitamin: see details"><img src="assets/img/products/doublex.png" width="561" height="234" alt="" loading="lazy" decoding="async"></button></li><li style="--cm:12"><button class="av-sol__prod" type="button" data-product="cellular" aria-label="Nutrilite Cellular Aging Support: see details"><img src="assets/img/products/cellular.png" width="170" height="353" alt="" loading="lazy" decoding="async"></button></li></ul>
+        <p class="av-sol__kind">New · Amway support solution</p>
+        <h3 class="av-sol__name">Cellular Health Support Solution</h3>
+        <p class="av-sol__line">This set features Nutrilite™ Double X™ and Nutrilite Cellular Aging Support to provide holistic cellular health support for individuals passionate about healthy aging.†</p>
+        <p class="av-sol__in"><strong>What’s included:</strong> Nutrilite™ Double X™ Multivitamin · Nutrilite™ Cellular Aging Support</p>
+        <a class="link av-sol__shop" href="https://www.amway.com/-s-USS0035" target="_blank" rel="noopener">Shop the set<span class="sr-only"> on Amway (opens a new tab)</span> <span aria-hidden="true">→</span></a>
       </li>
     </ul>
-    <p class="av-door__note">I’m not a clinician. Medical questions belong with your Avellum clinician or your own doctor.</p>
+    <p class="av-door__note">Tap a product for its details. †These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease. I’m not a clinician; medical questions belong with your Avellum clinician or your own doctor.</p>
     <div class="av-door__actions">
       <a class="btn btn--brass" href="index.html#shelves">Browse the shelves</a>
       <button class="btn btn--line-dark" type="button" data-open-message data-topic="Avellum Health">Send me a message</button>
@@ -571,6 +575,6 @@
 <script src="assets/vendor/SplitText.min.js" defer></script>
 <script src="assets/vendor/lenis.min.js" defer></script>
 <script src="assets/js/products.js?v=42" defer></script>
-<script src="assets/js/main.js?v=198" defer></script>
+<script src="assets/js/main.js?v=199" defer></script>
 </body>
 </html>

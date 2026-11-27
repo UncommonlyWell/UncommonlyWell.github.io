@@ -1611,7 +1611,10 @@
     const inNeed = b.closest('[data-need-dialog]');
     const inBundle = b.closest('[data-bundle]');
     const bundle = inBundle && (window.UW_GIFTS || []).find((g) => g.id === inBundle.dataset.bundle);
-    openQuickView(b.dataset.product, b, inNeed && needId ? needOf(needId).products : bundle ? bundle.products.filter((id) => byId[id]) : null);
+    // A product set written into the page (the Avellum support solutions) steps through just its own products
+    const inSet = b.closest('[data-set]');
+    const set = inSet && inSet.dataset.set.split(',').filter((id) => byId[id]);
+    openQuickView(b.dataset.product, b, inNeed && needId ? needOf(needId).products : bundle ? bundle.products.filter((id) => byId[id]) : set || null);
   });
   $('[data-qv-close]', qv).addEventListener('click', () => closeQuickView());
   // On the Membership page, the membership line closes the pop-up (and any dialog under it) and glides to the card.
